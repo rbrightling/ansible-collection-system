@@ -1,0 +1,23 @@
+galaxy_info:
+  role_name: openssh_server
+  author: Robert Brightling
+  description: OpenSSH Server Configuration
+
+  license: LGPL-3.0-or-later
+
+  min_ansible_version: 2.10
+
+  platforms:
+    - name: debian
+      versions:
+        - buster
+    - name: EL
+      version:
+        - 8
+
+  galaxy_tags:
+    - openssh
+    - sshd
+    - system
+
+dependencies: []

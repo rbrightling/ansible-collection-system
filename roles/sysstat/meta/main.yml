@@ -1,0 +1,22 @@
+galaxy_info:
+  role_name: sysstat
+  author: Robert Brightling
+  description: Install and configure sysstat system montioring
+
+  license: LGPL-3.0-or-later
+
+  min_ansible_version: 2.10
+
+  platforms:
+    - name: Debian
+      versions:
+        - buster
+    - name: EL
+      versions:
+        - 8
+
+  galaxy_tags:
+    - sysstat
+    - monitoring
+
+dependencies: []

@@ -1,0 +1,5 @@
+---
+# RedHat Variables
+
+ansible_node__python_packages:
+  - python3

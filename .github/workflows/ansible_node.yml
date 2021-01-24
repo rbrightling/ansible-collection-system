@@ -3,9 +3,10 @@ name: "rbrightling.system.ansible_node"
 
 on: 
   push:
-    - 'roles/ansible_node/**'
-    - 'molecule/ansible_node/**'
-    - '.github/workflows/ansible_node.yml'
+    paths:
+      - 'roles/ansible_node/**'
+      - 'molecule/ansible_node/**'
+      - '.github/workflows/ansible_node.yml'
 
 jobs:
   lint:

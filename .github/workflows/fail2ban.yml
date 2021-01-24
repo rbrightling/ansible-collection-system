@@ -1,10 +1,11 @@
 name: "rbrightling.system.fail2ban"
 
-on: 
+on:
   push:
-    - 'roles/fail2ban/**'
-    - 'molecule/fail2ban/**'
-    - '.github/workflows/fail2ban.yml'
+    paths:
+      - 'roles/fail2ban/**'
+      - 'molecule/fail2ban/**'
+      - '.github/workflows/fail2ban.yml'
 
 jobs:
   lint:

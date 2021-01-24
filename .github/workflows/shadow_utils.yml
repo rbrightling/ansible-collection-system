@@ -1,11 +1,12 @@
 ---
 name: "rbrightling.system.shadow_utils"
 
-on: 
+on:
   push:
-    - 'roles/shadow_utils/**'
-    - 'molecule/shadow_utils/**'
-    - '.github/workflows/shadow_utils.yml'
+    paths:
+      - 'roles/shadow_utils/**'
+      - 'molecule/shadow_utils/**'
+      - '.github/workflows/shadow_utils.yml'
 
 jobs:
   lint:

@@ -1,0 +1,25 @@
+# Configuration file for the sshd service.
+
+# The server keys are automatically generated if they are missing.
+# To change the automatic creation, adjust sshd.service options for
+# example using  systemctl enable sshd-keygen@dsa.service  to allow creation
+# of DSA key or  systemctl mask sshd-keygen@rsa.service  to disable RSA key
+# creation.
+
+# Use hardware random generator; only enable if you REALLY know what you are doing
+{% if openssh_server_ssh_use_strong_rng is sameas true %}
+SSH_USE_STRONG_RNG=1
+{% else %}
+SSH_USE_STRONG_RNG=0
+{% endif %}
+
+# System-wide crypto policy:
+# To opt-out, uncomment the following line
+{% if openssh_server_crypto_policy is not none %}
+CRYPTO_POLICY={{ openssh_server_crypto_policy }}
+{% else %}
+#CRYPTO_POLICY=
+{% endif %}
+
+# Options to pass to sshd
+OPTIONS="{{ openssh_server_sshd_opts }}"

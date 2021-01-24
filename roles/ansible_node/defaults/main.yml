@@ -1,0 +1,19 @@
+---
+# defaults file for ansible_node
+
+# Python path to test for
+ansible_node_python_path: "/usr/bin/python3"
+
+# Base packages to install
+ansible_node_python_packages: "{{ ansible_node__python_packages }}"
+# CentOS/RedHat:
+#   - python3
+# Debian:
+#   - python3-minimal
+#   - python3-simplejson
+
+# Python package to install to manage apt on Debian based distributions.
+ansible_node_python_apt_package: "python3-apt"
+
+# Python selinux package to install if detected (CentOS/RedHat)
+ansible_node_python_selinux_package: "python3-libselinux"
