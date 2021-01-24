@@ -31,8 +31,12 @@ jobs:
           - centos8
           - debian10
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - name: Checkout collection
+        uses: actions/checkout@v2
+        with:
+          path: ansible_collections/rbrightling/system
+      - name: Setup python
+        uses: actions/setup-python@v2
         with:
           python-version: '3.7'
           architecture: 'x64'

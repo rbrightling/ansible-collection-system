@@ -3,6 +3,6 @@
   gather_facts: false
   hosts: all
   tasks:
-    - name: "Include ansible_node"
+    - name: "Include rbrightling.system.ansible_node"
       include_role:
-        name: "ansible_node"
+        name: "rbrightling.system.ansible_node"

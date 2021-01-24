@@ -2,6 +2,6 @@
 - name: Converge
   hosts: all
   tasks:
-    - name: "Include sysstat"
+    - name: "Include rbrightling.system.sysstat"
       include_role:
-        name: "sysstat"
+        name: "rbrightling.system.sysstat"

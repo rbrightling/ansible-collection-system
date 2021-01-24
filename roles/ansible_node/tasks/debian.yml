@@ -16,7 +16,8 @@
   changed_when: "'ok' not in raw_alternatives_python.stdout"
 
 - name: install python apt module
-  ansible.builtin.raw: '{{ ansible_node_python_path }} -c "import apt" &> /dev/null && echo ok || (apt -y update && apt -y install {{ ansible_node_python_apt_package }})'
+  ansible.builtin.raw: >
+    {{ ansible_node_python_path }} -c "import apt" &> /dev/null && echo ok || (apt -y update && apt -y install {{ ansible_node_python_apt_package }})
   args:
     executable: /bin/bash
   register: raw_install_python_apt

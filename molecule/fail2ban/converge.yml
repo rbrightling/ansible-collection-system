@@ -2,6 +2,6 @@
 - name: Converge
   hosts: all
   tasks:
-    - name: "Include fail2ban"
+    - name: "Include rbrightling.system.fail2ban"
       include_role:
-        name: "fail2ban"
+        name: "rbrightling.system.fail2ban"
