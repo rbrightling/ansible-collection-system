@@ -46,6 +46,7 @@ jobs:
           pip install tox
       - name: run tox tests
         run: tox -e py37-${{ matrix.ansible }}-sudo-${{ matrix.distro }}
+        working-directory: ansible_collections/rbrightling/system
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'
