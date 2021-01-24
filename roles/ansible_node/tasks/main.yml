@@ -1,0 +1,51 @@
+---
+# tasks file for ansible_node
+
+- name: get distribution information
+  ansible.builtin.raw: >
+    /bin/grep "^ID=" /etc/*release >/dev/null &&
+    /bin/grep "^ID=" /etc/*release | cut -d "=" -f 2 | tr -d \" ||
+    head -n 1 /etc/*release | cut -f 1 -d " " | tail -n 1
+  args:
+    executable: /bin/bash
+  register: raw_ansible_node_distribution
+  changed_when: false
+  check_mode: no
+
+- name: get distribution version
+  ansible.builtin.raw: >
+    grep "^VERSION_ID=" /etc/*release >/dev/null &&
+    grep "^VERSION_ID=" /etc/*release | cut -d "=" -f 2 | tr -d \" ||
+    head -n 1 /etc/*release | cut -f 3 -d " " | cut -d "." -f 1 | tail -n 1
+  args:
+    executable: /bin/bash
+  register: raw_ansile_node_distribution_version
+  changed_when: false
+  check_mode: no
+
+- name: set ansible_node facts
+  ansible.builtin.set_fact:
+    ansible_node_distribution: "{{ raw_ansible_node_distribution.stdout | trim }}"
+    ansible_node_distribution_version: "{{ raw_ansile_node_distribution_version.stdout | trim }}"
+
+- name: include distribution variables
+  ansible.builtin.include_vars: "{{ lookup('first_found', params) }}"
+  vars:
+    params:
+      files:
+        - "{{ ansible_node_distribution | lower }}_{{ ansible_node_distribution_version }}.yml"
+        - "{{ ansible_node_distribution | lower }}.yml"
+      paths:
+        - "{{ playbook_dir }}/vars"
+        - "{{ role_path }}/vars"
+
+- name: include distribution tasks
+  ansible.builtin.include_tasks: "{{ task_file }}"
+  loop: "{{ query('first_found',params) }}"
+  loop_control:
+    loop_var: "task_file"
+  vars:
+    params:
+      files:
+        - "{{ ansible_node_distribution | lower }}_{{ ansible_node_distribution_version }}.yml"
+        - "{{ ansible_node_distribution | lower }}.yml"

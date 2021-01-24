@@ -1,11 +1,12 @@
 ---
 name: "rbrightling.system.shadow_utils"
 
-on: 
+on:
   push:
-    - 'roles/shadow_utils/**'
-    - 'molecule/shadow_utils/**'
-    - '.github/workflows/shadow_utils.yml'
+    paths:
+      - 'roles/shadow_utils/**'
+      - 'molecule/shadow_utils/**'
+      - '.github/workflows/shadow_utils.yml'
 
 jobs:
   lint:
@@ -20,6 +21,7 @@ jobs:
 
   test:
     name: molecule
+    needs: lint
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -29,17 +31,22 @@ jobs:
           - debian10
           - centos8
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - name: Checkout collection
+        uses: actions/checkout@v2
+        with:
+          path: ansible_collections/rbrightling/system
+      - name: Setup Python
+        uses: actions/setup-python@v2
         with:
           python-version: '3.7'
           architecture: 'x64'
-      - name: install tox
+      - name: Install tox
         run: |
           python -m pip install --upgrade pip
           pip install tox
       - name: run tox tests
         run: tox -e py37-${{ matrix.ansible }}-shadow_utils-${{ matrix.distro }}
+        working-directory: ansible_collections/rbrightling/system
         env:
           PY_COLORS: '1'
           ANSIBLE_FORCE_COLOR: '1'

@@ -1,0 +1,6 @@
+---
+# Debian Variables
+
+ansible_node__python_packages:
+  - python3-minimal
+  - python3-simplejson

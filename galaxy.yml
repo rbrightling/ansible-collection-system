@@ -36,3 +36,4 @@ build_ignore:
   - tox.ini
   - .tox
   - .github
+  - pytestdebug.log

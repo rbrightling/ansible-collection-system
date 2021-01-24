@@ -1,8 +1,6 @@
 Fail2ban
 =========
 
-![Test Ansible Role](https://github.com/rbrightling/role-fail2ban/workflows/Test%20Ansible%20Role/badge.svg?branch=main) [![Ansible Galaxy](http://img.shields.io/badge/galaxy-rbrightling.fail2ban-660198.svg?style=flat)](https://galaxy.ansible.com/rbrightling/fail2ban)
-
 Install and configure Fail2ban. Service to scan log files and ban ip addresses which show malicious signs.
 
 **NOTE:** Distributions generally provide a custom jail configuration, which this role leaves in place and provides 
@@ -10,8 +8,6 @@ configuration overrides using the .local as recommended.
 
 Requirements
 ------------
-
-Ansible 2.8+
 
 Supported Distributions:
   - Debian Buster

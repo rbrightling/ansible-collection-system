@@ -1,8 +1,6 @@
 Ansible Node
 ============
 
-![Test Ansible Role](https://github.com/rbrightling/ansible-ansible_node/workflows/Test%20Ansible%20Role/badge.svg) [![Ansible Galaxy](http://img.shields.io/badge/galaxy-rbrightling.ansible_node-660198.svg?style=flat)](https://galaxy.ansible.com/rbrightling/ansible_node)
-
 Install the basic requirements to manage a node with ansible using raw commands.
 Sets the /usr/bin/python to python3 is not found using alternatives
 

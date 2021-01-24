@@ -2,6 +2,6 @@
 - name: Converge
   hosts: all
   tasks:
-    - name: "Include shadow-utils"
+    - name: "Include rbrightling.system.shadow_utils"
       include_role:
-        name: "shadow_utils"
+        name: "rbrightling.system.shadow_utils"

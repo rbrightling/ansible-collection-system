@@ -2,6 +2,6 @@
 - name: Converge
   hosts: all
   tasks:
-    - name: "Include sudo"
+    - name: "Include rbrightling.system.sudo"
       include_role:
-        name: "sudo"
+        name: "rbrightling.system.sudo"

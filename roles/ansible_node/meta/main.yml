@@ -1,0 +1,23 @@
+galaxy_info:
+  role_name: ansible_node
+  author: Robert Brightling
+  description: Install basic requirements to manage node with ansible using the raw module.
+
+  license: LGPL-3.0-or-later
+
+  min_ansible_version: 2.10
+
+  platforms:
+    - name: Debian
+      versions:
+        - buster
+    - name: EL
+      versions:
+        - 8
+
+  galaxy_tags:
+    - ansible
+    - node
+    - setup
+
+dependencies: []

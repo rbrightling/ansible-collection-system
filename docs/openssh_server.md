@@ -1,9 +1,6 @@
 Openssh Server
 ==============
 
-![Test Ansible Role](https://github.com/rbrightling/ansible-openssh_server/workflows/Test%20Ansible%20Role/badge.svg) [![Ansible Galaxy](http://img.shields.io/badge/galaxy-rbrightling.openssh_server-660198.svg?style=flat)](https://galaxy.ansible.com/rbrightling/openssh_server)
-
-
 Configure and Manage Openssh server.
 
 **NOTE**: It is possible to lock out network access to the node over ssh. Check configuration carefully or you have access
@@ -16,8 +13,6 @@ scrutiny as this is no guarantee.
 
 Requirements
 ------------
-
-Ansible Version: 2.8+
 
 Supports OS's
 - Debian 10

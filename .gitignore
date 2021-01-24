@@ -1,3 +1,4 @@
 *.tar.gz
 *.pyc
 .tox
+pytestdebug.log
