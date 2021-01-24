@@ -1,0 +1,38 @@
+### REQUIRED
+
+namespace: rbrightling
+name: system
+version: 0.1.0
+
+readme: README.md
+
+authors:
+- Robert Brightling <dev@robert.brightling.me.uk>
+
+
+### OPTIONAL but strongly recommended
+
+# A short summary description of the collection
+description: Collection of base System Administration roles
+license:
+- LGPL-3.0-or-later
+license_file: 'LICENSE'
+
+# A list of tags you want to associate with the collection for indexing/searching. A tag name has the same character
+# requirements as 'namespace' and 'name'
+tags:
+  - system
+
+dependencies: {}
+
+# The URL of the originating SCM repository
+repository: https://github.com/rbrightling/ansible-collection-system
+documentation: https://github.com/rbrightling/ansible-collection-system
+homepage: https://github.com/rbrightling/ansible-collection-system
+issues: https://github.com/rbrightling/ansible-collection-system/issues
+
+build_ignore:
+  - molecule
+  - tox.ini
+  - .tox
+  - .github

@@ -1,0 +1,49 @@
+---
+name: "rbrightling.system.openssh_server"
+
+on:
+  push:
+    paths:
+      - 'roles/openssh_server/**'
+      - 'molecule/openssh_server/**'
+      - '.github/workflows/openssh_server.yml'
+
+jobs:
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+     - uses: actions/checkout@v2
+     - name: Ansible Lint
+       uses: ansible/ansible-lint-action@master
+       with:
+         targets: "roles/openssh_server"
+
+  test:
+    name: molecule
+    needs: lint
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ansible:
+          - ansible210
+        distro:
+          - centos8
+          - debian10
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.7'
+          architecture: 'x64'
+      - name: install tox
+        run: |
+          python -m pip install --upgrade pip
+          pip install tox
+      - name: run tox tests
+        run: tox -e py37-${{ matrix.ansible }}-openssh_server-${{ matrix.distro }}
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
+          MOLECULE_DRIVER: 'docker'
+          MOLECULE_PRIVILEGED: true

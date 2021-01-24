@@ -1,0 +1,8 @@
+---
+- name: Converge
+  gather_facts: false
+  hosts: all
+  tasks:
+    - name: "Include ansible_node"
+      include_role:
+        name: "ansible_node"

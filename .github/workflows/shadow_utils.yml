@@ -1,0 +1,47 @@
+---
+name: "rbrightling.system.shadow_utils"
+
+on: 
+  push:
+    - 'roles/shadow_utils/**'
+    - 'molecule/shadow_utils/**'
+    - '.github/workflows/shadow_utils.yml'
+
+jobs:
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+     - uses: actions/checkout@v2
+     - name: Ansible Lint
+       uses: ansible/ansible-lint-action@master
+       with:
+         targets: "roles/shadow_utils"
+
+  test:
+    name: molecule
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ansible:
+          - ansible210
+        distro:
+          - debian10
+          - centos8
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: '3.7'
+          architecture: 'x64'
+      - name: install tox
+        run: |
+          python -m pip install --upgrade pip
+          pip install tox
+      - name: run tox tests
+        run: tox -e py37-${{ matrix.ansible }}-shadow_utils-${{ matrix.distro }}
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
+          MOLECULE_DRIVER: 'docker'
+          MOLECULE_PRIVILEGED: true

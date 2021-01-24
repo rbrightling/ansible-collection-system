@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include shadow-utils"
+      include_role:
+        name: "shadow_utils"
