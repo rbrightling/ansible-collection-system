@@ -28,4 +28,4 @@ jobs:
         run: |
           ansible-galaxy collections publush --api-key "$API_KEY" rbrightling-system-${ref#refs/tags/}.tar.gz
         env:
-          API_KEY: ${{{ secrets.GALAXY_API_KEY }}
+          API_KEY: ${{ secrets.GALAXY_API_KEY }}
