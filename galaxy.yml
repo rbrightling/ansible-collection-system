@@ -15,8 +15,7 @@ authors:
 # A short summary description of the collection
 description: Collection of base System Administration roles
 license:
-- LGPL-3.0-or-later
-license_file: 'LICENSE'
+  - LGPL-3.0-or-later
 
 # A list of tags you want to associate with the collection for indexing/searching. A tag name has the same character
 # requirements as 'namespace' and 'name'
