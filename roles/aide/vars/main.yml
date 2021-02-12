@@ -1,0 +1,201 @@
+---
+# vars file for aide
+
+aide__bin_path: "/usr/bin/aide"
+
+aide__default_rule_groups:
+  ALLXTRAHASHES: "sha1+rmd160+sha256+sha512+tiger"
+  EVERYTHING: "R+ALLXTRAHASHES"
+  NORMAL: "p+i+n+u+g+s+m+c+acl+selinux+xattrs+sha512"
+  DIR: "p+i+n+u+g+acl+selinux+xattrs"
+  PERMS: "p+u+g+acl+selinux+xattrs"
+  LOG: "p+u+g+n+acl+selinux+xattrs"
+  CONTENT: "sha512+ftype"
+  CONTENT_EX: "sha512+ftype+p+u+g+n+acl+selinux+xattrs"
+  DATAONLY: "p+n+u+g+s+acl+selinux+xattrs+sha512"
+
+aide__default_rules:
+  "/boot": CONTENT_EX
+  "/boot/grub2/grubenv$": PERMS
+  "/opt": CONTENT
+  "/root/\\..*": PERMS
+  "/root": CONTENT_EX
+  # There are too volatile
+  "/usr/src": false
+  "/usr/tmp": false
+  "/usr": CONTENT_EX
+  "/etc/hosts$": CONTENT_EX
+  "/etc/host.conf$": CONTENT_EX
+  "/etc/issue$": CONTENT_EX
+  "/etc/issue.net$": CONTENT_EX
+  "/etc/protocols$": CONTENT_EX
+  "/etc/services$": CONTENT_EX
+  "/etc/localtime$": CONTENT_EX
+  "/etc/alternatives": CONTENT_EX
+  "/etc/sysconfig": CONTENT_EX # RedHat
+  "/etc/mime.types$": CONTENT_EX
+  "/etc/terminfo": CONTENT_EX
+  "/etc/exports$": CONTENT_EX
+  "/etc/fstab$": CONTENT_EX
+  "/etc/passwd$": CONTENT_EX
+  "/etc/group$": CONTENT_EX
+  "/etc/gshadow$": CONTENT_EX
+  "/etc/shadow$": CONTENT_EX
+  "/etc/subgid$": CONTENT_EX
+  "/etc/subuid$": CONTENT_EX
+  "/etc/security/opasswd$": CONTENT_EX
+  "/etc/skel": CONTENT_EX
+  "/etc/sssd": CONTENT_EX
+  "/etc/machine-id$": CONTENT_EX
+  "/etc/swid": CONTENT_EX
+  "/etc/system-release-cpe$": CONTENT_EX
+  "/etc/shells$": CONTENT_EX
+  "/etc/tmux.conf$": CONTENT_EX
+  "/etc/xattr.conf$": CONTENT_EX
+  # Networking
+  "/etc/hosts.allow$": CONTENT_EX
+  "/etc/hosts.deny$": CONTENT_EX
+  "/etc/firewalld": CONTENT_EX
+  "/etc/NetworkManager/system-connections": false
+  "/etc/Networking": CONTENT_EX
+  "/etc/networks$": CONTENT_EX
+  "/etc/dhcp": CONTENT_EX
+  "/etc/wpa_supplicant": CONTENT_EX
+  "/etc/resolv.conf$": CONTENT_EX
+  "/etc/nscd.conf$": CONTENT_EX
+  # Logins and accounts
+  "/etc/login.defs$": CONTENT_EX
+  "/etc/libuser.conf$": CONTENT_EX
+  "/var/log/faillog$": PERMS
+  "/var/log/lastlog$": PERMS
+  "/var/run/faillock": PERMS
+  "/etc/pam.d": CONTENT_EX
+  "/etc/security": CONTENT_EX
+  "/etc/securetty": CONTENT_EX
+  "/etc/polkit-1": CONTENT_EX
+  "/etc/sudo.conf$": CONTENT_EX
+  "/etc/sudoers$": CONTENT_EX
+  "/etc/sudoers.d": CONTENT_EX
+  # Shelll/x startup
+  "/etc/profile$": CONTENT_EX
+  "/etc/profile.d": CONTENT_EX
+  "/etc/bashrc$": CONTENT_EX
+  "/etc/bash_completion.d": CONTENT_EX
+  "/etc/zprofile$": CONTENT_EX
+  "/etc/zshrc$": CONTENT_EX
+  "/etc/zlogin$": CONTENT_EX
+  "/etc/zlogout$": CONTENT_EX
+  "/etc/X11": CONTENT_EX
+  # Pkg manager
+  /etc/dns: CONTENT_EX
+  "/etc/yum.conf$": CONTENT_EX
+  /etc/yum: CONTENT_EX
+  /etc/yum.repos.d: CONTENT_EX
+  /etc/apt: CONTENT_EX
+  #Ignores
+  /var/log/sa: false
+  /var/log/aide.log: false
+  # Audit
+  /var/log/audit: PERMS
+  /var/audit: CONTENT_EX
+  "/etc/libaudit.conf$": CONTENT_EX
+  "/etc/aide.conf$": CONTENT_EX
+  # System logs
+  "/etc/rsyslog.conf$": CONTENT_EX
+  /etc/rsyslog.d: CONTENT_EX
+  "/etc/logrotate.conf$": CONTENT_EX
+  "/etc/logrotate.d": CONTENT_EX
+  "/etc/systemd/journald.conf$": CONTENT_EX
+  "/var/log": "LOG+ANF+ARF"
+  "/var/run/utmp": LOG
+  # secrets
+  /etc/pkcs11: CONTENT_EX
+  /etc/pki: CONTENT_EX
+  /etc/crypto-policies: CONTENT_EX
+  /etc/certmonger: CONTENT_EX
+  "/var/lib/systemd/random-seed$": PERMS
+  # init systems
+  /etc/systemd: CONTENT_EX
+  /etc/rc.d: CONTENT_EX
+  /etc/tmpfiles.d: CONTENT_EX
+  # boot config
+  /etc/default: CONTENT_EX
+  /etc/grub.d: CONTENT_EX
+  "/etc/dracut.conf$": CONTENT_EX
+  /etc/dracut.conf.d: CONTENT_EX
+  # glib
+  "/etc/ld.so.cache$": CONTENT_EX
+  "/etc/ld.so.conf$": CONTENT_EX
+  "/etc/ld.so.conf.d": CONTENT_EX
+  "/etc/ld.so.preload$": CONTENT_EX
+  #Kernel config
+  "/etc/sysctl.conf$": CONTENT_EX
+  "/etc/sysctl.d": CONTENT_EX
+  "/etc/modprobe.d": CONTENT_EX
+  /etc/modules-load.d: CONTENT_EX
+  /etc/depmod.d: CONTENT_EX
+  /etc/udev: CONTENT_EX
+  "/etc/crypttab$": CONTENT_EX
+  # cron jobs
+  /var/spool/at: CONTENT
+  /etc/at.allow$: CONTENT
+  /etc/at.deny$: CONTENT
+  /var/spool/anacron: PERMS
+  /etc/anacrontab$: CONTENT_EX
+  /etc/cron.allow$: CONTENT_EX
+  /etc/cron.deny$: CONTENT_EX
+  /etc/cron.d: CONTENT_EX
+  /etc/cron.daily: CONTENT_EX
+  /etc/cron.hourly: CONTENT_EX
+  /etc/cron.monthly: CONTENT_EX
+  /etc/cron.weekly: CONTENT_EX
+  /etc/crontab$: CONTENT_EX
+  /var/spool/cron/root: CONTENT
+  # time: keeping
+  /etc/chrony.conf$: CONTENT_EX
+  /etc/chrony.keys$: CONTENT_EX
+  # mail
+  /etc/aliases$: CONTENT_EX
+  /etc/aliases.db$: CONTENT_EX
+  /etc/postfix: CONTENT_EX
+  # ssh
+  /etc/ssh/sshd_config$: CONTENT_EX
+  /etc/ssh/ssh_config$: CONTENT_EX
+  # stunnel
+  /etc/stunnel: CONTENT_EX
+  # printing
+  /etc/cups: CONTENT_EX
+  /etc/cupshelpers: CONTENT_EX
+  /etc/avahi: CONTENT_EX
+  # web server
+  /etc/httpd: CONTENT_EX
+  /etc/apache2: CONTENT_EX
+  /etc/nginx: CONTENT_EX
+  /etc/haproxy: CONTENT_EX
+  # dns
+  /etc/named: CONTENT_EX
+  /etc/named.conf$: CONTENT_EX
+  /etc/named.iscdlv.key$: CONTENT_EX
+  /etc/named.rfc1912.zones$: CONTENT_EX
+  /etc/named.root.key$: CONTENT_EX
+  # xinetd
+  /etc/xinetd.conf$: CONTENT_EX
+  /etc/xinetd.d: CONTENT_EX
+  # IPsec
+  /etc/ipsec.conf$: CONTENT_EX
+  /etc/ipsec.secrets$: CONTENT_EX
+  /etc/ipsec.d: CONTENT_EX
+  # USB guard
+  /etc/usbguard: CONTENT_EX
+  # Ignore some files
+  /etc/mtab$: false
+  /etc/.*~: false
+  # Now everything else
+  /etc:    PERMS
+  /var/log/httpd: false
+  # Admins dot files constantly change, just check perms
+  "/root/.xauth*": false
+  # Other
+  /etc/fail2ban: CONTENT_EX
+  # Debian ---
+  /etc/adjtime$: CONTENT_EX

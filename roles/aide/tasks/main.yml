@@ -1,0 +1,73 @@
+---
+# tasks file for aide
+
+- name: include distro variables
+  include_vars: "{{ lookup('first_found', params) }}"
+  vars:
+    params:
+      files:
+        - "{{ ansible_distribution | lower }}.yml"
+        - "{{ ansible_os_family | lower }}.yml"
+        - default.yml
+      paths:
+        - '{{ playbook_dir }}/vars'
+        - '{{ role_path }}/vars'
+
+- name: install aide
+  ansible.builtin.package:
+    name: aide
+    state: present
+  become: true
+  tags:
+    - install
+
+- name: include distro specific tasks
+  include_tasks: "{{ dist_tasks_file }}"
+  loop: "{{ query('first_found', params, errors='ignore') }}"
+  loop_control:
+    loop_var: "dist_tasks_file"
+  vars:
+    params:
+      files:
+        - "{{ ansible_os_family | lower }}.yml"
+      paths:
+        - "{{ role_path }}/tasks"
+
+- name: configure aide
+  ansible.builtin.template:
+    src: aide.conf.j2
+    dest: "{{ aide__conf_path }}"
+    owner: root
+    group: root
+    mode: '0600'
+    validate: "{{ aide__bin_path }} --config-check --config %s"
+  become: true
+  register: __aide_template_config
+  tags:
+    - configure
+
+- name: create aide db
+  ansible.builtin.command:
+    cmd: "{{ aide__bin_path }} --init --config={{ aide__conf_path }}"
+    creates: "{{ aide_database | regex_replace('^file:', '')  if aide_force_init_db is sameas false else omit }}"
+  become: true
+  register: __aide_command_create_db
+  tags:
+    - setup
+
+- name: update aide db
+  ansible.builtin.command:
+    cmd: "{{ aide__bin_path }} --update --config={{ aide__conf_path }}"
+  become: true
+  when: (__aide_template_config is changed and __aide_command_create_db is not changed) or aide_force_update_db
+  register: __aide_command_update_db
+  tags:
+    - setup
+
+- name: move database file
+  ansible.builtin.command:
+    cmd: "mv {{ aide_database_new | regex_replace('^file:', '') }} {{ aide_database | regex_replace('^file:', '') }}"
+  become: true
+  when: __aide_command_create_db is changed or __aide_command_update_db is changed
+  tags:
+    - setup

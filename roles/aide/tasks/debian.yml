@@ -1,0 +1,12 @@
+---
+# debian specific tasks
+
+- name: set cron state
+  ansible.builtin.lineinfile:
+    path: /etc/default/aide
+    line: "CRON_DAILY_RUN={{ 'yes' if aide_daily_cron else 'no' }}"
+    regexp: "CRON_DAILY_RUN=.*"
+  become: true
+  when: aide_daily_cron is not none
+  tags:
+    - configure
