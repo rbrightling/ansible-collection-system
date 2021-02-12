@@ -45,7 +45,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install tox
       - name: run tox tests
-        run: tox -e py37-${{ matrix.ansible }}-openssh_server-${{ matrix.distro }}
+        run: tox -e py37-${{ matrix.ansible }}-aide-${{ matrix.distro }}
         working-directory: ansible_collections/rbrightling/system
         env:
           PY_COLORS: '1'
