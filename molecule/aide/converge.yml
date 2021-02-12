@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include rbrightling.system.aide"
+      include_role:
+        name: "rbrightling.system.aide"

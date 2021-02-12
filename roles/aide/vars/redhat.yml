@@ -1,0 +1,8 @@
+---
+# redhat vars
+
+aide__bin_path: /usr/sbin/aide
+
+aide__conf_path: /etc/aide.conf
+
+aide__distro_rule_groups: null

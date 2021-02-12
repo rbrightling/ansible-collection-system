@@ -1,0 +1,53 @@
+---
+name: "rbrightling.system.aide"
+
+on: 
+  push:
+    paths:
+      - 'roles/aide/**'
+      - 'molecule/aide/**'
+      - '.github/workflows/aide.yml'
+
+jobs:
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+     - uses: actions/checkout@v2
+     - name: Ansible Lint
+       uses: ansible/ansible-lint-action@master
+       with:
+         targets: "roles/aide"
+
+  test:
+    name: molecule
+    needs: lint
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ansible:
+          - ansible210
+        distro:
+          - centos8
+          - debian10
+    steps:
+      - name: Checkout collection
+        uses: actions/checkout@v2
+        with:
+          path: ansible_collections/rbrightling/system
+      - name: Setup python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.7'
+          architecture: 'x64'
+      - name: install tox
+        run: |
+          python -m pip install --upgrade pip
+          pip install tox
+      - name: run tox tests
+        run: tox -e py37-${{ matrix.ansible }}-openssh_server-${{ matrix.distro }}
+        working-directory: ansible_collections/rbrightling/system
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
+          MOLECULE_DRIVER: 'docker'

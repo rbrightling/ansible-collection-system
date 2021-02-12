@@ -1,0 +1,23 @@
+galaxy_info:
+  role_name: aide
+  author: Robert Brightling
+  description: Install and manage AIDE (Advanced Intrusion Detection Environment).
+
+  license: LGPL-3.0-or-later
+
+  min_ansible_version: 2.10
+
+  platforms:
+    - name: Debian
+      versions:
+        - buster
+    - name: EL
+      versions:
+        - 8
+
+  galaxy_tags:
+    - aide
+    - security
+    - system
+
+dependencies: []

@@ -1,0 +1,30 @@
+---
+# debian vars
+
+aide__bin_path: /usr/bin/aide
+
+aide__conf_path: /etc/aide/aide.conf
+
+aide__distro_rule_groups:
+  Checksums: "{{ aide_database_attrs }}"
+  OwnerMode: "p+u+g+ftype"
+  Size: "s+b"
+  InodeData: "OwnerMode+n+i+Size+l+X"
+  StaticFile: "m+c+Checksums"
+  RamdiskData: "InodeData-i"
+  Full: "InodeData+StaticFile"
+  VarTime: "InodeData+Checksums"
+  VarInode: "VarTime-i"
+  VarFile: "OwnerMode+n+l+X"
+  VarDir: "OwnerMode+n+i+X"
+  VarDirInode: "OwnerMode+n+X"
+  VarDirTime: "InodeData"
+  Log: "OwnerMode+n+S+X"
+  FreqRotLog: "Log-S"
+  LowLog: "Log-S"
+  SerMemberLog: "Full+I"
+  LoSerMemberLog: "SerMemberLog+ANF"
+  HiSerMemberLog: "SerMemberLog+ARF"
+  LowDELog: "SerMemberLog+ANF+ARF"
+  SerMemberDELog: "Full+ANF"
+  LinkedLog: "Log-n"

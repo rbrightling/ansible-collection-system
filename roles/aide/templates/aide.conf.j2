@@ -1,0 +1,86 @@
+{{ ansible_managed | comment }}
+{% macro aide_option_format(option, value) -%}
+{% if value is not none %}
+{% if value is iterable and (value is not string and value is not mapping) %}
+{% for item in value %}
+{{ option }}={{ item }}
+{% endfor %}
+{% elif value is sameas True %}
+{{ option }}=yes
+{% elif value is sameas False %}
+{% if option == 'database_attrs' %}
+{{ option }}=E
+{% else %}
+{{ option }}=no
+{% endif %}
+{% else %}
+{{ option }}={{ value }}
+{% endif %}
+{% endif %}
+{%- endmacro -%}
+{% macro aide_rule_groups_format(options) %}
+{%   if options is mapping %}
+{%     for name, rules in options.items() %}
+{%       if rules is iterable and rules is not string %}
+{{ name }} = {{ rules | join('+') }}
+{%       else %}
+{{ name }} = {{ rules }}
+{%       endif %}
+{%     endfor %}
+{%   else %}
+{%     for option in options %}
+{{      aide_rule_groups_format(option) }}
+{%     endfor %}
+{%   endif %}
+{% endmacro %}
+{% macro aide_rule_format(rules) -%}
+{%   if rules is mapping %}
+{%     for name, option in rules.items() %}
+{%       if name.startswith('!') %}
+{{ name }}
+{%       elif option is sameas False %}
+!{{ name }}
+{%       else %}
+{{ name }} {{ option }}
+{%       endif %}
+{%     endfor %}
+{%   else %}
+{%     for rule in rules %}
+{{ aide_rule_format(rule) -}}
+{%     endfor %}
+{%   endif %}
+{%- endmacro -%}
+# AIDE conf
+
+{{ aide_option_format('database', aide_database) -}}
+{{ aide_option_format('database_out', aide_database_out) -}}
+{{ aide_option_format('database_new', aide_database_new) -}}
+{{ aide_option_format('gzip_dbout', aide_gzip_dbout) -}}
+# Set to no to disable summarize_changes option.
+{{ aide_option_format('summarize_changes', aide_summarize_changes) -}}
+# Set to no to disable grouping of files in report.
+{{ aide_option_format('grouped', aide_grouped) -}}
+# standard verbose level
+{{ aide_option_format('verbose', aide_verbose) -}}
+# Set to yes to print the checksums in the report in hex format
+{{ aide_option_format('report_base16', aide_report_base16) -}}
+{{ aide_option_format('report_url', aide_report_url) -}}
+# The checksums of the databases to be printed in the report
+# Set to 'E' to disable.
+{{ aide_option_format('database_attrs', aide_database_attrs) -}}
+{{ aide_option_format('database_add_metadata', aide_database_add_metadata) -}}
+{{ aide_option_format('report_detailed_init', aide_report_detailed_init) -}}
+{{ aide_option_format('root_prefix', aide_root_prefix) -}}
+{{ aide_option_format('acl_no_symlink_follow', aide_acl_no_symlink_follow) -}}
+{{ aide_option_format('warn_dead_symlinks', aide_warn_dead_symlinks) -}}
+{{ aide_option_format('config_version', aide_config_version) -}}
+{% if aide__distro_rule_groups is not none -%}
+# Distro Specific 
+{{ aide_rule_groups_format(aide__distro_rule_groups) -}}
+{%- endif %}
+
+{{ aide_rule_groups_format(aide__default_rule_groups) -}}
+{{ aide_rule_groups_format(aide_rule_groups) }}
+
+{{ aide_rule_format(aide__default_rules) }}
+{{ aide_rule_format(aide_rules) }}
