@@ -1,0 +1,15 @@
+---
+# tasks file for hosts
+
+- name: setup gather network facts
+  ansible.builtin.setup:
+    gather_subset: "!all,!min,network"
+
+- name: configure hosts file
+  ansible.builtin.template:
+    src: hosts.j2
+    dest: "{{ hosts__file_path }}"
+    mode: '0644'
+    owner: root
+    group: root
+  become: true

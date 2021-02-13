@@ -1,0 +1,10 @@
+---
+# Due to docker not allows the /etc/hosts file to be overritten, change the file path the /etc/hosts.example.
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include rbrightling.system.hosts"
+      include_role:
+        name: "rbrightling.system.hosts"
+      vars:
+        hosts__file_path: "/etc/hosts.example"
