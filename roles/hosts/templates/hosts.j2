@@ -1,0 +1,21 @@
+{{ ansible_managed | comment }}
+
+# Localhost loopback
+127.0.0.1    localhost   localhost.localdomain   localhost4 localhost4.localdomain4
+# The following lines are desirable for IPv6 capable hosts
+::1      localhost localhost.localdomain ip6-localhost ip6-loopback localhost6.localdomain6
+fe00::0  ip6-localnet
+ff00::0  ip6-mcastprefix
+ff02::1  ip6-allnodes
+ff02::2  ip6-allrouters
+
+# hostname loopback
+{{ hosts_hostname_address }}  {{ ansible_hostname }} {{ ansible_fqdn if ansible_fqdn | default('') != ansible_hostname else '' }}
+
+{% for ip_address, hostnames in hosts_list.items() | list %}
+{% if hostnames is string -%}
+{{ ip_address }} {{ hostnames }}
+{%- else %} 
+{{ ip_address }} {{ hostnames | join(' ') }}
+{% endif %}
+{% endfor %}

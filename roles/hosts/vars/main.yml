@@ -1,0 +1,5 @@
+---
+# vars file for hosts
+
+# Location of the hosts file on the system
+hosts__file_path: "/etc/hosts"
