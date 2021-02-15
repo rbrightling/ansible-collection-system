@@ -2,7 +2,7 @@
 __metaclass__ = type
 
 
-def option(value, join=";"):
+def option(value, join=":"):
     if value is True:
         return "yes"
     elif value is False:
