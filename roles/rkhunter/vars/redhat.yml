@@ -1,0 +1,36 @@
+---
+# redhat specific variables
+
+rkhunter__tmpdir: "/var/lib/rkhunter"
+
+rkhunter__logfile: "/var/log/rkhunter/rkhunter.log"
+
+rkhunter__dbdir: "/var/lib/rkhunter/db"
+
+rkhunter__scriptdir: "/usr/share/rkhunter/scripts"
+
+rkhunter__pkgmgr: RPM
+
+rkhunter__existswhitelist:
+  - "/bin/ad"
+  - "/var/log/pki-ca/system"
+  - "/var/log/pki-pki-comat/ca/system"
+  - "/var/log/pki-pki-comat/kra/system"
+  - "/usr/bin/GET"
+  - "/usr/bin/whatis"
+
+rkhunter__scriptwhitelist:
+  - "/usr/bin/egrep"
+  - "/usr/bin/fgrep"
+  - "/usr/bin/whatis"
+  - "/usr/bin/ldd"
+  - "/usr/bin/groups"
+  - "/usr/bin/GET"
+  - "/usr/libexec/nm-ifdown"
+  - "/usr/libexec/nm-ifup"
+
+rkhunter__allowhiddenfile:
+  - "/etc/.updated"
+  - "/usr/share/man/man5/.k5login.5.gz"
+  - "/usr/share/man/man5/.k5identity.5.gz"
+  - "/usr/share/man/man1/..1.gz"
