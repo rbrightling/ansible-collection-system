@@ -14,7 +14,7 @@
 
 - name: install rkhunter
   ansible.builtin.package:
-    name: 
+    name:
       - rkhunter
     state: present
   become: true

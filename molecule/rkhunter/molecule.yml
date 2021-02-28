@@ -5,8 +5,8 @@ driver:
   name: podman
 lint: |
   set -e
-  yamllint .
-  ansible-lint .
+  yamllint roles/rkhunter
+  ansible-lint roles/rkhunter
   flake8
 platforms:
   - name: instance
