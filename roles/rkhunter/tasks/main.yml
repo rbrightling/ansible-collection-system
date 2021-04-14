@@ -1,0 +1,52 @@
+---
+# tasks file for rkhunter
+
+- name: include distro variables
+  ansible.builtin.include_vars: "{{ lookup('first_found', params) }}"
+  vars:
+    params:
+      files:
+        - "{{ ansible_os_family | lower }}.yml"
+        - default.yml
+      paths:
+        - '{{ playbook_dir }}/vars'
+        - '{{ role_path }}/vars'
+
+- name: install rkhunter
+  ansible.builtin.package:
+    name:
+      - rkhunter
+    state: present
+  become: true
+  tags:
+    - install
+
+- name: template rkhunter configuration
+  ansible.builtin.template:
+    src: rkhunter.conf.j2
+    dest: /etc/rkhunter.conf
+    mode: '0640'
+    owner: root
+    group: root
+    validate: /usr/bin/rkhunter --config-check --configfile %s
+  become: true
+  tags:
+    - configure
+
+- name: update rkhunter
+  ansible.builtin.command: "/usr/bin/rkhunter --update"
+  register: "rkhunter_update_ret"
+  changed_when: "rkhunter_update_ret.rc == 2"
+  failed_when: "rkhunter_update_ret.rc == 1"
+  when: rkhunter_update | bool
+  become: true
+  tags:
+    - setup
+
+- name: rkhunter propupd
+  ansible.builtin.command: "/usr/bin/rkhunter --propupd"
+  args:
+    creates: "{{ omit if rkhunter_force_propupd else rkhunter_dbdir+'/rkhunter_prop_list.dat' }}"
+  become: true
+  tags:
+    - setup
