@@ -17,3 +17,15 @@
 {{ fail2ban_macros.fail2ban_format("destemail", fail2ban_destemail) -}}
 {{ fail2ban_macros.fail2ban_format("sender", fail2ban_sender) -}}
 {{ fail2ban_macros.fail2ban_format("mta", fail2ban_mta) -}}
+
+{% import 'macros.j2' as fail2ban_macros %}
+
+{% for section, section_values in _fail2ban_default_jail.items() %}
+{% if section_values is not none %}
+[{{ section }}]
+{% for option, value in section_values.items() %}
+{{ fail2ban_macros.fail2ban_format(option, value) -}}
+{% endfor %}
+
+{% endif %}
+{% endfor %}
