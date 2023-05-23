@@ -32,24 +32,13 @@
     - restart fail2ban service
   become: true
 
-- name: configure jail defaults
+- name: configure jails
   ansible.builtin.template:
     dest: "/etc/fail2ban/jail.local"
     src: jail.local.j2
     owner: root
     group: root
     mode: "0644"
-  notify:
-    - restart fail2ban service
-  become: true
-
-- name: configure jails
-  ansible.builtin.template:
-    dest: "{{ fail2ban__default_jail_path }}"
-    src: "default-jail.conf.j2"
-    owner: root
-    group: root
-    mode: "0640"
   notify:
     - restart fail2ban service
   become: true
