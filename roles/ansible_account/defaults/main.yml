@@ -1,0 +1,16 @@
+---
+# defaults file for ansible_account
+
+# Name for the ansible account
+ansible_account_name: "ansible"
+
+# Path for the ansible sudoers file
+ansible_account_sudoers_path: "/etc/sudoers.d/ansible"
+
+# List of keys for adding as authorized access
+ansible_account_authorized_keys: []
+
+# Set a optional uid for the user
+ansible_account_uid: null
+
+ansible_account_sudoers_validate: "{{ sudo_visudo_path|default('/usr/sbin/visudo') }} -cf %s"
