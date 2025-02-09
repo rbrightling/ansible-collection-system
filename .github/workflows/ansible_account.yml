@@ -7,6 +7,7 @@ on:
       - 'roles/ansible_account/**'
       - 'molecule/ansible_account/**'
       - '.github/workflows/ansible_account.yml'
+      - 'tox.ini'
 
 jobs:
   lint:
