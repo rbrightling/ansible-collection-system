@@ -18,6 +18,9 @@ platforms:
     image: docker.io/geerlingguy/docker-${MOLECULE_DISTRO:-debian12}-ansible:latest
     command: ""
     systemd: true
+    tmpfs:
+      - /run
+      - /tmp
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     capabilities:
