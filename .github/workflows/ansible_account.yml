@@ -17,7 +17,7 @@ jobs:
      - name: Ansible Lint
        uses: ansible/ansible-lint@main
        with:
-         working_directory: roles/ansible_account
+         args: roles/ansible_account
 
   test:
     name: molecule
