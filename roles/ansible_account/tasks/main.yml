@@ -1,7 +1,7 @@
 ---
 # tasks file for ansible_account
 
-- name: setup ansible user
+- name: Setup ansible user
   become: true
   ansible.builtin.user:
     name: "{{ ansible_account_name }}"
@@ -10,7 +10,7 @@
   tags:
     - setup
 
-- name: configure ansible sudoers file
+- name: Configure ansible sudoers file
   become: true
   ansible.builtin.template:
     src: ansible_sudoers.j2
@@ -23,7 +23,7 @@
     - configure
 
 
-- name: configure ansible ssh authorized keys
+- name: Configure ansible ssh authorized keys
   become: true
   ansible.posix.authorized_key:
     user: "{{ ansible_account_name }}"

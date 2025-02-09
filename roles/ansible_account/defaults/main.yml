@@ -13,4 +13,5 @@ ansible_account_authorized_keys: []
 # Set a optional uid for the user
 ansible_account_uid: null
 
-ansible_account_sudoers_validate: "{{ sudo_visudo_path|default('/usr/sbin/visudo') }} -cf %s"
+# Extra options
+ansible_account_sudoers_validate: "{{ sudo_visudo_path | default('/usr/sbin/visudo') }} -cf %s"
