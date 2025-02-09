@@ -19,8 +19,8 @@ platforms:
     command: ""
     systemd: true
     tmpfs:
-      - /run
-      - /tmp
+      "/tmp": "exec"
+      "/run": "rw,noexec,nosuid,nodev"
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     capabilities:
