@@ -13,11 +13,11 @@ jobs:
     name: lint
     runs-on: ubuntu-latest
     steps:
-     - uses: actions/checkout@v2
+     - uses: actions/checkout@v4
      - name: Ansible Lint
-       uses: ansible/ansible-lint-action@master
+       uses: ansible/ansible-lint@main
        with:
-         targets: "roles/ansible_account"
+         working_directory: "roles/ansible_account"
 
   test:
     name: molecule
@@ -26,10 +26,9 @@ jobs:
     strategy:
       matrix:
         ansible:
-          - ansible210
+          - ansible218
         distro:
-          - debian10
-          - centos8
+          - debian12
     steps:
       - name: Checkout collection
         uses: actions/checkout@v4
