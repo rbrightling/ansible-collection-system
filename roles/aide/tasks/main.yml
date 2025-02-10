@@ -2,7 +2,7 @@
 # tasks file for aide
 
 - name: Include distro variables
-  ansble.builtin.include_vars: "{{ lookup('first_found', params) }}"
+  ansible.builtin.include_vars: "{{ lookup('first_found', params) }}"
   vars:
     params:
       files:

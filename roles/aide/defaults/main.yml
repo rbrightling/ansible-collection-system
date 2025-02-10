@@ -17,6 +17,8 @@ aide_gzip_dbout: true
 
 # The level of messages that is output. This value can be 0-255 inclusive.
 aide_verbose: 5
+aide_report_level: "changed_attributes"
+aide_log_level: "warning"
 
 # Whether to base16 encode the checksums in the report or not. Default uses base644.
 aide_report_base16: false

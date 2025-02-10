@@ -28,3 +28,5 @@ aide__distro_rule_groups:
   LowDELog: "SerMemberLog+ANF+ARF"
   SerMemberDELog: "Full+ANF"
   LinkedLog: "Log-n"
+
+aide_verbose: null
