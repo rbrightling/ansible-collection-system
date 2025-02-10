@@ -1,8 +1,8 @@
 ---
 # tasks file for aide
 
-- name: include distro variables
-  include_vars: "{{ lookup('first_found', params) }}"
+- name: Include distro variables
+  ansble.builtin.include_vars: "{{ lookup('first_found', params) }}"
   vars:
     params:
       files:
@@ -13,7 +13,7 @@
         - '{{ playbook_dir }}/vars'
         - '{{ role_path }}/vars'
 
-- name: install aide
+- name: Install aide
   ansible.builtin.package:
     name: aide
     state: present
@@ -21,8 +21,8 @@
   tags:
     - install
 
-- name: include distro specific tasks
-  include_tasks: "{{ dist_tasks_file }}"
+- name: Include distro specific tasks
+  ansible.builtin.include_tasks: "{{ dist_tasks_file }}"
   loop: "{{ query('first_found', params, errors='ignore') }}"
   loop_control:
     loop_var: "dist_tasks_file"
@@ -33,7 +33,7 @@
       paths:
         - "{{ role_path }}/tasks"
 
-- name: configure aide
+- name: Configure aide
   ansible.builtin.template:
     src: aide.conf.j2
     dest: "{{ aide__conf_path }}"
@@ -46,28 +46,32 @@
   tags:
     - configure
 
-- name: create aide db
+- name: Create aide db
   ansible.builtin.command:
     cmd: "{{ aide__bin_path }} --init --config={{ aide__conf_path }}"
     creates: "{{ aide_database | regex_replace('^file:', '')  if aide_force_init_db is sameas false else omit }}"
   become: true
+  changed_when: __aide_command_create_db is changed
   register: __aide_command_create_db
   tags:
     - setup
 
-- name: update aide db
+- name: Update aide db
   ansible.builtin.command:
     cmd: "{{ aide__bin_path }} --update --config={{ aide__conf_path }}"
   become: true
+  changed_when: __aide_command_update_db is changed
   when: (__aide_template_config is changed and __aide_command_create_db is not changed) or aide_force_update_db
   register: __aide_command_update_db
   tags:
     - setup
 
-- name: move database file
+- name: Move database file
   ansible.builtin.command:
     cmd: "mv {{ aide_database_new | regex_replace('^file:', '') }} {{ aide_database | regex_replace('^file:', '') }}"
   become: true
+  changed_when: __aide_command_move_db is changed
   when: __aide_command_create_db is changed or __aide_command_update_db is changed
+  register: __aide_command_move_db
   tags:
     - setup

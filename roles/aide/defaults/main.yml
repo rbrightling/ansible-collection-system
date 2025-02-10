@@ -2,7 +2,7 @@
 # defaults file for aide
 
 # Config options
-# options for storing the aide database. 
+# options for storing the aide database.
 aide_database: "file:/var/lib/aide/aide.db{{ '.gz' if aide_gzip_dbout else '' }}"
 aide_database_out: "file:/var/lib/aide/aide.db.new{{ '.gz' if aide_gzip_dbout else '' }}"
 aide_database_new: "{{ aide_database_out }}"
@@ -56,7 +56,7 @@ report_ignore_changed_attrs: null
 # The value of config_version is printed in the report and also printed to the database.
 aide_config_version: null
 
-# Rules groups 
+# Rules groups
 aide_rule_groups: {}
 # Example:
 #   GROUP1: "option1+option2"
