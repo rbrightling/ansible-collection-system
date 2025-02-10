@@ -1,0 +1,34 @@
+---
+# tasks file for ansible_account
+
+- name: Setup ansible user
+  become: true
+  ansible.builtin.user:
+    name: "{{ ansible_account_name }}"
+    password: "*"
+    uid: "{{ ansible_account_uid }}"
+  tags:
+    - setup
+
+- name: Configure ansible sudoers file
+  become: true
+  ansible.builtin.template:
+    src: ansible_sudoers.j2
+    dest: "{{ ansible_account_sudoers_path }}"
+    owner: root
+    group: root
+    mode: "0440"
+    validate: "{{ ansible_account_sudoers_validate }}"
+  tags:
+    - configure
+
+
+- name: Configure ansible ssh authorized keys
+  become: true
+  ansible.posix.authorized_key:
+    user: "{{ ansible_account_name }}"
+    state: present
+    key: "{{ ansible_account_authorized_keys|join('\n') }}"
+    exclusive: true
+  tags:
+    - configure

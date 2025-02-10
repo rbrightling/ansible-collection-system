@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include rbrightling.system.ansible_account"
+      include_role:
+        name: "rbrightling.system.ansible_account"
