@@ -11,7 +11,7 @@ sudo__sudoers_directory: "/etc/sudoers.d"
 
 sudo__visudo_path: "/usr/sbin/visudo"
 
-sudo__editor: 
+sudo__editor:
   - /usr/bin/vi
   - /usr/bin/nano
   - /usr/bin/vim
