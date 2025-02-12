@@ -1,7 +1,7 @@
 ---
 # RHEL generic configuration.
 
-shadow_utils__packages: 
+shadow_utils__packages:
   - 'shadow-utils'
   - 'passwd'
 
