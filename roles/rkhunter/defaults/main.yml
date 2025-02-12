@@ -51,11 +51,11 @@ rkhunter_update_lang: "{{ rkhunter_language }}"
 # Specify the test to run with rkhunter.
 rkhunter_enable_tests: ALL
 rkhunter_disable_tests:
-  - suspscan 
-  - hidden_ports 
-  - hidden_procs 
-  - deleted_files 
-  - packet_cap_apps 
+  - suspscan
+  - hidden_ports
+  - hidden_procs
+  - deleted_files
+  - packet_cap_apps
   - apps
 
 # Specify the command to use for file property hash value checks.
@@ -98,7 +98,7 @@ rkhunter_phalanx2_dirtest: false
 
 # Set rkkhunter to search for filenames in all directories
 # NOTE: Shouldn't be enabled by default
-rkhunter_scanrootkitmode: null #THOROUGH
+rkhunter_scanrootkitmode: null # THOROUGH
 
 # List of tests for the unhide command to use.
 rkhunter_unhide_tests: sys
@@ -113,7 +113,7 @@ rkhunter_missing_logfiles: null
 # Log options
 # -----------
 
-# Option to append to the rkhunter log 
+# Option to append to the rkhunter log
 rkhunter_append_log: true
 
 # Copy a timestamped log when finishes with errors or warnings
@@ -146,7 +146,7 @@ rkhunter_ssh_config_dir: null
 # Detect if x is available to use second colour set.
 rkhunter_auto_x_detect: true
 
-# Set to use the second colour set. 
+# Set to use the second colour set.
 rkhunter_color_set2: null
 
 # Set whitelisted items in white instead of green.
@@ -169,7 +169,7 @@ rkhunter_existwhitelist: "{{ rkhunter__existswhitelist }}"
 # Debian: null
 # RedHat:
 #   - "/bin/ad"
-#   - "/var/log/pki-ca/system" 
+#   - "/var/log/pki-ca/system"
 #   - "/var/log/pki-pki-comat/ca/system"
 #   - "/var/log/pki-pki-comat/kra/system"
 #   - "/usr/bin/GET"
@@ -233,14 +233,14 @@ rkhunter_allowpromiscif: null
 rkhunter_rtkt_file_whitelist: null
 rkhunter_rtkt_dir_whitelist: null
 # Example:
-#   - /etc/rc.local         
-#   - /etc/rc.local:hdparm 
-#   - /etc/rc.local: 
+#   - /etc/rc.local
+#   - /etc/rc.local:hdparm
+#   - /etc/rc.local:
 
 # Whitelist shared library files
 rkhunter_shared_lib_whitelist: null
 
-# How rkhunter should scan the /dev/ directory. 
+# How rkhunter should scan the /dev/ directory.
 rkhunter_scan_mode_dev: THOROUGH # THOROUGH or LAZY
 
 # Whitelist specified files in the /dev directory
@@ -335,7 +335,7 @@ rkhunter_warn_on_os_change: true
 rkhunter_updt_on_os_change: false
 
 # Specify the location of startup file, by default rkhunter can try to determine them.
-rkhunter_startup_paths: null 
+rkhunter_startup_paths: null
 # Example:
 #   - /etc/init.d
 #   - /etc.rc.local
@@ -368,7 +368,7 @@ rkhunter_modules_dir: null
 rkhunter_stat_cmd: null
 rkhunter_readlink_cmd: null
 
-# rkhunter will try and change epoach seconds to datetime using date. 
+# rkhunter will try and change epoach seconds to datetime using date.
 rkhunter_epoch_date_cmd: null
 # NONE: only epoch seconds will be shown
 # PERL: force rhhunter to use the perl command if present
@@ -410,11 +410,11 @@ rkhunter_dbdir: "{{ rkhunter__dbdir }}"
 # redhat: /var/lib/rkhunter/db
 
 # Location of the rkhunter scripts
-rkhunter_scriptdir: "{{ rkhunter__scriptdir }}" 
+rkhunter_scriptdir: "{{ rkhunter__scriptdir }}"
 # debian: /usr/share/rkhunter/scripts
 # redhat: /usr/share/rkhunter/scripts
 
-# List of binary directories. By default the root users PATH environment will be used. 
+# List of binary directories. By default the root users PATH environment will be used.
 # Options with + prepended will be prepended to the list
 rkhunter_bindir: null
 # Example:

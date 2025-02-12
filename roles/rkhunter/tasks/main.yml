@@ -1,7 +1,7 @@
 ---
 # tasks file for rkhunter
 
-- name: include distro variables
+- name: Include distro variables
   ansible.builtin.include_vars: "{{ lookup('first_found', params) }}"
   vars:
     params:
@@ -12,7 +12,7 @@
         - '{{ playbook_dir }}/vars'
         - '{{ role_path }}/vars'
 
-- name: install rkhunter
+- name: Install rkhunter
   ansible.builtin.package:
     name:
       - rkhunter
@@ -21,7 +21,7 @@
   tags:
     - install
 
-- name: template rkhunter configuration
+- name: Template rkhunter configuration
   ansible.builtin.template:
     src: rkhunter.conf.j2
     dest: /etc/rkhunter.conf
@@ -33,7 +33,7 @@
   tags:
     - configure
 
-- name: update rkhunter
+- name: Update rkhunter
   ansible.builtin.command: "/usr/bin/rkhunter --update"
   register: "rkhunter_update_ret"
   changed_when: "rkhunter_update_ret.rc == 2"
@@ -43,10 +43,10 @@
   tags:
     - setup
 
-- name: rkhunter propupd
+- name: Rkhunter propupd
   ansible.builtin.command: "/usr/bin/rkhunter --propupd"
   args:
-    creates: "{{ omit if rkhunter_force_propupd else rkhunter_dbdir+'/rkhunter_prop_list.dat' }}"
+    creates: "{{ omit if rkhunter_force_propupd else rkhunter_dbdir + '/rkhunter_prop_list.dat' }}"
   become: true
   tags:
     - setup
