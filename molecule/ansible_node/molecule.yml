@@ -17,7 +17,8 @@ platforms:
     pre_build_image: true
 provisioner:
   name: ansible
+  config_options:
+    defaults:
+      collections_path: ${ANSIBLE_COLLECTIONS_PATH}
 verifier:
   name: testinfra
-ansible:
-  sudo: false

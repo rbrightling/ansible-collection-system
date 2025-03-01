@@ -3,5 +3,5 @@
   hosts: all
   tasks:
     - name: "Include rbrightling.system.sysstat"
-      include_role:
+      ansible.builtin.include_role:
         name: "rbrightling.system.sysstat"

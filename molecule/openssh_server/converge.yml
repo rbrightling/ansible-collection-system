@@ -2,6 +2,10 @@
 - name: Converge
   hosts: all
   tasks:
+    - name: "Update apt"
+      ansible.builtin.apt:
+        update_cache: true
+
     - name: "Include rbrightling.system.openssh_server"
-      include_role:
+      ansible.builtin.include_role:
         name: "rbrightling.system.openssh_server"

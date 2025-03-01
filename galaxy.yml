@@ -2,12 +2,12 @@
 
 namespace: rbrightling
 name: system
-version: 0.1.1
+version: 0.1.3
 
 readme: README.md
 
 authors:
-- Robert Brightling <dev@robert.brightling.me.uk>
+  - Robert Brightling <dev@robert.brightling.me.uk>
 
 
 ### OPTIONAL but strongly recommended
@@ -21,6 +21,7 @@ license:
 # requirements as 'namespace' and 'name'
 tags:
   - system
+  - linux
 
 dependencies: {}
 

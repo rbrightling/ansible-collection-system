@@ -2,7 +2,7 @@
 - name: Converge
   hosts: all
   tasks:
-    - name: set debian
+    - name: Set debian
       ansible.builtin.set_fact:
         rkhunter_scriptwhitelist:
           - "/bin/egrep"
@@ -11,13 +11,13 @@
           - "/usr/bin/ldd"
           - "/usr/sbin/adduser"
       when: ansible_os_family == "Debian"
-    - name: installed base files
-      package:
+    - name: Installed base files
+      ansible.builtin.package:
         name:
           - curl
           - grep
         state: present
       become: true
     - name: "Include rbrightling.system.rkhunter"
-      include_role:
+      ansible.builtin.include_role:
         name: "rbrightling.system.rkhunter"

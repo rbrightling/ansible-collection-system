@@ -1,5 +1,5 @@
 ---
-#Auditd variables for RedHat
+# Auditd variables for RedHat
 
 auditd__package: "audit"
 

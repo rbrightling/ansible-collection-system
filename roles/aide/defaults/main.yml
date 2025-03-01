@@ -51,9 +51,9 @@ aide_acl_no_symlink_follow: null
 aide_warn_dead_symlinks: null
 
 # Special group definition that lists attributes whose addition is to be ignored in the final report.
-report_ignore_added_attrs: null
-report_ignore_remote_attrs: null
-report_ignore_changed_attrs: null
+aide_report_ignore_added_attrs: null
+aide_report_ignore_remote_attrs: null
+aide_report_ignore_changed_attrs: null
 
 # The value of config_version is printed in the report and also printed to the database.
 aide_config_version: null
