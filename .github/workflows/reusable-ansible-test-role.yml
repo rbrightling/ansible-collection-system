@@ -1,0 +1,51 @@
+---
+name: "Reusable workflow to lint and test ansible with molecule"
+
+on: 
+  workflow_call:
+    inputs:
+      role-name: 
+        required: true
+        type: string 
+
+jobs:
+  lint:
+    name: lint
+    runs-on: ubuntu-latest
+    steps:
+     - uses: actions/checkout@v4
+     - name: Ansible Lint 
+       uses: ansible/ansible-lint@main
+       with:
+         args: roles/${{ inputs.role-name }}
+
+  test:
+    name: molecule
+    needs: lint
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ansible:
+          - ansible218
+        distro:
+          - debian12
+    steps:
+      - name: Checkout collection
+        uses: actions/checkout@v4
+        with:
+          path: ansible_collections/rbrightling/system
+      - name: Setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          architecture: 'x64'
+      - name: Install tox
+        run: |
+          python3 -m pip install --upgrade pip
+          pip install tox
+      - name: Run tox tests
+        run: tox -e ${{ matrix.ansible }}-${{ inputs/role-name }}-${{ matrix.distro }}
+        working-directory: ansible_collections/rbrightling/system
+        env:
+          PY_COLORS: '1'
+          ANSIBLE_FORCE_COLOR: '1'
