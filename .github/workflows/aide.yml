@@ -14,3 +14,4 @@ jobs:
     uses: ./.github/workflows/reusable-ansible-test-role.yml
     with:
       role-name: 'aide'
+
