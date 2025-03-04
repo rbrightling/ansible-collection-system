@@ -1,7 +1,7 @@
 ---
 name: "rbrightling.system.aide"
 
-on: 
+on:
   push:
     paths:
       - 'roles/aide/**'

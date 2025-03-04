@@ -1,12 +1,12 @@
 ---
 name: "Reusable workflow to lint and test ansible with molecule"
 
-on: 
+on:
   workflow_call:
     inputs:
-      role-name: 
+      role-name:
         required: true
-        type: string 
+        type: string
 
 jobs:
   lint:
@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
      - uses: actions/checkout@v4
-     - name: Ansible Lint 
+     - name: Ansible Lint
        uses: ansible/ansible-lint@main
        with:
          args: roles/${{ inputs.role-name }}

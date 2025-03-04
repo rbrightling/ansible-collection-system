@@ -1,12 +1,13 @@
 ---
 name: "rbrightling.system.auditd"
 
-on: 
+on:
   push:
     paths:
       - 'roles/auditd/**'
       - 'molecule/auditd/**'
       - '.github/workflows/auditd.yml'
+      - 'tox.ini'
 
 jobs:
   lint:
