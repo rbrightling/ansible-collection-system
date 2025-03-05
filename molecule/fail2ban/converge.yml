@@ -2,6 +2,11 @@
 - name: Converge
   hosts: all
   tasks:
+    - name: "Update cache"
+      ansible.builtin.apt: 
+        update_cache: true
+      when: ansible_os_family == "Debian"
+      when: 
     - name: "Include rbrightling.system.fail2ban"
       ansible.builtin.include_role:
-        name: "rbrightling.system.fail2ban"
+        name: "fail2ban"
