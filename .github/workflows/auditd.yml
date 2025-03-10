@@ -11,6 +11,6 @@ on:
 
 jobs:
   call_reuseable_workflow:
-    uses: ./.github/workflows/reuseable-ansible-test-role.yml
+    uses: ./.github/workflows/reusable-ansible-test-role.yml
     with:
       role-name: 'auditd'
