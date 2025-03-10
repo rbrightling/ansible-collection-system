@@ -1,5 +1,5 @@
 ---
 # Tasks for CentOS
 
-- name: import the RedHat Tasks
+- name: Import the RedHat Tasks
   ansible.builtin.import_tasks: rhel.yml

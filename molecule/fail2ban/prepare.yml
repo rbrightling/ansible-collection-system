@@ -1,0 +1,24 @@
+---
+- name: Prepare the Molecule Test Resources
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: "Include rbrightling.system.ansible_node"
+      ansible.builtin.include_role:
+        name: "ansible_node"
+
+- name: Prepare the Molecule Test Resources
+  hosts: all
+  become_method: su
+  tasks:
+    - name: "Include rbrightling.system.sudo"
+      ansible.builtin.include_role:
+        name: "sudo"
+
+- name: Prepare the Molecule Test Resources
+  hosts: all
+  tasks:
+    - name: "Ensure apt cache updated"
+      ansible.builtin.apt:
+        update_cache: true
+      when: ansible_os_family == "Debian"

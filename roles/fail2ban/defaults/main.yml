@@ -37,9 +37,9 @@ fail2ban_db_purge_age: 7d
 fail2ban_ignore_self: true
 
 # Ignore a given ip address, CIDR or DNS from matching rules.
-fail2ban_ignore_ip: null #(string, list)
+fail2ban_ignore_ip: null # (string, list)
 
-# External command to test ip to ignore 
+# External command to test ip to ignore
 fail2ban_ignore_command: null
 
 # Time that a host is banned for

@@ -1,5 +1,5 @@
 ---
-#RedHat specific variables
+# RedHat specific variables
 
 fail2ban__packages:
   - fail2ban

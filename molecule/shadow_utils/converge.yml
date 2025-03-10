@@ -3,5 +3,5 @@
   hosts: all
   tasks:
     - name: "Include rbrightling.system.shadow_utils"
-      include_role:
+      ansible.builtin.include_role:
         name: "rbrightling.system.shadow_utils"

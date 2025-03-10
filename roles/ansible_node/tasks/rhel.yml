@@ -1,28 +1,28 @@
 ---
 # Tasks for RedHat Enterprise Linux
 
-- name: install python
-  ansible.builtin.raw: 'test -e /usr/bin/python3 && echo ok || dnf -y install {{ ansible_node_python_packages|join(" ") }}'
+- name: Install python
+  ansible.builtin.raw: 'test -e /usr/bin/python3 && echo ok || dnf -y install {{ ansible_node_python_packages | join(" ") }}'
   args:
     executable: /bin/bash
   register: raw_install_python
   changed_when: "'ok' not in raw_install_python.stdout"
 
-- name: set /usr/bin/python using alternatives is not found
+- name: Set /usr/bin/python using alternatives is not found
   ansible.builtin.raw: 'test -e /usr/bin/python && echo ok || alternatives --set python {{ ansible_node_python_path }}'
   args:
     executable: /bin/bash
   register: raw_alternatives_python
   changed_when: "'ok' not in raw_install_python.stdout"
 
-- name: check if selinux is installed
+- name: Check if selinux is installed
   ansible.builtin.command: command -v getenforce
   register: command_check_selinux
   failed_when: false
   changed_when: false
   check_mode: false
 
-- name: install python selinux module
+- name: Install python selinux module
   ansible.builtin.dnf:
     name: "{{ ansible_node_python_selinux_package }}"
     state: 'present'

@@ -118,7 +118,7 @@ sudo_syslog: null
 sudo_verifypw: null
 
 # Global Defaults (Lists, Boolean)
-sudo_env_keep: 
+sudo_env_keep:
   - SUDO_EDITOR
   - EDITOR
   - PS1
@@ -165,7 +165,7 @@ sudo_runas_defaults: {}
 sudo_host_defaults: {}
 sudo_cmnd_defaults: {}
 # Example:
-#   name: 
+#   name:
 #     option: value
 #
 # Example value types:
@@ -180,7 +180,7 @@ sudo_cmnd_defaults: {}
 # String:
 #     secure_path: "+=/usr/local/bin -=/usr/sbin:/sbin"
 # List
-#     secure_path: 
+#     secure_path:
 #       - +/usr/local/bin
 #       - -/usr/sbin
 #       - -/sbin

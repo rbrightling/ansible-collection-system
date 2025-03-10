@@ -1,7 +1,7 @@
 ---
 # tasks file for openssh_server redhat based distros
 
-- name: configure sshd service defaults
+- name: Configure sshd service defaults
   ansible.builtin.template:
     src: "{{ lookup('first_found', sysconfig_params) }}"
     dest: "{{ openssh_server__sshd_conf_path }}"
@@ -17,6 +17,6 @@
         - "{{ role_path }}/templates"
   become: true
   notify:
-    - "restart openssh_server service"
+    - "Restart openssh_server service"
   tags:
     - configure

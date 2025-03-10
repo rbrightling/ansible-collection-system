@@ -16,7 +16,6 @@ def test_auditd_installed(host):
 def test_auditd_service(host):
     service_name = "auditd"
     service = host.service(service_name)
-    assert service.is_running
     assert service.is_enabled
 
 

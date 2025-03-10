@@ -1,7 +1,7 @@
 ---
 # redhat specific tasks
 
-- name: make sysstat-collect timer override directory
+- name: Make sysstat-collect timer override directory
   ansible.builtin.file:
     path: /etc/systemd/system/sysstat-collect.timer.d
     state: directory
@@ -12,7 +12,7 @@
   tags:
     - setup
 
-- name: template systemd sysstat-collect timer override
+- name: Template systemd sysstat-collect timer override
   ansible.builtin.template:
     src: sysstat-collect.timer.override.conf.j2
     dest: /etc/systemd/system/sysstat-collect.timer.d/override.conf
@@ -22,9 +22,9 @@
   tags:
     - configure
   notify:
-    - restart sysstat-collect timer
+    - Restart sysstat-collect timer
 
-- name: start and enable sysstat timer services
+- name: Start and enable sysstat timer services
   ansible.builtin.systemd:
     name: "{{ item }}"
     state: started

@@ -1,7 +1,7 @@
 ---
 # tasks file for fail2ban
 
-- name: include distro variables
+- name: Include distro variables
   ansible.builtin.include_vars: "{{ lookup('first_found', params) }}"
   vars:
     params:
@@ -13,7 +13,7 @@
         - '{{ playbook_dir }}/vars'
         - '{{ role_path }}/vars'
 
-- name: install fail2ban packages
+- name: Install fail2ban packages
   ansible.builtin.package:
     name: "{{ fail2ban__packages }}"
     state: present
@@ -21,7 +21,7 @@
   tags:
     - install
 
-- name: configure fail2ban
+- name: Configure fail2ban
   ansible.builtin.template:
     dest: "/etc/fail2ban/fail2ban.local"
     src: fail2ban.local.j2
@@ -29,10 +29,10 @@
     group: root
     mode: "0644"
   notify:
-    - restart fail2ban service
+    - Restart fail2ban service
   become: true
 
-- name: configure jail defaults
+- name: Configure jail defaults
   ansible.builtin.template:
     dest: "/etc/fail2ban/jail.local"
     src: jail.local.j2
@@ -40,10 +40,10 @@
     group: root
     mode: "0644"
   notify:
-    - restart fail2ban service
+    - Restart fail2ban service
   become: true
 
-- name: configure jails
+- name: Configure jails
   ansible.builtin.template:
     dest: "{{ fail2ban__default_jail_path }}"
     src: "default-jail.conf.j2"
@@ -51,15 +51,15 @@
     group: root
     mode: "0640"
   notify:
-    - restart fail2ban service
+    - Restart fail2ban service
   become: true
 
-- name: check config
+- name: Check config
   ansible.builtin.command: "{{ fail2ban__server_bin }} --test"
   changed_when: false
   become: true
 
-- name: start and enable fail2ban service
+- name: Start and enable fail2ban service
   ansible.builtin.service:
     name: fail2ban
     enabled: true

@@ -16,7 +16,6 @@ Roles
 | [fail2ban](https://github.com/rbrightling/ansible-collection-system/tree/main/roles/fail2ban)             | ![rbrightling.system.fail2ban](https://github.com/rbrightling/ansible-collection-system/workflows/rbrightling.system.fail2ban/badge.svg?branch=main)             |
 | [hosts](https://github.com/rbrightling/ansible-collection-system/tree/main/roles/hosts)                   | ![rbrightling.system.hosts](https://github.com/rbrightling/ansible-collection-system/workflows/rbrightling.system.hosts/badge.svg?branch=main)                   |
 | [openssh_server](https://github.com/rbrightling/ansible-collection-system/tree/main/roles/openssh_server) | ![rbrightling.system.openssh_server](https://github.com/rbrightling/ansible-collection-system/workflows/rbrightling.system.openssh_server/badge.svg?branch=main) |
-| [rkhunter](https://github.com/rbrightling/ansible-collection-system/tree/main/roles/rkhunter)             | ![rbrightling.system.rkhunter](https://github.com/rbrightling/ansible-collection-system/workflows/rbrightling.system.rkhunter/badge.svg?branch=main)             |
 | [shadow_utils](https://github.com/rbrightling/ansible-collection-system/tree/main/roles/shadow_utils)     | ![rbrightling.system.shadow_utils](https://github.com/rbrightling/ansible-collection-system/workflows/rbrightling.system.shadow_utils/badge.svg?branch=main)     |
 | [sudo](https://github.com/rbrightling/ansible-collection-system/tree/main/roles/sudo)                     | ![rbrightling.system.sudo](https://github.com/rbrightling/ansible-collection-system/workflows/rbrightling.system.sudo/badge.svg?branch=main)                     |
 | [sysstat](https://github.com/rbrightling/ansible-collection-system/tree/main/roles/sysstat)               | ![rbrightling.system.sysstat](https://github.com/rbrightling/ansible-collection-system/workflows/rbrightling.system.sysstat/badge.svg?branch=main)               |
@@ -25,8 +24,7 @@ Requirements
 ------------
 
 Supported OS's:
-  - Debian 10
-  - RedHat 8
+  - Debian 12
 
 Usage
 -----

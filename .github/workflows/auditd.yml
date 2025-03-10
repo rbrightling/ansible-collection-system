@@ -1,20 +1,16 @@
 ---
 name: "rbrightling.system.auditd"
 
-on: 
+on:
   push:
     paths:
       - 'roles/auditd/**'
       - 'molecule/auditd/**'
       - '.github/workflows/auditd.yml'
+      - 'tox.ini'
 
 jobs:
-  lint:
-    name: lint
-    runs-on: ubuntu-latest
-    steps:
-     - uses: actions/checkout@v2
-     - name: Ansible Lint
-       uses: ansible/ansible-lint-action@master
-       with:
-         targets: "roles/auditd"
+  call_reuseable_workflow:
+    uses: ./.github/workflows/reusable-ansible-test-role.yml
+    with:
+      role-name: 'auditd'

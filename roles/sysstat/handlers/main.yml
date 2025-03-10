@@ -1,13 +1,13 @@
 ---
 # handlers file for sysstat
 
-- name: restart sysstat service
+- name: Restart sysstat service
   ansible.builtin.service:
     name: "{{ sysstat__service_name }}"
     state: restarted
   become: true
 
-- name: restart sysstat-collect timer
+- name: Restart sysstat-collect timer
   ansible.builtin.systemd:
     name: "{{ sysstat__collect_timer_name }}"
     daemon_reload: true

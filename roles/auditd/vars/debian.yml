@@ -1,5 +1,5 @@
 ---
-#Auditd variables for debian
+# Auditd variables for debian
 
 auditd__package: "auditd"
 
@@ -8,7 +8,7 @@ auditd__log_group: adm
 auditd__package_manager_execs:
   - /usr/bin/dpkg
   - /usr/bin/apt-add-repository
-  - /usr/bin/apt-get 
+  - /usr/bin/apt-get
   - /usr/bin/aptitude
   - /usr/bin/apt
   - /usr/bin/wajig

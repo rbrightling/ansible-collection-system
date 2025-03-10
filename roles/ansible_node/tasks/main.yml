@@ -1,7 +1,7 @@
 ---
 # tasks file for ansible_node
 
-- name: get distribution information
+- name: Get distribution information
   ansible.builtin.raw: >
     /bin/grep "^ID=" /etc/*release >/dev/null &&
     /bin/grep "^ID=" /etc/*release | cut -d "=" -f 2 | tr -d \" ||
@@ -10,9 +10,9 @@
     executable: /bin/bash
   register: raw_ansible_node_distribution
   changed_when: false
-  check_mode: no
+  check_mode: false
 
-- name: get distribution version
+- name: Get distribution version
   ansible.builtin.raw: >
     grep "^VERSION_ID=" /etc/*release >/dev/null &&
     grep "^VERSION_ID=" /etc/*release | cut -d "=" -f 2 | tr -d \" ||
@@ -21,14 +21,14 @@
     executable: /bin/bash
   register: raw_ansile_node_distribution_version
   changed_when: false
-  check_mode: no
+  check_mode: false
 
-- name: set ansible_node facts
+- name: Set ansible_node facts
   ansible.builtin.set_fact:
     ansible_node_distribution: "{{ raw_ansible_node_distribution.stdout | trim }}"
     ansible_node_distribution_version: "{{ raw_ansile_node_distribution_version.stdout | trim }}"
 
-- name: include distribution variables
+- name: Include distribution variables
   ansible.builtin.include_vars: "{{ lookup('first_found', params) }}"
   vars:
     params:
@@ -39,9 +39,9 @@
         - "{{ playbook_dir }}/vars"
         - "{{ role_path }}/vars"
 
-- name: include distribution tasks
+- name: Include distribution tasks
   ansible.builtin.include_tasks: "{{ task_file }}"
-  loop: "{{ query('first_found',params) }}"
+  loop: "{{ query('first_found', params) }}"
   loop_control:
     loop_var: "task_file"
   vars:
