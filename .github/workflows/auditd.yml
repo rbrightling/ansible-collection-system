@@ -10,12 +10,7 @@ on:
       - 'tox.ini'
 
 jobs:
-  lint:
-    name: lint
-    runs-on: ubuntu-latest
-    steps:
-     - uses: actions/checkout@v2
-     - name: Ansible Lint
-       uses: ansible/ansible-lint-action@master
-       with:
-         targets: "roles/auditd"
+  call_reuseable_workflow:
+    uses: ./.github/workflows/reuseable-ansible-test-role.yml
+    with:
+      role-name: 'auditd'
