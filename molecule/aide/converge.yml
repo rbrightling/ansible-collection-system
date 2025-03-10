@@ -2,10 +2,6 @@
 - name: Converge
   hosts: all
   tasks:
-    - name: "Update deb cache"
-      ansible.builtin.apt:
-        update_cache: true
-
     - name: "Include rbrightling.system.aide"
       ansible.builtin.include_role:
-        name: "rbrightling.system.aide"
+        name: "aide"

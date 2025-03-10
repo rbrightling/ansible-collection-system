@@ -2,11 +2,7 @@
 dependency:
   name: galaxy
 driver:
-  options:
-    managed: false
-    login_cmd_template: "podman exec -ti {instance} bash"
-    ansible_connection_options:
-      ansible_connection: podman
+  name: podman
 lint: |
     set -e
     yamllint .
@@ -14,16 +10,14 @@ lint: |
     flake8
 platforms:
   - name: instance
-    image: docker.io/geerlingguy/docker-${MOLECULE_DISTRO:-debian12}-ansible:latest
-    command: ""
+    image: ${MOLECULE_DISTRO:-debian:latest}
+    command: "/lib/systemd/systemd"
     systemd: true
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    capabilities:
-      - SYS_ADMIN
     privileged: ${MOLECULE_PRIVILEGED:-false}
-    pre_build_image: true
+    pre_build_image: ${MOLECULE_PRE_BUILD_IMAGE:-false}
 provisioner:
   name: ansible
+  env:
+    ANSIBLE_ROLES_PATH: ../../roles/
 verifier:
   name: testinfra

@@ -5,4 +5,4 @@
   tasks:
     - name: "Include rbrightling.system.ansible_node"
       ansible.builtin.include_role:
-        name: "rbrightling.system.ansible_node"
+        name: "ansible_node"

@@ -4,4 +4,4 @@
   tasks:
     - name: "Include rbrightling.system.ansible_account"
       ansible.builtin.include_role:
-        name: "rbrightling.system.ansible_account"
+        name: "ansible_account"
