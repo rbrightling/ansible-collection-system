@@ -1,0 +1,6 @@
+---
+# vars file for locale
+
+locale__package: "locales"
+
+locale__conf_path: "/etc/default/locale"

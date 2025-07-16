@@ -1,0 +1,22 @@
+---
+# tasks file for locale
+
+- name: Install locale
+  ansible.builtin.package:
+    name: "{{ locale__package }}"
+    state: present
+  become: true
+
+- name: Generate Locale
+  community.general.locale_gen:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ locale_enable_locale }}"
+  become: true
+
+- name: Template locale configuration
+  ansible.builtin.template:
+    src: "locale.conf.j2"
+    dest: "{{ locale__conf_path }}"
+    mode: "0644"
+  become: true
