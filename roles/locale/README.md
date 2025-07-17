@@ -6,7 +6,7 @@ Manage the system locale.
 Requirements
 ------------
 
-None
+- Debian OS
 
 Role Variables
 --------------
