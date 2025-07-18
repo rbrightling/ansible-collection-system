@@ -6,14 +6,14 @@
   args:
     executable: /bin/bash
   register: ansible_node_raw_install_python
-  changed_when: "'ok' not in ansible_now_raw_install_python.stdout"
+  changed_when: "'ok' not in ansible_node_raw_install_python.stdout"
 
 - name: Set /usr/bin/python using alternatives if not found
   ansible.builtin.raw: 'test -e /usr/bin/python && echo ok || update-alternatives --install /usr/bin/python python {{ ansible_node_python_path }} 1'
   args:
     executable: /bin/bash
   register: ansible_node_raw_alternatives_python
-  changed_when: "'ok' not in ansible_now_raw_alternatives_python.stdout"
+  changed_when: "'ok' not in ansible_node_raw_alternatives_python.stdout"
 
 - name: Install python apt module
   ansible.builtin.raw: >
@@ -21,4 +21,4 @@
   args:
     executable: /bin/bash
   register: ansible_node_raw_install_python_apt
-  changed_when: "'ok' not in ansible_now_raw_install_python_apt.stdout"
+  changed_when: "'ok' not in ansible_node_raw_install_python_apt.stdout"
