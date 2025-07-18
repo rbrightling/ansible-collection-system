@@ -1,0 +1,12 @@
+---
+# defaults file for locale
+
+# The locale LANG setting
+locale_lang: "en_GB.UTF-8"
+
+# The locale LANGUAGE setting
+locale_language: "en_GB:en"
+
+# List of locale to generate
+locale_enable_locale:
+  - "{{ locale_lang }}"

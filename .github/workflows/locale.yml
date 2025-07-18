@@ -1,0 +1,16 @@
+---
+name: "rbrightling.system.locale"
+
+on:
+  push:
+    paths:
+      - 'roles/locale/**'
+      - 'molecule/locale/**'
+      - '.github/workflows/locale.yml'
+      - 'tox.ini'
+
+jobs:
+  call_reusable_workflow:
+    uses: ./.github/workflows/reusable-ansible-test-role.yml
+    with:
+      role-name: 'locale'

@@ -1,0 +1,23 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: podman
+lint: |
+    set -e
+    yamllint .
+    ansible-lint .
+    flake8
+platforms:
+  - name: instance
+    image: ${MOLECULE_DISTRO:-debian:latest}
+    command: "/lib/systemd/systemd"
+    systemd: true
+    privileged: ${MOLECULE_PRIVILEGED:-false}
+    pre_build_image: ${MOLECULE_PRE_BUILD_IMAGE:-false}
+provisioner:
+  name: ansible
+  env:
+    ANSIBLE_ROLES_PATH: ../../roles/
+verifier:
+  name: testinfra
