@@ -57,8 +57,8 @@
 
 - name: Load auditd rules
   ansible.builtin.command: "{{ auditd__augenrules_bin }} --load"
-  register: reg_auditd_load_rules
-  changed_when: "'No change' not in reg_auditd_load_rules.stdout_lines[0]"
+  register: auditd_reg_auditd_load_rules
+  changed_when: "'No change' not in auditd_reg_auditd_load_rules.stdout_lines[0]"
   when: auditd_local_events | bool
   notify:
     - Restart auditd service
