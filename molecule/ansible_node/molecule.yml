@@ -11,13 +11,11 @@ driver:
 platforms:
   - name: instance
     image: "${MOLECULE_IMAGE:-debian:latest}"
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    privileged: true
+    privileged: false
     pre_build_image: true
 provisioner:
   name: ansible
+  env:
+    ANSIBLE_ROLES_PATH: ../../roles
 verifier:
   name: testinfra
-ansible:
-  sudo: false

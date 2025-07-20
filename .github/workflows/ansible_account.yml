@@ -1,0 +1,16 @@
+---
+name: "rbrightling.system.ansible_account"
+
+on:
+  push:
+    paths:
+      - 'roles/ansible_account/**'
+      - 'molecule/ansible_account/**'
+      - '.github/workflows/ansible_account.yml'
+      - 'tox.ini'
+
+jobs:
+  call_reusable_workflow:
+    uses: ./.github/workflows/reusable-ansible-test-role.yml
+    with:
+      role-name: 'ansible_account'

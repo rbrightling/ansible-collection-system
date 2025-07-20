@@ -2,7 +2,7 @@
 # defaults file for aide
 
 # Config options
-# options for storing the aide database. 
+# options for storing the aide database.
 aide_database: "file:/var/lib/aide/aide.db{{ '.gz' if aide_gzip_dbout else '' }}"
 aide_database_out: "file:/var/lib/aide/aide.db.new{{ '.gz' if aide_gzip_dbout else '' }}"
 aide_database_new: "{{ aide_database_out }}"
@@ -17,6 +17,8 @@ aide_gzip_dbout: true
 
 # The level of messages that is output. This value can be 0-255 inclusive.
 aide_verbose: 5
+aide_report_level: "changed_attributes"
+aide_log_level: "warning"
 
 # Whether to base16 encode the checksums in the report or not. Default uses base644.
 aide_report_base16: false
@@ -49,14 +51,14 @@ aide_acl_no_symlink_follow: null
 aide_warn_dead_symlinks: null
 
 # Special group definition that lists attributes whose addition is to be ignored in the final report.
-report_ignore_added_attrs: null
-report_ignore_remote_attrs: null
-report_ignore_changed_attrs: null
+aide_report_ignore_added_attrs: null
+aide_report_ignore_remote_attrs: null
+aide_report_ignore_changed_attrs: null
 
 # The value of config_version is printed in the report and also printed to the database.
 aide_config_version: null
 
-# Rules groups 
+# Rules groups
 aide_rule_groups: {}
 # Example:
 #   GROUP1: "option1+option2"

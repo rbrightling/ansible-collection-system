@@ -1,22 +1,22 @@
 ---
 # defaults file for openssh_server
 
-# General options 
+# General options
 # ---------------
 
 # Specifies which address family should be used.
-openssh_server_address_family: any 
+openssh_server_address_family: any
 
-# Specifies the port number to listens on. 
-openssh_server_port: 22 
+# Specifies the port number to listens on.
+openssh_server_port: 22
 
 # Specifies the local addresses to listen on.
-openssh_server_listen_address: 
+openssh_server_listen_address:
   - "0.0.0.0"
   - "::"
 
 # Specifies a file containing a private host key used by SSH.
-openssh_server_host_key: 
+openssh_server_host_key:
   - "{{ openssh_server__ed25519_host_key_path }}"
 # Available variables:
 #   - "{{ openssh_server__rsa_host_key_path }}"
@@ -52,7 +52,7 @@ openssh_server_hostbased_accepted_key_types: null
 # Specifies the host key algorithms that the server offers.
 openssh_server_host_key_algorithms: null
 
-# Specifies the available KEX (Key Exchange) algorithms. 
+# Specifies the available KEX (Key Exchange) algorithms.
 openssh_server_kex_algorithms: "{{ openssh_server__kex_algorithms }}"
 # Default:
 #   - diffie-hellman-group14-sha256
@@ -74,22 +74,22 @@ openssh_server_macs: "{{ openssh_server__macs }}"
 # Specifies the key types that will be accepted for public key authentication
 openssh_server_pubkey_accepted_key_types: null
 
-# Specifies the maximum amount of data that may be transmitted before the session key is renegotiated, optionally 
-# followed a maximum amount of time that may pass before the session key is renegotiated. 
+# Specifies the maximum amount of data that may be transmitted before the session key is renegotiated, optionally
+# followed a maximum amount of time that may pass before the session key is renegotiated.
 openssh_server_rekey_limit: "1G 1H"
 
 
-# Logging Options 
+# Logging Options
 # ---------------
 
-# Gives the facility code that is used when logging messages 
+# Gives the facility code that is used when logging messages
 openssh_server_syslog_facility: "AUTH"
 
 # Gives the verbosity level that is used when logging messages
 openssh_server_log_level: "VERBOSE"
 
 
-# Authentication Options 
+# Authentication Options
 # ----------------------
 
 # Specifies the authentication methods that must be successfully completed for a user to be granted access.
@@ -107,7 +107,7 @@ openssh_server_authorized_keys_command_user: nobody
 # Specifies the file that contains the public keys used for user authentication
 openssh_server_authorized_keys_file: .ssh/authorized_keys
 
-# Specifies a file that lists principal names that are accepted for certificate authentication. 
+# Specifies a file that lists principal names that are accepted for certificate authentication.
 openssh_server_authorized_principals_file: none
 
 # Specifies whether challenge-response authentication is allowed.
@@ -117,7 +117,7 @@ openssh_server_challenge_response_authentication: false
 # authentication is allowed (host-based authentication).
 openssh_server_hostbased_authentication: false
 
-# Specifies that .rhosts and .shosts files will not be used in HostbasedAuthentication. 
+# Specifies that .rhosts and .shosts files will not be used in HostbasedAuthentication.
 openssh_server_ignore_rhosts: true
 
 # Ignores the users known_hosts durring hostbased auth and only use the system known_hosts.
@@ -129,7 +129,7 @@ openssh_server_login_grace_time: "1m"
 # Specifies the maximum number of authentication attempts permitted per connection
 openssh_server_max_auth_tries: 3
 
-#Specifies the maximum number of open shell, login or subsystem sessions per network connection.
+# Specifies the maximum number of open shell, login or subsystem sessions per network connection.
 openssh_server_max_sessions: 2
 
 # Specifies whether password authentication is allowed.
@@ -147,7 +147,7 @@ openssh_server_pubkey_authentication: true
 # Specifies revoked public keys file.
 openssh_server_revoked_keys: /etc/ssh/revoked_keys
 
-# Specifies whether to check file modes and ownership of the user's files and home directory before accepting login. 
+# Specifies whether to check file modes and ownership of the user's files and home directory before accepting login.
 openssh_server_strict_modes: true
 
 # Enables the Pluggable Authentication Module interface
@@ -167,7 +167,7 @@ openssh_server_deny_users: null
 openssh_server_deny_groups: null
 
 
-# Kerberos options 
+# Kerberos options
 # ----------------
 
 # Specifies whether the PasswordAuthentication will be validated through the Kerberos KDC.
@@ -176,7 +176,7 @@ openssh_server_kerberos_authentication: false
 # If kerberos password authentication fails then the password will be validated via any additional local methods.
 openssh_server_kerberos_or_local_passwd: true
 
-# Specifies whether to automatically destroy the user's ticket cache file on logout. 
+# Specifies whether to automatically destroy the user's ticket cache file on logout.
 openssh_server_kerberos_ticket_cleanup: true
 
 # If AFS is active, attempt to acquire an AFS token before accessing the user's home directory.
@@ -186,10 +186,10 @@ openssh_server_kerberos_get_afs_token: false
 # GSSAPI Options
 # --------------
 
-# Specifies whether user authentication based on GSSAPI is allowed. 
+# Specifies whether user authentication based on GSSAPI is allowed.
 openssh_server_gssapi_authentication: false
 
-# Specifies whether to automatically destroy the user's credentials cache on logout. 
+# Specifies whether to automatically destroy the user's credentials cache on logout.
 openssh_server_gssapi_cleanup_credentials: true
 
 # Determines whether to be strict about the identity of the GSSAPI acceptor a client authenticates against.
@@ -199,13 +199,13 @@ openssh_server_gssapi_strict_acceptor_check: true
 openssh_server_gssapi_key_exchange: false
 
 
-# Forwarding Options 
+# Forwarding Options
 # ------------------
 
-# Specifies whether ssh-agent forwarding is permitted. 
+# Specifies whether ssh-agent forwarding is permitted.
 openssh_server_allow_agent_forwarding: false
 
-# Specifies whether TCP forwarding is permitted. 
+# Specifies whether TCP forwarding is permitted.
 openssh_server_allow_tcp_forwarding: false
 
 # pecifies whether remote hosts are allowed to connect to ports forwarded for the client.
@@ -217,19 +217,19 @@ openssh_server_x11_forwarding: false
 # Specifies the first display number available X11 forwarding.
 openssh_server_x11_display_offset: 10
 
-# Specifies whether to bind the X11 forwarding server to the loopback address or to the wildcard address. 
+# Specifies whether to bind the X11 forwarding server to the loopback address or to the wildcard address.
 openssh_server_x11_use_localhost: true
 
-# Specifies whether tun device forwarding is allowed. 
+# Specifies whether tun device forwarding is allowed.
 openssh_server_permit_tunnel: false
 
 
 # Other Options
 # -------------
 
-# Specifies what environment variables sent by the client will be copied into the session's environ. 
-openssh_server_accept_env: 
-  - LANG 
+# Specifies what environment variables sent by the client will be copied into the session's environ.
+openssh_server_accept_env:
+  - LANG
   - LC_*
 
 # The contents of the specified file are sent to the remote user before authentication is allowed.
@@ -241,10 +241,10 @@ openssh_server_chroot_directory: none
 # Sets a timeout interval in seconds to disconnect the client if no data has been received.
 openssh_server_client_alive_interval: 0
 
-# If reached while client alive messages are being sent, disconnect the client and terminating the session. 
+# If reached while client alive messages are being sent, disconnect the client and terminating the session.
 openssh_server_client_alive_count_max: 2
 
-# Specifies whether compression is enabled after the user has authenticated successfully. 
+# Specifies whether compression is enabled after the user has authenticated successfully.
 openssh_server_compression: false
 
 # Specifies the maximum number of concurrent unauthenticated connections to the SSH daemon.
@@ -256,16 +256,16 @@ openssh_server_pid_file: /var/run/sshd.pid
 # Specifies whether pty allocation is permitted.
 openssh_server_permit_tty: true
 
-# Specifies whether ~/.ssh/environment and environment= options in ~/.ssh/authorized_keys are processed. 
+# Specifies whether ~/.ssh/environment and environment= options in ~/.ssh/authorized_keys are processed.
 openssh_server_permit_user_environment: false
 
 # Specifies whether to print /etc/motd when a user logs in interactively.
 openssh_server_print_motd: false
 
-# Specifies whether to print the date and time of the user login. 
+# Specifies whether to print the date and time of the user login.
 openssh_server_print_last_log: true
 
-# Configures an external subsystem. 
+# Configures an external subsystem.
 openssh_server_subsystem: "sftp {{ openssh_server__sftp_path }}"
 
 # Specifies whether the system should send TCP keepalive messages to the other side.
@@ -274,7 +274,7 @@ openssh_server_tcp_keep_alive: false
 # Specifies whether to look up the remote host name with DNS.
 openssh_server_use_dns: false
 
-# Specifies additional text to append to the SSH protocol banner. 
+# Specifies additional text to append to the SSH protocol banner.
 openssh_server_version_addendum: null
 
 
@@ -287,7 +287,7 @@ openssh_server_match: {}
 #   address: 192.168.0.100
 #   options:
 #     PasswordAuthentication: true
-# - group: !devs 
+# - group: !devs
 #   options:
 #     ForceCommand: /bin/echo "Disconnected"
 
@@ -317,7 +317,7 @@ openssh_server_issue: |
 # System wide revolked key list.
 # Set to null to unmanage file if generated seperately.
 openssh_server_revoked_key_list: []
-# Example: 
+# Example:
 #  - "ssh-rsa AAAAABBBBBCCCCCCC111111122222222333333 example-key1"
 #  - "ssh-rsa DDDDDEEEEEFFFFFFF444444455555555666666 example-key2"
 

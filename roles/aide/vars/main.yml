@@ -92,7 +92,7 @@ aide__default_rules:
   /etc/yum: CONTENT_EX
   /etc/yum.repos.d: CONTENT_EX
   /etc/apt: CONTENT_EX
-  #Ignores
+  # Ignores
   /var/log/sa: false
   /var/log/aide.log: false
   # Audit
@@ -128,7 +128,7 @@ aide__default_rules:
   "/etc/ld.so.conf$": CONTENT_EX
   "/etc/ld.so.conf.d": CONTENT_EX
   "/etc/ld.so.preload$": CONTENT_EX
-  #Kernel config
+  # Kernel config
   "/etc/sysctl.conf$": CONTENT_EX
   "/etc/sysctl.d": CONTENT_EX
   "/etc/modprobe.d": CONTENT_EX
@@ -191,7 +191,7 @@ aide__default_rules:
   /etc/mtab$: false
   /etc/.*~: false
   # Now everything else
-  /etc:    PERMS
+  /etc: PERMS
   /var/log/httpd: false
   # Admins dot files constantly change, just check perms
   "/root/.xauth*": false

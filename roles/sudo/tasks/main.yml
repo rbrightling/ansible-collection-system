@@ -14,7 +14,7 @@
         - '{{ role_path }}/vars'
 
 
-- name: install sudo packages
+- name: Install sudo packages
   ansible.builtin.package:
     name: "{{ sudo__packages }}"
     state: present
@@ -22,7 +22,7 @@
   tags:
     - install
 
-- name: create sudoers config directory
+- name: Create sudoers config directory
   ansible.builtin.file:
     path: "{{ sudo__sudoers_directory }}"
     state: directory
@@ -33,7 +33,7 @@
   tags:
     - setup
 
-- name: template sudoers configuration
+- name: Template sudoers configuration
   ansible.builtin.template:
     dest: '{{ sudo__sudoers_conf_path }}'
     src: 'sudoers.j2'

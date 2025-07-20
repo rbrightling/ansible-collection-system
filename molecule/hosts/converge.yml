@@ -4,7 +4,7 @@
   hosts: all
   tasks:
     - name: "Include rbrightling.system.hosts"
-      include_role:
+      ansible.builtin.include_role:
         name: "rbrightling.system.hosts"
       vars:
         hosts__file_path: "/etc/hosts.example"

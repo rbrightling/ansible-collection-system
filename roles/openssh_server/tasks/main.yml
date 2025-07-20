@@ -1,7 +1,7 @@
 ---
 # tasks file for openssh_server
 
-- name: include distro variables
+- name: Include distro variables
   ansible.builtin.include_vars: "{{ lookup('first_found', params) }}"
   vars:
     params:
@@ -14,7 +14,7 @@
         - '{{ playbook_dir }}/vars'
         - '{{ role_path }}/vars'
 
-- name: install openssh server package
+- name: Install openssh server package
   ansible.builtin.package:
     name: "{{ openssh_server__packages }}"
     state: present
@@ -22,20 +22,20 @@
   tags:
     - install
 
-- name: get openssh server version
+- name: Get openssh server version
   ansible.builtin.command: "{{ openssh_server__sshd_path }} -v"
   register: openssh_server_reg_version
   changed_when: false
   failed_when: false
-  check_mode: no
+  check_mode: false
 
-- name: parse openssh server version
+- name: Parse openssh server version
   ansible.builtin.set_fact:
-    openssh_server_major_version: "{{ openssh_server_reg_version.stderr | regex_replace(
-      '^(.|\\r|\\n)*OpenSSH_(?P<major_version>\\d*).[0-9](.|\\r|\\n)*$', '\\g<major_version>') }}"
+    openssh_server_major_version: >
+      "{{ openssh_server_reg_version.stderr | regex_replace('^(.|\\r|\\n)*OpenSSH_(?P<major_version>\\d*).[0-9](.|\\r|\\n)*$', '\\g<major_version>') }}"
     openssh_server_minor_version: "{{ openssh_server_reg_version.stderr | regex_search('.*OpenSSH_[0-9]*.(0-9)', '\\1') }}"
 
-- name: include openssh server release variables
+- name: Include openssh server release variables
   ansible.builtin.include_vars: "{{ lookup('first_found', params) }}"
   vars:
     params:
@@ -47,12 +47,12 @@
         - '{{ role_path }}/vars'
         - '{{ playbook_dir }}/vars'
 
-- name: get host rsa host key
+- name: Get host rsa host key
   ansible.builtin.command: "{{ openssh_server__ssh_keygen_bin }} -lf {{ openssh_server__rsa_host_key_path }}"
   register: openssh_server_reg_rsa_host_key_print
   changed_when: false
   failed_when: false
-  check_mode: no
+  check_mode: false
   when: openssh_server__rsa_host_key_path in openssh_server_host_key
 
 - name: Remove RSA hostkey for bit mismatch
@@ -64,8 +64,8 @@
     openssh_server_reg_rsa_host_key_print.stdout.split(maxsplit=1)[0]|int != openssh_server_rsa_host_key_bit|int
   become: true
 
-- name: generate hostkeys
-  ansible.builtin.command:  "{{ openssh_server__ssh_keygen_bin }} {{ item.command }}"
+- name: Generate hostkeys
+  ansible.builtin.command: "{{ openssh_server__ssh_keygen_bin }} {{ item.command }}"
   args:
     creates: "{{ item.path }}"
   with_items:
@@ -82,7 +82,7 @@
   tags:
     - setup
 
-- name: configure revoked key list
+- name: Configure revoked key list
   ansible.builtin.template:
     src: revoked_keys.j2
     dest: "{{ openssh_server_revoked_keys }}"
@@ -94,7 +94,7 @@
   tags:
     - setup
 
-- name: configure openssh-server banner
+- name: Configure openssh-server banner
   ansible.builtin.template:
     src: issue.net.j2
     dest: "{{ openssh_server_banner }}"
@@ -106,7 +106,7 @@
   tags:
     - configure
 
-- name: include distro specific tasks
+- name: Include distro specific tasks
   ansible.builtin.include_tasks: "{{ dist_tasks_file }}"
   loop: "{{ query('first_found', params, errors='ignore') }}"
   loop_control:
@@ -116,7 +116,7 @@
       files:
         - "{{ ansible_os_family | lower }}.yml"
 
-- name: configure openssh server
+- name: Configure openssh server
   ansible.builtin.template:
     src: sshd_config.j2
     dest: "{{ openssh_server__conf_path }}"
@@ -126,11 +126,11 @@
     validate: "{{ openssh_server__sshd_path }} -t -f %s"
   become: true
   notify:
-    - "restart openssh_server service"
+    - "Restart openssh_server service"
   tags:
     - configure
 
-- name: start and enable openssh server
+- name: Start and enable openssh server
   ansible.builtin.service:
     name: "{{ openssh_server__service_name }}"
     state: started

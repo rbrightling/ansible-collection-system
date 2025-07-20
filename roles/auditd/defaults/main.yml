@@ -3,10 +3,10 @@
 
 # Collect local events
 # Auditd doesn't collect events when running in a container and can only be used to aggregate logs from other systems.
-auditd_local_events: "{{ false if ansible_virtualization_role | default(null) == 'guest' and ansible_virtualization_type in ('docker','podman') else true}}"
+auditd_local_events: "{{ false if ansible_virtualization_role | default(null) == 'guest' and ansible_virtualization_type in ('docker', 'podman') else true }}"
 
 # Write log file options
-auditd_write_logs: true 
+auditd_write_logs: true
 auditd_log_file: "/var/log/audit/audit.log"
 auditd_log_group: "{{ auditd__log_group }}"
 # Debian: adm
@@ -19,34 +19,34 @@ auditd_log_format: "ENRICHED"
 auditd_flush: "INCREMENTAL_ASYNC"
 
 # How many records to write before forced disk flush; when using incremental flush
-auditd_freq: 50 
+auditd_freq: 50
 
-# Keep 7 128MB for a total of 896 maximum. 
-auditd_max_log_file:  128
-auditd_num_logs: 7 
+# Keep 7 128MB for a total of 896 maximum.
+auditd_max_log_file: 128
+auditd_num_logs: 7
 
 # Boost the auditd nice value
-auditd_priority_boost: 4 
+auditd_priority_boost: 4
 
 # Method of communication between audit daemon and dispatcher
-auditd_disp_qos: lossy 
+auditd_disp_qos: lossy
 # lossy: non-blocking
 # lossess: blocking
 
-# The dispatcher is a program that is started by the audit daemon at starts up. 
+# The dispatcher is a program that is started by the audit daemon at starts up.
 # It will pass a copy of all audit events to that application's stdin.
-auditd_dispatcher: /sbin/audispd 
+auditd_dispatcher: /sbin/audispd
 
 # Controls how computer node names are inserted into the audit event stream.
 # Choices: none, hostname, fqdn, numeric, and user.
-auditd_name_format: NONE 
+auditd_name_format: NONE
 
 # Identifies the machine if user is given as the name_format option
-auditd_name: null 
+auditd_name: null
 # Example: mydomain
 
 # Action to take when the system has detected that the max file size limit has been reached.
-auditd_max_log_file_action: ROTATE 
+auditd_max_log_file_action: ROTATE
 # ignore
 # syslog
 # suspend
@@ -54,9 +54,9 @@ auditd_max_log_file_action: ROTATE
 # keep_logs
 
 # Perform action when under given value in MB
-auditd_space_left: 75 
+auditd_space_left: 75
 # Action to perform when low disk space
-auditd_space_left_action: SYSLOG 
+auditd_space_left_action: SYSLOG
 # ignore
 # syslog
 # email
@@ -66,51 +66,51 @@ auditd_space_left_action: SYSLOG
 # halt
 
 # Check action_mail_acct to see if domain name can be resolved.
-auditd_verify_email: true 
+auditd_verify_email: true
 
 # Valid email address, sendmail setup required if not local address.
-auditd_action_mail_acct: root 
+auditd_action_mail_acct: root
 
 # Perform last chance action when breach given value in MB
-auditd_admin_space_left: 50 
+auditd_admin_space_left: 50
 # Action to perform when admin_space_left is breached
-auditd_admin_space_left_action: SUSPEND 
+auditd_admin_space_left_action: SUSPEND
 
 # Action to take when disk is full.
-auditd_disk_full_action: SUSPEND 
+auditd_disk_full_action: SUSPEND
 
 # Action to take when error detected when writing audit events to disk or rotating logs.
-auditd_disk_error_action: SUSPEND 
+auditd_disk_error_action: SUSPEND
 
 # Use tcp_wrappers to discern connection attempts that are from allowed machines.
-auditd_use_libwrap: true 
+auditd_use_libwrap: true
 
-# If given, listen on port for records from remote systems. 
-auditd_tcp_listen_port: null #60 
+# If given, listen on port for records from remote systems.
+auditd_tcp_listen_port: null # 60
 
 # how many pending (requested but unaccepted) connections are allowed.
-auditd_tcp_listen_queue: 5 
+auditd_tcp_listen_queue: 5
 
 # How many concurrent connections from one IP address is allowed.
-auditd_tcp_max_per_addr: 1 
+auditd_tcp_max_per_addr: 1
 
 # Which client ports are allowed for incoming connections. If not specified, any port is allowed.
-# Making sure that clients send from a privileged port (1-1023) is a security feature to prevent log injection 
+# Making sure that clients send from a privileged port (1-1023) is a security feature to prevent log injection
 # attacks by untrusted users.
 auditd_tcp_client_ports: 1-1023
 
 # Close inactive connections if client cannot shutdown the connection cleanly. 0 to disable check.
-auditd_tcp_client_max_idle: 0 
+auditd_tcp_client_max_idle: 0
 
 # Use kerberos 5 for authentication and encryption
-auditd_enable_krb5: false 
+auditd_enable_krb5: false
 #  principal for this server.
-auditd_krb5_principal: auditd 
+auditd_krb5_principal: auditd
 # Location of the key for this client's principal
-auditd_krb5_key_file: null #etc/audit/audit.key 
+auditd_krb5_key_file: null # etc/audit/audit.key
 
 # Network originating events will be distributed to the audit dispatcher for processing.
-auditd_distribute_network: false 
+auditd_distribute_network: false
 
 # How big to make the internal queue of the audit event dispatcher
 auditd_q_dpeth: 400
@@ -144,7 +144,7 @@ auditd_failure_mode: 1
 #  1=printk
 #  2=panic
 
-# Ignore errors when reading rules from a file. This causes auditctl to always return a success exit code. 
+# Ignore errors when reading rules from a file. This causes auditctl to always return a success exit code.
 auditd_ignore_errors: false
 
 # Make the rules immutable
@@ -210,7 +210,7 @@ auditd_failed_modification: true
 # Log network connections
 auditd_network_connect: true
 
-# Audit package manage 
+# Audit package manage
 auditd_package_manager_execs: "{{ auditd__package_manager_execs }}"
 # Debian:
 #   - /usr/bin/dpkg

@@ -1,12 +1,12 @@
 ---
 
 # useradd config options
-# #######################
+# ######################
 
 # Default user created shel with useradd
 shadow_utils_shell: "{{ shadow_utils__shell }}"
 
-# The GID of the user (100=users), used if no other groups are specified. 
+# The GID of the user (100=users), used if no other groups are specified.
 shadow_utils_group: 100
 
 # Number of days after password expires until the accout is permanently disable. -1 to disable.
@@ -33,13 +33,13 @@ shadow_utils_mail_dir: "{{ shadow_utils__mail_dir }}"
 # Defines the location of the users mail spool files relatively to their home directory
 shadow_utils_mail_file: null
 
-# Enable logging and display of /var/log/faillog login failure info.         
+# Enable logging and display of /var/log/faillog login failure info.
 # This option conflicts with the pam_tally PAM module.
 shadow_utils_faillog_enab: true
 
 # Enable display of unknown usernames when login failures are recorded.
 shadow_utils_log_unkfail_enab: true
- 
+
 # Enable logging of successful logins.
 shadow_utils_log_ok_logins: false
 
@@ -48,7 +48,7 @@ shadow_utils_syslog_su_enab: true
 
 # Enable "syslog" logging of sg activity.
 shadow_utils_syslog_sg_enab: true
- 
+
 # If defined, all su activity is logged to this file.
 shadow_utils_sulog_file: '/var/log/su.log'
 
@@ -65,7 +65,7 @@ shadow_utils_su_name: 'su'
 shadow_utils_hushlogin_file: '.hushlogin'
 
 # Sets the PATH varialbe of a superuser on login
-shadow_utils_env_supath: 
+shadow_utils_env_supath:
     - '/usr/local/sbin'
     - '/usr/local/bin'
     - '/usr/sbin'
@@ -74,7 +74,7 @@ shadow_utils_env_supath:
     - '/bin'
 
 # Sets the PATH variable of a regular user on login
-shadow_utils_env_path: 
+shadow_utils_env_path:
     - '/usr/local/bin'
     - '/usr/bin'
     - '/bin'
@@ -129,7 +129,7 @@ shadow_utils_login_retries: 5
 # Max time in seconds for login.
 shadow_utils_login_timeout: 60
 
-# Specify the gecos shields a users can change with chfn. 
+# Specify the gecos shields a users can change with chfn.
 # f - Full Name, r - Room Number, w - Work phone, h - Home phone
 shadow_utils_chfn_restrict: 'rwh'
 
@@ -142,7 +142,7 @@ shadow_utils_create_home: true
 # If defined, this command is run when removing a user
 shadow_utils_userdel_cmd: null
 
-# Create default group for new users with the same name, and remove user's group if empty when user is deleted. 
+# Create default group for new users with the same name, and remove user's group if empty when user is deleted.
 shadow_utils_usergroups_enab: true
 
 # Default encrpyition algorithm for encrypting passwords

@@ -1,7 +1,7 @@
 ---
 # tasks file for shadow
 # Load any distro speicic variables then
-# select the type of playbook for the state selected, run a distory speicifc 
+# select the type of playbook for the state selected, run a distory speicifc
 # playbook if available or use the generic default.
 
 - name: Include distribution specific variable.

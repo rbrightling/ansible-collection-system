@@ -1,7 +1,7 @@
 ---
 # tasks file for sysstat
 
-- name: include distro variables
+- name: Include distro variables
   ansible.builtin.include_vars: "{{ lookup('first_found', params) }}"
   vars:
     params:
@@ -14,7 +14,7 @@
   tags:
     - always
 
-- name: install sysstat packages
+- name: Install sysstat packages
   ansible.builtin.package:
     name: "{{ sysstat__packages }}"
     state: present
@@ -22,7 +22,7 @@
   tags:
     - install
 
-- name: template sysstat config
+- name: Template sysstat config
   ansible.builtin.template:
     src: sysstat.j2
     dest: "{{ sysstat__config_path }}"
@@ -33,7 +33,7 @@
   tags:
     - configure
 
-- name: start and enable sysstat service
+- name: Start and enable sysstat service
   ansible.builtin.service:
     name: "{{ sysstat__service_name }}"
     state: started
@@ -42,7 +42,7 @@
   tags:
     - service
 
-- name: include distro specific tasks
+- name: Include distro specific tasks
   ansible.builtin.include_tasks: "{{ dist_tasks_file }}"
   loop: "{{ query('first_found', params, errors='ignore') }}"
   loop_control:

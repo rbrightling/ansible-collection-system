@@ -1,7 +1,7 @@
 ---
 # Debian generic configuration.
 
-shadow_utils__packages: 
+shadow_utils__packages:
   - login
   - passwd
 
