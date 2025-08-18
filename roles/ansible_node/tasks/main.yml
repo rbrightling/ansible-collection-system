@@ -49,3 +49,8 @@
       files:
         - "{{ ansible_node_distribution | lower }}_{{ ansible_node_distribution_version }}.yml"
         - "{{ ansible_node_distribution | lower }}.yml"
+
+- name: Install additional utility packages
+  ansible.builtin.package:
+    name: "{{ ansible_node__additional_packages }}"
+    state: "present"

@@ -4,3 +4,12 @@
 ansible_node__python_packages:
   - python3-minimal
   - python3-simplejson
+
+ansible_node__additional_packages:
+  - acl
+  - sudo
+  - python3-debian
+  - parted
+  - apt-transport-https
+  - ca-certificates
+  - gnupg
