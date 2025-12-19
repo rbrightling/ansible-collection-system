@@ -104,7 +104,7 @@
 {{ openssh_server_option_format("TCPKeepAlive", openssh_server_tcp_keep_alive) -}}
 {{ openssh_server_option_format("UseDNS", openssh_server_use_dns) -}} 
 {{ openssh_server_option_format("VersionAddendum", openssh_server_version_addendum) -}} 
-{%- if match is not none %}
+{%- if openssh_server_match is not none %}
 {{ "" }}
 # Match sepcific options
 {% for match in openssh_server_match %}
