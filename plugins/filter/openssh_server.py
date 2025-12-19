@@ -4,16 +4,14 @@ __metaclass__ = type
 
 def argument_filter(value, join=","):
     """Format a filter from ansible to sshd_config types"""
-
     if value is True:
         argument = "yes"
     elif value is False:
         argument = "no"
-    elif type(value) is list:
+    elif isinstance(value, list):
         argument = join.join(filter(None, value))
     else:
         argument = value
-
     return argument
 
 
