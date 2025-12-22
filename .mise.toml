@@ -2,6 +2,7 @@
 ansible = "latest"
 python = "latest"
 "pipx:molecule" = { version = "latest", pipx_args = "--preinstall molecule-plugins[podman]" }
+"pipx:ansible-lint" = "latest"
 
 [tasks.build]
 description = "Build Ansible Collection"

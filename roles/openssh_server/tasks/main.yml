@@ -31,7 +31,12 @@
 
 - name: Parse openssh server version
   ansible.builtin.set_fact:
-    openssh_server_major_version: "{{ openssh_server_reg_version.stderr | ansible.builtin.regex_search('OpenSSH_(?P<major_version>[0-9]+)', '\\g<major_version>') | first }}"
+    openssh_server_major_version: >-
+      {{
+        openssh_server_reg_version.stderr
+        | ansible.builtin.regex_search('OpenSSH_([0-9]+)', '\1', multiline=True)
+        | first
+      }}
 
 - name: Include openssh server release variables
   ansible.builtin.include_vars: "{{ lookup('ansible.builtin.first_found', params) }}"

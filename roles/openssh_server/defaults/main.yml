@@ -248,7 +248,7 @@ openssh_server_banner: /etc/issue.net
 openssh_server_chroot_directory: none
 
 # Sets a timeout interval in seconds to disconnect the client if no data has been received.
-openssh_server_client_alive_interval: 20 
+openssh_server_client_alive_interval: 20
 
 # If reached while client alive messages are being sent, disconnect the client and terminating the session.
 openssh_server_client_alive_count_max: 3
