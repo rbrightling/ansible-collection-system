@@ -2,7 +2,7 @@
 # tasks file for openssh_server
 
 - name: Include distro variables
-  ansible.builtin.include_vars: "{{ lookup('first_found', params) }}"
+  ansible.builtin.include_vars: "{{ lookup('ansible.builtin.first_found', params) }}"
   vars:
     params:
       files:
@@ -23,7 +23,7 @@
     - install
 
 - name: Get openssh server version
-  ansible.builtin.command: "{{ openssh_server__sshd_path }} -v"
+  ansible.builtin.command: "{{ openssh_server__sshd_path }} -V"
   register: openssh_server_reg_version
   changed_when: false
   failed_when: false
@@ -31,21 +31,23 @@
 
 - name: Parse openssh server version
   ansible.builtin.set_fact:
-    openssh_server_major_version: >
-      "{{ openssh_server_reg_version.stderr | regex_replace('^(.|\\r|\\n)*OpenSSH_(?P<major_version>\\d*).[0-9](.|\\r|\\n)*$', '\\g<major_version>') }}"
-    openssh_server_minor_version: "{{ openssh_server_reg_version.stderr | regex_search('.*OpenSSH_[0-9]*.(0-9)', '\\1') }}"
+    openssh_server_major_version: >-
+      {{
+        openssh_server_reg_version.stderr
+        | ansible.builtin.regex_search('OpenSSH_([0-9]+)', '\1', multiline=True)
+        | first
+      }}
 
 - name: Include openssh server release variables
-  ansible.builtin.include_vars: "{{ lookup('first_found', params) }}"
+  ansible.builtin.include_vars: "{{ lookup('ansible.builtin.first_found', params) }}"
   vars:
     params:
       files:
-        - "sshd_{{ openssh_server_major_version }}_{{ openssh_server_minor_version }}.yml"
         - "sshd_{{ openssh_server_major_version }}.yml"
         - sshd_default.yml
       paths:
-        - '{{ role_path }}/vars'
         - '{{ playbook_dir }}/vars'
+        - '{{ role_path }}/vars'
 
 - name: Get host rsa host key
   ansible.builtin.command: "{{ openssh_server__ssh_keygen_bin }} -lf {{ openssh_server__rsa_host_key_path }}"
@@ -108,7 +110,7 @@
 
 - name: Include distro specific tasks
   ansible.builtin.include_tasks: "{{ dist_tasks_file }}"
-  loop: "{{ query('first_found', params, errors='ignore') }}"
+  loop: "{{ query('ansible.builtin.first_found', params, errors='ignore') }}"
   loop_control:
     loop_var: "dist_tasks_file"
   vars:
