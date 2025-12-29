@@ -7,7 +7,7 @@ sudo_env_editor: true
 sudo_env_reset: true
 sudo_mail_badpass: true
 sudo_match_group_by_gid: true
-sudo_requiretty: false
+sudo_requiretty: true
 sudo_visiblepw: false
 
 sudo_query_group_plugin: null
@@ -17,7 +17,7 @@ sudo_compress_io: null
 sudo_exec_background: null
 sudo_fast_glob: null
 sudo_fqdn: null
-sudo_ignore_dot: null
+sudo_ignore_dot: true
 sudo_ignore_local_sudoers: null
 sudo_insults: null
 sudo_log_input: null
@@ -46,14 +46,14 @@ sudo_set_utmp: null
 sudo_setenv: null
 sudo_shell_noargs: null
 sudo_stay_setuid: null
-sudo_sudoedit_checkdir: null
-sudo_sudoedit_follow: null
+sudo_sudoedit_checkdir: true
+sudo_sudoedit_follow: false
 sudo_targetpw: null
 sudo_tty_tickets: null
 sudo_umask_override: null
 sudo_use_loginclass: null
 sudo_use_netgroups: null
-sudo_use_pty: null
+sudo_use_pty: true
 sudo_utmp_runas: null
 
 # Global Defaults (Integer)
@@ -63,7 +63,7 @@ sudo_passwd_tries: null
 
 # Global Defaults (Interger, Boolean)
 sudo_loginelen: null
-sudo_passwd_timeout: null
+sudo_passwd_timeout: 1
 sudo_timestamp_timeout: 5
 sudo_umask: null
 
@@ -115,7 +115,7 @@ sudo_mailerpath: null
 sudo_mailerfrom: null
 sudo_mailto: null
 sudo_syslog: null
-sudo_verifypw: null
+sudo_verifypw: "all"
 
 # Global Defaults (Lists, Boolean)
 sudo_env_keep:
