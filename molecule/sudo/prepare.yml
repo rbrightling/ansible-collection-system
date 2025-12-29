@@ -10,6 +10,8 @@
 - name: Prepare the Molecule Test Resources
   hosts: all
   become_method: su
+  vars:
+    sudo_requiretty: false
   tasks:
     - name: "Include rbrightling.system.sudo"
       ansible.builtin.include_role:
