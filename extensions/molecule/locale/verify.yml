@@ -1,0 +1,19 @@
+---
+- name: Verify Locale
+  hosts: molecule
+  become: true
+  gather_facts: true
+  vars:
+    locale_package_name: locales
+
+  tasks:
+    - name: Collect installed package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Assert that Locale is installed
+      ansible.builtin.assert:
+        that:
+          - locale_package_name in ansible_facts.packages
+        fail_msg: >-
+          Expected {{ locale_package_name }} to be installed

@@ -1,0 +1,19 @@
+---
+- name: Verify Ansible Node
+  hosts: molecule
+  become: true
+  gather_facts: true
+  vars:
+    python_package_name: python3-minimal
+
+  tasks:
+    - name: Collect installed package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Assert that Python is installed
+      ansible.builtin.assert:
+        that:
+          - python_package_name in ansible_facts.packages
+        fail_msg: >-
+          Expected {{ python_package_name }} to be installed

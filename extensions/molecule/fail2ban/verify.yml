@@ -1,0 +1,39 @@
+---
+- name: Verify Fail2ban server
+  hosts: molecule
+  become: true
+  gather_facts: true
+  vars:
+    fail2ban_package_name: fail2ban
+    fail2ban_service_name: fail2ban
+
+  tasks:
+    - name: Collect installed package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Collect service facts
+      ansible.builtin.service_facts:
+
+    - name: Assert that Fail2ban server is installed and enabled
+      ansible.builtin.assert:
+        that:
+          - fail2ban_package_name in ansible_facts.packages
+          - fail2ban_service_name in ansible_facts.services
+          - ansible_facts.services[fail2ban_service_name].state == 'running'
+        fail_msg: >-
+          Expected {{ fail2ban_package_name }} to be installed and
+          {{ fail2ban_service_name }} to be running.
+
+    - name: Check Fail2ban jail status
+      ansible.builtin.command: /usr/bin/fail2ban-client status
+      register: fail2ban_status
+      changed_when: false
+
+    - name: Assert that the sshd Fail2ban jail is enabled
+      ansible.builtin.assert:
+        that:
+          - fail2ban_status.rc == 0
+          - fail2ban_status.stdout is regex('Jail list:.*\\bsshd\\b')
+        fail_msg: >-
+          fail2ban-client status did not report an enabled sshd jail.

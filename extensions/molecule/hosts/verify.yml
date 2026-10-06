@@ -1,0 +1,23 @@
+---
+- name: Verify Hosts
+  hosts: molecule
+  become: true
+  gather_facts: true
+  vars:
+    hosts_path: /etc/hosts.example
+
+  tasks:
+    - name: Collect hosts metadata
+      ansible.builtin.stat:
+        path: "{{ hosts_path }}"
+      register: hosts_file
+
+    - name: Assert that hosts file is correct
+      ansible.builtin.assert:
+        that:
+          - hosts_file.stat.exists
+          - hosts_file.stat.mode == '0644'
+          - hosts_file.stat.pw_name == 'root'
+          - hosts_file.stat.gr_name == 'root'
+        fail_msg: >-
+          Hosts not configured as expected

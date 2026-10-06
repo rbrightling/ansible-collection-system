@@ -1,0 +1,30 @@
+---
+- name: Converge
+  hosts: all
+  become: true
+  tasks:
+    - name: Stub auditd because it cannot run in a container
+      ansible.builtin.copy:
+        dest: /etc/systemd/system/auditd.service
+        owner: root
+        group: root
+        mode: '0644'
+        content: |
+          [Unit]
+          Description=Molecule stub for auditd
+
+          [Service]
+          Type=oneshot
+          ExecStart=/usr/bin/true
+          RemainAfterExit=yes
+
+          [Install]
+          WantedBy=multi-user.target
+
+    - name: Reload systemd unit definitions
+      ansible.builtin.systemd_service:
+        daemon_reload: true
+
+    - name: "Include auditd"
+      ansible.builtin.include_role:
+        name: "auditd"

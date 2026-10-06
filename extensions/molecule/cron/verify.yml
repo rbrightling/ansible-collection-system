@@ -1,0 +1,25 @@
+---
+- name: Verify Cron
+  hosts: molecule
+  become: true
+  gather_facts: true
+  vars:
+    cron_package_name: cron
+    cron_service_name: cron
+
+  tasks:
+    - name: Collect installed package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Collect service facts
+      ansible.builtin.service_facts:
+
+    - name: Assert that cron is installed and enabled
+      ansible.builtin.assert:
+        that:
+          - cron_package_name in ansible_facts.packages
+          - cron_service_name in ansible_facts.services
+        fail_msg: >-
+          Expected {{ cron_package_name }} to be installed and
+          {{ cron_service_name }} to be running.
