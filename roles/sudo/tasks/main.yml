@@ -33,6 +33,17 @@
   tags:
     - setup
 
+- name: Set sudo file permissions
+  ansible.builtin.file:
+    path: "{{ sudo__sudo_bin_path }}"
+    state: file
+    mode: '4110'
+    owner: 'root'
+    group: "{{ sudo__sudo_group_name }}"
+  become: true
+  tags:
+    - setup
+
 - name: Template sudoers configuration
   ansible.builtin.template:
     dest: '{{ sudo__sudoers_conf_path }}'

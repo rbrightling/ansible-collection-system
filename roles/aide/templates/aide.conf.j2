@@ -52,14 +52,14 @@
 {%- endmacro -%}
 # AIDE conf
 
-{{ aide_option_format('database', aide_database) -}}
+{{ aide_option_format('database_in', aide_database_in) -}}
 {{ aide_option_format('database_out', aide_database_out) -}}
 {{ aide_option_format('database_new', aide_database_new) -}}
 {{ aide_option_format('gzip_dbout', aide_gzip_dbout) -}}
 # Set to no to disable summarize_changes option.
-{{ aide_option_format('summarize_changes', aide_summarize_changes) -}}
+{{ aide_option_format('report_summarize_changes', aide_report_summarize_changes) -}}
 # Set to no to disable grouping of files in report.
-{{ aide_option_format('grouped', aide_grouped) -}}
+{{ aide_option_format('report_grouped', aide_report_grouped) -}}
 # standard verbose level
 {{ aide_option_format('verbose', aide_verbose) -}}
 {{ aide_option_format('log_level', aide_log_level) -}}
