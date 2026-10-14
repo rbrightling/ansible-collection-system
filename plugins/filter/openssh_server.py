@@ -1,6 +1,9 @@
 """ OpenSSH Server Ansible Jinja Filters """
 __metaclass__ = type
 
+from ansible.utils.display import Display
+
+display = Display()
 
 def argument_filter(value, join=","):
     """Format a filter from ansible to sshd_config types"""

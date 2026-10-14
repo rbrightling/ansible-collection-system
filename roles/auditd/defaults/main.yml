@@ -3,7 +3,7 @@
 
 # Collect local events
 # Auditd doesn't collect events when running in a container and can only be used to aggregate logs from other systems.
-auditd_local_events: "{{ false if ansible_virtualization_role | default(null) == 'guest' and ansible_virtualization_type in ('docker', 'podman') else true }}"
+auditd_local_events: "{{ false if ansible_facts['virtualization_role'] | default(null) == 'guest' and ansible_facts['virtualization_type'] in ('docker', 'podman') else true }}"
 
 # Write log file options
 auditd_write_logs: true
@@ -178,7 +178,7 @@ auditd_filter_list: []
 auditd_user_uid: 1000
 
 # Log every 32bit syscall on 64bit by default
-auditd_32bit_api: "{{ true if ansible_architecture == 'x86_64' else false }}"
+auditd_32bit_api: "{{ true if ansible_facts['architecture'] == 'x86_64' else false }}"
 
 # Ignore SELinux AVC records
 auditd_filter_selinux_avc: true

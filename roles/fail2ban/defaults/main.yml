@@ -82,7 +82,7 @@ fail2ban_mode: null
 fail2ban_destemail: "root@localhost"
 
 # sender email address
-fail2ban_sender: "root@{{ ansible_fqdn }}"
+fail2ban_sender: "root@{{ ansible_facts['fqdn'] }}"
 
 # email mta
 fail2ban_mta: null

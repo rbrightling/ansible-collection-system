@@ -10,7 +10,7 @@ ff02::1  ip6-allnodes
 ff02::2  ip6-allrouters
 
 # hostname loopback
-{{ hosts_hostname_address }}  {{ ansible_hostname }} {{ ansible_fqdn if ansible_fqdn | default('') != ansible_hostname else '' }}
+{{ hosts_hostname_address }}  {{ ansible_facts['hostname'] }} {{ ansible_facts['fqdn'] if ansible_facts['fqdn'] | default('') != ansible_facts['hostname'] else '' }}
 
 {% for ip_address, hostnames in hosts_list.items() | list %}
 {% if hostnames is string -%}
