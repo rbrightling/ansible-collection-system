@@ -47,8 +47,8 @@
   vars:
     params:
       files:
-        - "{{ ansible_facts['node_distribution'] | lower }}_{{ ansible_facts['node_distribution_version'] }}.yml"
-        - "{{ ansible_facts['node_distribution'] | lower }}.yml"
+        - "{{ ansible_node_distribution | lower }}_{{ ansible_node_distribution_version }}.yml"
+        - "{{ ansible_node_distribution | lower }}.yml"
 
 - name: Install additional utility packages
   ansible.builtin.package:
