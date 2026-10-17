@@ -2,10 +2,18 @@
 name: "rbrightling.system.aide"
 
 on:
-  push:
+  pull_request:
     paths:
       - 'roles/aide/**'
-      - 'molecule/aide/**'
+      - 'extension/molecule/aide/**'
+      - '.github/workflows/aide.yml'
+      - 'tox.ini'
+  push:
+    branches:
+      - main
+    paths:
+      - 'roles/aide/**'
+      - 'extension/molecule/aide/**'
       - '.github/workflows/aide.yml'
       - 'tox.ini'
 
