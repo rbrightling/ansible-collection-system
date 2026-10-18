@@ -1,0 +1,19 @@
+---
+- name: Verify Sudo
+  hosts: molecule
+  become: true
+  gather_facts: true
+  vars:
+    sudo_package_name: sudo
+
+  tasks:
+    - name: Collect installed package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Assert that sudo is installed
+      ansible.builtin.assert:
+        that:
+          - sudo_package_name in ansible_facts.packages
+        fail_msg: >-
+          Expected {{ sudo_package_name }} to be installed 

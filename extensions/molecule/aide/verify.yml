@@ -1,0 +1,43 @@
+---
+- name: Verify AIDE
+  hosts: molecule
+  become: true
+  gather_facts: true
+  vars:
+    aide_package_name: aide
+    aide_db_path: /var/lib/aide/aide.db.gz
+    aide_conf_path: >-
+      {{ '/etc/aide/aide.conf'
+         if ansible_facts.distribution | lower == 'debian'
+         else '/etc/aide.conf' }}
+
+  tasks:
+    - name: Collect installed package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Collect AIDE database metadata
+      ansible.builtin.stat:
+        path: "{{ aide_db_path }}"
+      register: aide_db
+
+    - name: Collect AIDE configuration metadata
+      ansible.builtin.stat:
+        path: "{{ aide_conf_path }}"
+      register: aide_conf
+
+    - name: Assert that AIDE is installed and its files are secured
+      ansible.builtin.assert:
+        that:
+          - aide_package_name in ansible_facts.packages
+          - aide_db.stat.exists
+          - aide_db.stat.mode == '0600'
+          - aide_db.stat.pw_name == 'root'
+          - aide_db.stat.gr_name == 'root'
+          - aide_conf.stat.exists
+          - aide_conf.stat.mode == '0600'
+          - aide_conf.stat.pw_name == 'root'
+          - aide_conf.stat.gr_name == 'root'
+        fail_msg: >-
+          AIDE or its database/configuration permissions do not match the
+          expected secure configuration.

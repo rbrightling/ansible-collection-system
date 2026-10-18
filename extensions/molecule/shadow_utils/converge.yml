@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include rbrightling.system.shadow_utils"
+      ansible.builtin.include_role:
+        name: "shadow_utils"

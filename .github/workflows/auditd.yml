@@ -2,10 +2,18 @@
 name: "rbrightling.system.auditd"
 
 on:
-  push:
+  pull_request:
     paths:
       - 'roles/auditd/**'
-      - 'molecule/auditd/**'
+      - 'extensions/molecule/auditd/**'
+      - '.github/workflows/auditd.yml'
+      - 'tox.ini'
+  push:
+    branches:
+      - main
+    paths:
+      - 'roles/auditd/**'
+      - 'extensions/molecule/auditd/**'
       - '.github/workflows/auditd.yml'
       - 'tox.ini'
 

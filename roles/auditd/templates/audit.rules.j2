@@ -93,22 +93,24 @@
 -a always,exit -F arch=b32 -S sys_kexec_load -k kexec
 
 # Special files
--a exit,always -F arch=b32 -S mknod -S mknodat -k specialfiles
--a exit,always -F arch=b64 -S mknod -S mknodat -k specialfiles
+-a always,exit -F arch=b32 -S mknod -S mknodat -k specialfiles
+-a always,exit -F arch=b64 -S mknod -S mknodat -k specialfiles
 
 # Mount operations (only attributable)
--a always,exit -F arch=b64 -S mount -S umount2 -F auid!=-1 -k mount
--a always,exit -F arch=b32 -S mount -S umount -S umount2 -F auid!=-1 -k mount
+-a always,exit -F arch=b64 -S mount -S umount2 -F auid!=-1 -k mounts
+-a always,exit -F arch=b32 -S mount -S umount -S umount2 -F auid!=-1 -k mounts
+-a always,exit -F path=/usr/bin/mount -F perm=x -F auid>=1000 -F auid!=4294967295 -k mounts
+-a always,exit -F path=/usr/bin/umount -F perm=x -F auid>=1000 -F auid!=4294967295 -k mounts
 
 # Change swap (only attributable)
 -a always,exit -F arch=b64 -S swapon -S swapoff -F auid!=-1 -k swap
 -a always,exit -F arch=b32 -S swapon -S swapoff -F auid!=-1 -k swap
 
 # Time
--a exit,always -F arch=b32 -S adjtimex -S settimeofday -S clock_settime -k time
--a exit,always -F arch=b64 -S adjtimex -S settimeofday -S clock_settime -k time
+-a always,exit -F arch=b32 -S adjtimex -S settimeofday -S clock_settime -k time-change
+-a always,exit -F arch=b64 -S adjtimex -S settimeofday -S clock_settime -k time-change
 # Local time zone
--w /etc/localtime -p wa -k localtime
+-w /etc/localtime -p wa -k time-change
 # time zone configuration.
 -w /etc/timezone -p wa -k timezone
 
@@ -134,18 +136,19 @@
 -w /var/spool/at/ -k anacron
 
 # User, group, password databases
--w /etc/group -p wa -k accounts_group
--w /etc/passwd -p wa -k accounts_user
--w /etc/gshadow -k accounts_group
--w /etc/shadow -k accounts_user
--w /etc/security/opasswd -k accounts
+-w /etc/group -p wa -k identity
+-w /etc/passwd -p wa -k identity
+-w /etc/gshadow -p wa -k identity
+-w /etc/shadow -p wa -k identity
+-w /etc/security/opasswd -p wa -k identity
 
 # Sudoers file changes
 -w /etc/sudoers -p wa -k sudoers
 -w /etc/sudoers.d/ -p wa -k sudoers
+-w /var/log/auth.log -p wa -k sudoaction
 
 # Passwd
--w /usr/bin/passwd -p x -k accounts_passwd
+-a always,exit -F path=/usr/bin/passwd -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged
 
 # Tools to change group identifiers
 -w /usr/sbin/groupadd -p x -k accounts_group
@@ -155,19 +158,33 @@
 -w /usr/sbin/usermod -p x -k accounts_user
 -w /usr/sbin/adduser -p x -k accounts_user
 
+# Privileged
+-a always,exit -F path=/usr/lib/dbus-1.0/dbus-daemon-launch-helper -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged
+-a always,exit -F path=/usr/lib/openssh/ssh-keysign -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged
+-a always,exit -F path=/usr/bin/newgrp -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged
+-a always,exit -F path=/usr/bin/chfn -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged
+-a always,exit -F path=/usr/bin/chsh -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged
+-a always,exit -F path=/usr/bin/expiry -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged
+-a always,exit -F path=/usr/bin/gpasswd -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged
+-a always,exit -F path=/usr/bin/crontab -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged
+-a always,exit -F path=/usr/bin/ssh-agent -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged
+-a always,exit -F path=/usr/bin/dotlockfile -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged
+-a always,exit -F path=/usr/sbin/unix_chkpwd -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged
+-a always,exit -F path=/usr/bin/chage -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged
+
 # Login configuration and information
 -w /etc/login.defs -p wa -k login
 -w /etc/securetty -p wa -k login
--w /var/log/faillog -p wa -k login
--w /var/log/lastlog -p wa -k login
--w /var/log/tallylog -p wa -k login
+-w /var/log/faillog -p wa -k logins
+-w /var/log/lastlog -p wa -k logins
+-w /var/log/tallylog -p wa -k logins
 
 # Network Environment
 #####################
 
 # Changes to hostname
--a always,exit -F arch=b32 -S sethostname -S setdomainname -k network_modifications
--a always,exit -F arch=b64 -S sethostname -S setdomainname -k network_modifications
+-a always,exit -F arch=b32 -S sethostname -S setdomainname -k system-locale
+-a always,exit -F arch=b64 -S sethostname -S setdomainname -k system-locale
 {% if auditd_network_connect %}
 # Successful IPv4 Connections
 -a always,exit -F arch=b64 -S connect -F a2=16 -F success=1 -F key=network_connect_4
@@ -179,8 +196,11 @@
 # Changes to other files
 {{ auditd_rule_format("network_modifications", auditd_network_files, "wa") -}}
 # Changes to issue
--w /etc/issue -p wa -k issue
--w /etc/issue.net -p wa -k issue
+-w /etc/issue -p wa -k system-locale
+-w /etc/issue.net -p wa -k system-locale
+-w /etc/hosts -p wa -k system-locale
+-w /etc/network -p wa -k system-locale
+
 
 # System startup scripts
 -w /etc/inittab -p wa -k init
@@ -225,18 +245,20 @@
 -w /etc/selinux/ -p wa -k mac_policy
 
 # Critical elements access failures 
--a exit,always -F arch=b64 -S open -F dir=/etc -F success=0 -k unauthedfileaccess
--a exit,always -F arch=b64 -S open -F dir=/bin -F success=0 -k unauthedfileaccess
--a exit,always -F arch=b64 -S open -F dir=/sbin -F success=0 -k unauthedfileaccess
--a exit,always -F arch=b64 -S open -F dir=/usr/bin -F success=0 -k unauthedfileaccess
--a exit,always -F arch=b64 -S open -F dir=/usr/sbin -F success=0 -k unauthedfileaccess
--a exit,always -F arch=b64 -S open -F dir=/var -F success=0 -k unauthedfileaccess
--a exit,always -F arch=b64 -S open -F dir=/home -F success=0 -k unauthedfileaccess
--a exit,always -F arch=b64 -S open -F dir=/srv -F success=0 -k unauthedfileaccess
+-a always,exit -F arch=b64 -S open -F dir=/etc -F success=0 -k unauthedfileaccess
+-a always,exit -F arch=b64 -S open -F dir=/bin -F success=0 -k unauthedfileaccess
+-a always,exit -F arch=b64 -S open -F dir=/sbin -F success=0 -k unauthedfileaccess
+-a always,exit -F arch=b64 -S open -F dir=/usr/bin -F success=0 -k unauthedfileaccess
+-a always,exit -F arch=b64 -S open -F dir=/usr/sbin -F success=0 -k unauthedfileaccess
+-a always,exit -F arch=b64 -S open -F dir=/var -F success=0 -k unauthedfileaccess
+-a always,exit -F arch=b64 -S open -F dir=/home -F success=0 -k unauthedfileaccess
+-a always,exit -F arch=b64 -S open -F dir=/srv -F success=0 -k unauthedfileaccess
 
 # Process ID change (switching accounts) applications
--w /bin/su -p x -k priv_esc
--w /usr/bin/sudo -p x -k priv_esc
+-a always,exit -F path=/usr/bin/su -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged
+-a always,exit -F path=/usr/bin/sudo -F perm=x -F auid>=1000 -F auid!=4294967295 -k privileged
+
+
 
 # Power state
 -w /sbin/shutdown -p x -k power
@@ -250,32 +272,12 @@
 -w /var/log/wtmp -p wa -k session
 
 # Discretionary Access Control (DAC) modifications
--a always,exit -F arch=b32 -S chmod -F auid>={{ auditd_user_uid }} -F auid!=-1 -k perm_mod
--a always,exit -F arch=b32 -S chown -F auid>={{ auditd_user_uid }} -F auid!=-1 -k perm_mod
--a always,exit -F arch=b32 -S fchmod -F auid>={{ auditd_user_uid }} -F auid!=-1 -k perm_mod
--a always,exit -F arch=b32 -S fchmodat -F auid>={{ auditd_user_uid }} -F auid!=-1 -k perm_mod
--a always,exit -F arch=b32 -S fchown -F auid>={{ auditd_user_uid }} -F auid!=-1 -k perm_mod
--a always,exit -F arch=b32 -S fchownat -F auid>={{ auditd_user_uid }} -F auid!=-1 -k perm_mod
--a always,exit -F arch=b32 -S fremovexattr -F auid>={{ auditd_user_uid }} -F auid!=-1 -k perm_mod
--a always,exit -F arch=b32 -S fsetxattr -F auid>={{ auditd_user_uid }} -F auid!=-1 -k perm_mod
--a always,exit -F arch=b32 -S lchown -F auid>={{ auditd_user_uid }} -F auid!=-1 -k perm_mod
--a always,exit -F arch=b32 -S lremovexattr -F auid>={{ auditd_user_uid }} -F auid!=-1 -k perm_mod
--a always,exit -F arch=b32 -S lsetxattr -F auid>={{ auditd_user_uid }} -F auid!=-1 -k perm_mod
--a always,exit -F arch=b32 -S removexattr -F auid>={{ auditd_user_uid }} -F auid!=-1 -k perm_mod
--a always,exit -F arch=b32 -S setxattr -F auid>={{ auditd_user_uid }} -F auid!=-1 -k perm_mod
--a always,exit -F arch=b64 -S chmod  -F auid>={{ auditd_user_uid }} -F auid!=-1 -k perm_mod
--a always,exit -F arch=b64 -S chown -F auid>={{ auditd_user_uid }} -F auid!=-1 -k perm_mod
--a always,exit -F arch=b64 -S fchmod -F auid>={{ auditd_user_uid }} -F auid!=-1 -k perm_mod
--a always,exit -F arch=b64 -S fchmodat -F auid>={{ auditd_user_uid }} -F auid!=-1 -k perm_mod
--a always,exit -F arch=b64 -S fchown -F auid>={{ auditd_user_uid }} -F auid!=-1 -k perm_mod
--a always,exit -F arch=b64 -S fchownat -F auid>={{ auditd_user_uid }} -F auid!=-1 -k perm_mod
--a always,exit -F arch=b64 -S fremovexattr -F auid>={{ auditd_user_uid }} -F auid!=-1 -k perm_mod
--a always,exit -F arch=b64 -S fsetxattr -F auid>={{ auditd_user_uid }} -F auid!=-1 -k perm_mod
--a always,exit -F arch=b64 -S lchown -F auid>={{ auditd_user_uid }} -F auid!=-1 -k perm_mod
--a always,exit -F arch=b64 -S lremovexattr -F auid>={{ auditd_user_uid }} -F auid!=-1 -k perm_mod
--a always,exit -F arch=b64 -S lsetxattr -F auid>={{ auditd_user_uid }} -F auid!=-1 -k perm_mod
--a always,exit -F arch=b64 -S removexattr -F auid>={{ auditd_user_uid }} -F auid!=-1 -k perm_mod
--a always,exit -F arch=b64 -S setxattr -F auid>={{ auditd_user_uid }} -F auid!=-1 -k perm_mod
+-a always,exit -F arch=b64 -S chmod -S fchmod -S fchmodat -F auid>={{ auditd_user_uid }} -F auid!=4294967295 -k perm_mod
+-a always,exit -F arch=b32 -S chmod -S fchmod -S fchmodat -F auid>={{ auditd_user_uid }} -F auid!=4294967295 -k perm_mod
+-a always,exit -F arch=b64 -S chown -S fchown -S fchownat -S lchown -F auid>={{ auditd_user_uid }} -F auid!=4294967295 -k perm_mod
+-a always,exit -F arch=b32 -S chown -S fchown -S fchownat -S lchown -F auid>={{ auditd_user_uid }} -F auid!=4294967295 -k perm_mod
+-a always,exit -F arch=b64 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid>={{ auditd_user_uid }} -F auid!=4294967295 -k perm_mod
+-a always,exit -F arch=b32 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid>={{ auditd_user_uid }} -F auid!=4294967295 -k perm_mod
 
 # Special Rules
 ###############
@@ -336,8 +338,8 @@
 -w /etc/fstab -p wa -k file_system
 
 ## Monitor AppArmor configuration changes.
--w /etc/apparmor/ -p wa -k apparmor
--w /etc/apparmor.d/ -p wa -k apparmor
+-w /etc/apparmor/ -p wa -k MAC-policy
+-w /etc/apparmor.d/ -p wa -k MAC-policy
 
 # Monitor usage of AppArmor tools.
 -w /sbin/apparmor_parser -p x -k apparmor
@@ -396,14 +398,14 @@
 
 {% if auditd_root_commands %}
 # Root command executions 
--a exit,always -F arch=b64 -F euid=0 -S execve -k rootcmd
--a exit,always -F arch=b32 -F euid=0 -S execve -k rootcmd
+-a always,exit -F arch=b64 -F euid=0 -S execve -k rootcmd
+-a always,exit -F arch=b32 -F euid=0 -S execve -k rootcmd
 {% endif %}
 
 {% if auditd_user_file_delete %}
 # File Deletion Events by User
--a always,exit -F arch=b32 -S rmdir -S unlink -S unlinkat -S rename -S renameat -F auid>={{ auditd_user_uid }} -F auid!=-1 -k file_deletion
--a always,exit -F arch=b64 -S rmdir -S unlink -S unlinkat -S rename -S renameat -F auid>={{ auditd_user_uid }} -F auid!=-1 -k file_deletion
+-a always,exit -F arch=b32 -S rmdir -S unlink -S unlinkat -S rename -S renameat -F auid>={{ auditd_user_uid }} -F auid!=-1 -k delete
+-a always,exit -F arch=b64 -S rmdir -S unlink -S unlinkat -S rename -S renameat -F auid>={{ auditd_user_uid }} -F auid!=-1 -k delete
 {% endif %}
 
 {% if auditd_unauthorized_access %}

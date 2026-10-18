@@ -3,7 +3,7 @@
 
 # Config options
 # options for storing the aide database.
-aide_database: "file:/var/lib/aide/aide.db{{ '.gz' if aide_gzip_dbout else '' }}"
+aide_database_in: "file:/var/lib/aide/aide.db{{ '.gz' if aide_gzip_dbout else '' }}"
 aide_database_out: "file:/var/lib/aide/aide.db.new{{ '.gz' if aide_gzip_dbout else '' }}"
 aide_database_new: "{{ aide_database_out }}"
 
@@ -24,13 +24,13 @@ aide_log_level: "warning"
 aide_report_base16: false
 
 # Give a summary in the report.
-aide_summarize_changes: true
+aide_report_summarize_changes: true
 
 # Attributes added to the final report in verbose 2 or higher. Disable with 'E' or false.
 aide_database_attrs: "sha256+sha512+rmd160+crc32+tiger"
 
 # Group files in the report by added, removed and changed or not.
-aide_grouped: true
+aide_report_grouped: true
 
 # Add  the AIDE version and the time of database generation as comments to the database file or not
 aide_database_add_metadata: null

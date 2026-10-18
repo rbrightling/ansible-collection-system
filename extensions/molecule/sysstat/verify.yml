@@ -1,0 +1,26 @@
+---
+- name: Verify Sysstat
+  hosts: molecule
+  become: true
+  gather_facts: true
+  vars:
+    sysstat_package_name: sysstat
+    sysstat_service_name: sysstat
+
+  tasks:
+    - name: Collect installed package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Collect service facts
+      ansible.builtin.service_facts:
+
+    - name: Assert that Sysstat is installed and enabled
+      ansible.builtin.assert:
+        that:
+          - sysstat_package_name in ansible_facts.packages
+          - sysstat_service_name in ansible_facts.services
+          - ansible_facts.services[sysstat_service_name].state == 'running'
+        fail_msg: >-
+          Expected {{ sysstat_package_name }} to be installed and
+          {{ sysstat_service_name }} to be running and enabled.

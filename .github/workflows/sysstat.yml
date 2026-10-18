@@ -2,10 +2,18 @@
 name: "rbrightling.system.sysstat"
 
 on:
-  push:
+  pull_request:
     paths:
       - 'roles/sysstat/**'
-      - 'molecule/sysstat/**'
+      - 'extensions/molecule/sysstat/**'
+      - '.github/workflows/sysstat.yml'
+      - 'tox.ini'
+  push:
+    branches:
+      - main
+    paths:
+      - 'roles/sysstat/**'
+      - 'extensions/molecule/sysstat/**'
       - '.github/workflows/sysstat.yml'
       - 'tox.ini'
 

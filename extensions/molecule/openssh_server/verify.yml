@@ -1,0 +1,28 @@
+---
+- name: Verify OpenSSH server
+  hosts: molecule
+  become: true
+  gather_facts: true
+  vars:
+    openssh_server_package_name: openssh-server
+    openssh_server_service_name: >-
+      {{ 'ssh.service' if ansible_facts.os_family == 'Debian' else 'sshd.service' }}
+
+  tasks:
+    - name: Collect installed package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Collect service facts
+      ansible.builtin.service_facts:
+
+    - name: Assert that OpenSSH server is installed and enabled
+      ansible.builtin.assert:
+        that:
+          - openssh_server_package_name in ansible_facts.packages
+          - openssh_server_service_name in ansible_facts.services
+          - ansible_facts.services[openssh_server_service_name].state == 'running'
+          - ansible_facts.services[openssh_server_service_name].status == 'enabled'
+        fail_msg: >-
+          Expected {{ openssh_server_package_name }} to be installed and
+          {{ openssh_server_service_name }} to be running and enabled.

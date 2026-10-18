@@ -6,8 +6,8 @@
   vars:
     params:
       files:
-        - "{{ ansible_distribution | lower }}.yml"
-        - "{{ ansible_os_family | lower }}.yml"
+        - "{{ ansible_facts['distribution'] | lower }}.yml"
+        - "{{ ansible_facts['os_family'] | lower }}.yml"
         - default.yml
       paths:
         - '{{ playbook_dir }}/vars'
@@ -29,6 +29,17 @@
     mode: '0750'
     owner: 'root'
     group: 'root'
+  become: true
+  tags:
+    - setup
+
+- name: Set sudo file permissions
+  ansible.builtin.file:
+    path: "{{ sudo__sudo_bin_path }}"
+    state: file
+    mode: '4110'
+    owner: 'root'
+    group: "{{ sudo__sudo_group_name }}"
   become: true
   tags:
     - setup

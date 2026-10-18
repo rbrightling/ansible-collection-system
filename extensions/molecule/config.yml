@@ -1,0 +1,38 @@
+---
+
+ansible:
+  cfg:
+    defaults:
+      roles_path: ${MOLECULE_SCENARIO_DIRECTORY}/../../../roles
+  executor:
+    args:
+      ansible_playbook:
+        - --inventory=${MOLECULE_SCENARIO_DIRECTORY}/../inventory/
+  playbooks:
+    create: ${MOLECULE_SCENARIO_DIRECTORY}/../create.yml
+    destroy: ${MOLECULE_SCENARIO_DIRECTORY}/../destroy.yml
+    cleanup: ${MOLECULE_SCENARIO_DIRECTORY}/../cleanup.yml
+    prepare: ${MOLECULE_SCENARIO_DIRECTORY}/../prepare.yml
+
+dependency:
+  name: galaxy
+  options:
+    requirements-file: ${MOLECULE_SCENARIO_DIRECTORY}/../requirements.yml
+    role-file: ${MOLECULE_SCENARIO_DIRECTORY}/../requirements.yml
+
+platforms:
+  - name: instance
+    image: ${MOLECULE_DISTRO:-debian:latest}
+
+scenario:
+  test_sequence:
+    - dependency
+    - destroy
+    - create
+    - prepare
+    - converge
+    - idempotence
+    - verify
+    - destroy
+
+shared_state: false

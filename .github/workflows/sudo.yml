@@ -2,10 +2,18 @@
 name: "rbrightling.system.sudo"
 
 on:
-  push:
+  pull_request:
     paths:
       - 'roles/sudo/**'
-      - 'molecule/sudo/**'
+      - 'extensions/molecule/sudo/**'
+      - '.github/workflows/sudo.yml'
+      - 'tox.ini'
+  push:
+    branches:
+      - main
+    paths:
+      - 'roles/sudo/**'
+      - 'extensions/molecule/sudo/**'
       - '.github/workflows/sudo.yml'
       - 'tox.ini'
 
