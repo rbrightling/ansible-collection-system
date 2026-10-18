@@ -5,7 +5,7 @@ on:
   pull_request:
     paths:
       - 'roles/aide/**'
-      - 'extension/molecule/aide/**'
+      - 'extensions/molecule/aide/**'
       - '.github/workflows/aide.yml'
       - 'tox.ini'
   push:
@@ -13,7 +13,7 @@ on:
       - main
     paths:
       - 'roles/aide/**'
-      - 'extension/molecule/aide/**'
+      - 'extensions/molecule/aide/**'
       - '.github/workflows/aide.yml'
       - 'tox.ini'
 

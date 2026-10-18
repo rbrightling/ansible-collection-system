@@ -2,10 +2,18 @@
 name: "rbrightling.system.openssh_server"
 
 on:
-  push:
+  pull_request:
     paths:
       - 'roles/openssh_server/**'
-      - 'molecule/openssh_server/**'
+      - 'extensions/molecule/openssh_server/**'
+      - '.github/workflows/openssh_server.yml'
+      - 'tox.ini'
+  push:
+    branches:
+      - main
+    paths:
+      - 'roles/openssh_server/**'
+      - 'extensions/molecule/openssh_server/**'
       - '.github/workflows/openssh_server.yml'
       - 'tox.ini'
 

@@ -2,10 +2,19 @@
 name: "rbrightling.system.shadow_utils"
 
 on:
-  push:
+  pull_request:
     paths:
       - 'roles/shadow_utils/**'
-      - 'molecule/shadow_utils/**'
+      - 'extensions/molecule/shadow_utils/**'
+      - '.github/workflows/shadow_utils.yml'
+      - 'plugins/filter/shadow_utils.py'
+      - 'tox.ini'
+  push:
+    branches:
+      - main
+    paths:
+      - 'roles/shadow_utils/**'
+      - 'extensions/molecule/shadow_utils/**'
       - '.github/workflows/shadow_utils.yml'
       - 'plugins/filter/shadow_utils.py'
       - 'tox.ini'
