@@ -2,10 +2,18 @@
 name: "rbrightling.system.ansible_account"
 
 on:
-  push:
+  pull_request:
     paths:
       - 'roles/ansible_account/**'
-      - 'molecule/ansible_account/**'
+      - 'extensions/molecule/ansible_account/**'
+      - '.github/workflows/ansible_account.yml'
+      - 'tox.ini'
+  push:
+    branches:
+      - main
+    paths:
+      - 'roles/ansible_account/**'
+      - 'extensions/molecule/ansible_account/**'
       - '.github/workflows/ansible_account.yml'
       - 'tox.ini'
 

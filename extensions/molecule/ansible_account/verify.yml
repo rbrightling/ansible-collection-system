@@ -1,0 +1,18 @@
+---
+- name: Verify Ansible account
+  hosts: molecule
+  become: true
+  gather_facts: false
+
+  tasks:
+    - name: Collect account information
+      ansible.builtin.getent:
+        database: passwd
+        key: ansible
+        fail_key: false
+
+    - name: Assert that the ansible account exists
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.getent_passwd.ansible is defined
+        fail_msg: The ansible user account does not exist.

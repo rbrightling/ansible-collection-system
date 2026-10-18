@@ -49,7 +49,7 @@
 - name: Create aide db
   ansible.builtin.command:
     cmd: "{{ aide__bin_path }} --init --config={{ aide__conf_path }}"
-    creates: "{{ aide_database | regex_replace('^file:', '')  if aide_force_init_db is sameas false else omit }}"
+    creates: "{{ aide_database_in | regex_replace('^file:', '')  if aide_force_init_db is sameas false else omit }}"
   become: true
   changed_when: __aide_command_create_db is changed
   register: __aide_command_create_db
@@ -68,7 +68,7 @@
 
 - name: Move database file
   ansible.builtin.command:
-    cmd: "mv {{ aide_database_new | regex_replace('^file:', '') }} {{ aide_database | regex_replace('^file:', '') }}"
+    cmd: "mv {{ aide_database_new | regex_replace('^file:', '') }} {{ aide_database_in | regex_replace('^file:', '') }}"
   become: true
   changed_when: __aide_command_move_db is changed
   when: __aide_command_create_db is changed or __aide_command_update_db is changed

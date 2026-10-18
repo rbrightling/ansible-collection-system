@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include rbrightling.system.sysstat"
+      ansible.builtin.include_role:
+        name: "sysstat"

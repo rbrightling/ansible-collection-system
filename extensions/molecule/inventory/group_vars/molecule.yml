@@ -1,0 +1,8 @@
+---
+container_log_driver: json-file
+container_systemd: always
+container_privileged: false
+container_command: /lib/systemd/systemd
+molecule_base_image: "{{ lookup('ansible.builtin.env', 'MOLECULE_IMAGE', default='docker.io/library/debian:13') }}"
+molecule_image_name: localhost/molecule-systemd
+molecule_image_tag: "{{ molecule_base_image | regex_replace('[^A-Za-z0-9_.-]', '-') }}"

@@ -146,4 +146,4 @@ shadow_utils_userdel_cmd: null
 shadow_utils_usergroups_enab: true
 
 # Default encrpyition algorithm for encrypting passwords
-shadow_utils_encrypt_method: 'SHA512'
+shadow_utils_encrypt_method: 'YESCRYPT'

@@ -2,10 +2,18 @@
 name: "rbrightling.system.ansible_node"
 
 on:
-  push:
+  pull_request:
     paths:
       - 'roles/ansible_node/**'
-      - 'molecule/ansible_node/**'
+      - 'extensions/molecule/ansible_node/**'
+      - '.github/workflows/ansible_node.yml'
+      - 'tox.ini'
+  push:
+    branches:
+      - main
+    paths:
+      - 'roles/ansible_node/**'
+      - 'extensions/molecule/ansible_node/**'
       - '.github/workflows/ansible_node.yml'
       - 'tox.ini'
 

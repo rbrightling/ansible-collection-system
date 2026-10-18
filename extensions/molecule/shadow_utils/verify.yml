@@ -1,0 +1,21 @@
+---
+- name: Verify Shadow Utils
+  hosts: molecule
+  become: true
+  gather_facts: true
+  vars:
+    login_package_name: login
+    passwd_package_name: passwd
+
+  tasks:
+    - name: Collect installed package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Assert that Shadow utils is installed
+      ansible.builtin.assert:
+        that:
+          - login_package_name in ansible_facts.packages
+          - passwd_package_name in ansible_facts.packages
+        fail_msg: >-
+          Expected {{ login_package_name }} and {{ passwd_package_name }} to be installed

@@ -46,7 +46,7 @@
     owner: root
     group: root
     mode: '0400'
-  when: auditd_krb5_key_file|bool
+  when: auditd_krb5_key_file | default(false, true) | bool
 
 - name: Start and enable auditd service
   ansible.builtin.service:

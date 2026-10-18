@@ -2,10 +2,18 @@
 name: "rbrightling.system.locale"
 
 on:
-  push:
+  pull_request:
     paths:
       - 'roles/locale/**'
-      - 'molecule/locale/**'
+      - 'extensions/molecule/locale/**'
+      - '.github/workflows/locale.yml'
+      - 'tox.ini'
+  push:
+    branches:
+      - main
+    paths:
+      - 'roles/locale/**'
+      - 'extensions/molecule/locale/**'
       - '.github/workflows/locale.yml'
       - 'tox.ini'
 

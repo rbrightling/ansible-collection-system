@@ -6,7 +6,7 @@
   vars:
     params:
       files:
-        - "{{ ansible_facts['distribution'] | lower }}_{{ ansible_distribution_major_version }}.yml"
+        - "{{ ansible_facts['distribution'] | lower }}_{{ ansible_facts['distribution_major_version'] }}.yml"
         - "{{ ansible_facts['distribution'] | lower }}.yml"
         - "{{ ansible_facts['os_family'] | lower }}.yml"
         - default.yml
@@ -48,6 +48,23 @@
       paths:
         - '{{ playbook_dir }}/vars'
         - '{{ role_path }}/vars'
+
+- name: Inspect OpenSSH cipher variables
+  ansible.builtin.debug:
+    msg:
+      source_value: "{{ openssh_server__ciphers }}"
+      source_type: "{{ openssh_server__ciphers | type_debug }}"
+      resolved_value: "{{ openssh_server_ciphers }}"
+      resolved_type: "{{ openssh_server_ciphers | type_debug }}"
+
+- name: Verify OpenSSH cipher formatting
+  ansible.builtin.debug:
+    msg:
+      input_type: "{{ openssh_server_ciphers | type_debug }}"
+      rendered: "{{ openssh_server_ciphers | rbrightling.system.openssh_server_argument }}"
+      rendered_type: >-
+        {{ (openssh_server_ciphers
+            | rbrightling.system.openssh_server_argument) | type_debug }}
 
 - name: Get host rsa host key
   ansible.builtin.command: "{{ openssh_server__ssh_keygen_bin }} -lf {{ openssh_server__rsa_host_key_path }}"
