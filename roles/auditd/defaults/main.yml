@@ -3,7 +3,8 @@
 
 # Collect local events
 # Auditd doesn't collect events when running in a container and can only be used to aggregate logs from other systems.
-auditd_local_events: "{{ false if ansible_facts['virtualization_role'] | default(null) == 'guest' and ansible_facts['virtualization_type'] in ('docker', 'podman') else true }}"
+auditd_local_events: >-
+  "{{ false if ansible_facts['virtualization_role'] | default(null) == 'guest' and ansible_facts['virtualization_type'] in ('docker', 'podman') else true }}"
 
 # Write log file options
 auditd_write_logs: true
