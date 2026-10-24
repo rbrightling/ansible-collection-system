@@ -2,7 +2,7 @@
 
 namespace: rbrightling
 name: system
-version: 0.2.1
+version: 0.3.0
 
 readme: README.md
 
@@ -32,7 +32,7 @@ homepage: https://github.com/rbrightling/ansible-collection-system
 issues: https://github.com/rbrightling/ansible-collection-system/issues
 
 build_ignore:
-  - molecule
+  - extensions
   - tox.ini
   - .tox
   - .github
