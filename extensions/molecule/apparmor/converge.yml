@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include rbrightling.system.apparmor"
+      ansible.builtin.include_role:
+        name: "apparmor"

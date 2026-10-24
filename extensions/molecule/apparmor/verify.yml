@@ -1,0 +1,25 @@
+---
+- name: Verify Apparmor
+  hosts: molecule
+  become: true
+  gather_facts: true
+  vars:
+    apparmor_package_name: apparmor
+    apparmor_service_name: apparmor
+
+  tasks:
+    - name: Collect installed package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Collect service facts
+      ansible.builtin.service_facts:
+
+    - name: Assert that apparmor is installed and enabled
+      ansible.builtin.assert:
+        that:
+          - apparmor_package_name in ansible_facts.packages
+          - apparmor_service_name in ansible_facts.services
+        fail_msg: >-
+          Expected {{ apparmor_package_name }} to be installed and
+          {{ apparmor_service_name }} is available.
