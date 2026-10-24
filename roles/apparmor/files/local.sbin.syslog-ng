@@ -1,0 +1,6 @@
+# Ansible Managed
+# syslog-ng is not able to start when apparmor enabled #4853
+@{run}/systemd/notify w,
+/usr/bin/dash ix,
+/bin/sh ix,
+/usr/share/syslog-ng/include/scl/getvirtconsole/tty10.sh ix,

@@ -1,0 +1,9 @@
+---
+# handlers file for apparmor
+
+- name: Reload apparmor service
+  ansible.builtin.service:
+    name: apparmor
+    state: reloaded
+  become: true
+  when: apparmor_available | bool

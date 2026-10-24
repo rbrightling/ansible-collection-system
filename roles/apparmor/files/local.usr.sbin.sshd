@@ -1,0 +1,4 @@
+# Ansible Managed
+# Support for OpenSSH 9.8+ rexec architecture
+/usr/lib/openssh/sshd-session PUxr,
+/usr/lib/openssh/sshd-session-cleanup ix,

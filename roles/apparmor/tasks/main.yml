@@ -1,0 +1,90 @@
+---
+# tasks file for apparmor
+
+- name: Install apparmor
+  ansible.builtin.package:
+    name:
+      - apparmor
+      - apparmor-utils
+      - apparmor-profiles
+      - apparmor-profiles-extra
+    state: present
+  become: true
+
+- name: Install apparmor pam
+  ansible.builtin.package:
+    name:
+      - libpam-apparmor
+    state: present
+  become: true
+
+- name: Get profile status
+  ansible.builtin.command:
+    cmd: "/usr/sbin/aa-status --json"
+  register: apparmor__status_raw
+  changed_when: false
+  when: apparmor_available | bool
+  become: true
+
+- name: Set Apparmor Facts
+  ansible.builtin.set_fact:
+    apparmor_status: "{{ apparmor__status_raw.stdout | from_json }}"
+  when: apparmor_available | bool
+
+- name: Copy Local Overrides
+  ansible.builtin.copy:
+    src: "local.{{ item }}"
+    dest: "/etc/apparmor.d/local/{{ item }}"
+    owner: root
+    group: root
+    mode: '0644'
+  loop:
+    - 'usr.sbin.sshd'
+    - 'sbin.syslog-ng'
+  become: true
+  notify:
+    - Reload apparmor service
+
+- name: Flush Notifications
+  ansible.builtin.meta: flush_handlers
+  when: apparmor_available | bool
+
+- name: Copy Apparmor profile
+  ansible.builtin.copy:
+    src: "/usr/share/apparmor/extra-profiles/{{ item.value.profile }}"
+    dest: "/etc/apparmor.d/{{ item.value.profile }}"
+    remote_src: true
+    force: false
+    owner: root
+    group: root
+    mode: '0644'
+  loop: "{{ apparmor__profile_status | dict2items | selectattr('value.profile', 'defined') }}"
+  become: true
+
+- name: Set profile status
+  ansible.builtin.command:
+    cmd: >
+      {% if (item.value.mode == 'enforce' and apparmor_status.profiles[item.key] == 'enforce') or
+            (item.value.mode == 'complain' and apparmor_status.profiles[item.key] == 'complain') or
+            (item.value.mode == 'disable' and item.key not in apparmor_status.profiles) %}
+      /bin/true
+      {% else %}
+      {{ apparmor__function_cmd[item.value.mode] }} "{{ item.value.exec }}"
+      {% endif %}
+  when: apparmor_available | bool
+  register: apparmor__cmd_result
+  changed_when: apparmor__cmd_result.cmd | first != '/bin/true'
+  failed_when: >
+    "Can't find" in apparmor__cmd_result.stdout
+  loop: "{{ apparmor__profile_status | dict2items }}"
+  loop_control:
+    label: "{{ item.key }}: {{ item.value.mode }}"
+  become: true
+
+- name: Start and Enable Apparmor
+  ansible.builtin.service:
+    name: "apparmor"
+    state: "started"
+    enabled: true
+  when: apparmor_available | bool
+  become: true
