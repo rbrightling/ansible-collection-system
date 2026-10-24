@@ -7,245 +7,245 @@ apparmor__function_cmd:
   'complain': /usr/sbin/aa-complain
 
 apparmor__profile_status:
-  rpm: 
+  rpm:
     exec: rpm
     mode: "{{ apparmor_profile_rpm }}"
-  trinity: 
+  trinity:
     exec: trinity
     mode: "{{ apparmor_profile_trinity }}"
-  1password: 
+  1password:
     exec: 1password
     mode: "{{ apparmor_profile_1password }}"
-  Discord: 
+  Discord:
     exec: Discord
     mode: "{{ apparmor_profile_discord }}"
-  "MongoDB Compass": 
+  "MongoDB Compass":
     exec: "MongoDB_Compass"
     mode: "{{ apparmor_profile_mongodb_compass }}"
-  QtWebEngineProcess: 
+  QtWebEngineProcess:
     exec: QtWebEngineProcess
     mode: "{{ apparmor_profile_qtwebengineprocess }}"
-  balena-etcher: 
+  balena-etcher:
     exec: balena-etcher
     mode: "{{ apparmor_profile_balena_etcher }}"
-  brave: 
+  brave:
     exec: brave
     mode: "{{ apparmor_profile_brave }}"
-  buildah: 
+  buildah:
     exec: buildah
     mode: "{{ apparmor_profile_buildah }}"
-  busybox: 
+  busybox:
     exec: busybox
     mode: "{{ apparmor_profile_busybox }}"
-  cam: 
+  cam:
     exec: cam
     mode: "{{ apparmor_profile_cam }}"
-  ch-checkns: 
+  ch-checkns:
     exec: ch-checkns
     mode: "{{ apparmor_profile_ch_checkns }}"
-  ch-run: 
+  ch-run:
     exec: ch-run
     mode: "{{ apparmor_profile_ch_run }}"
-  chrome: 
+  chrome:
     exec: chrome
     mode: "{{ apparmor_profile_chrome }}"
-  chromium: 
+  chromium:
     exec: chromium
     mode: "{{ apparmor_profile_chromium }}"
-  crun: 
+  crun:
     exec: crun
     mode: "{{ apparmor_profile_crun }}"
-  devhelp: 
+  devhelp:
     exec: devhelp
     mode: "{{ apparmor_profile_devhelp }}"
-  element-desktop: 
+  element-desktop:
     exec: element-desktop
     mode: "{{ apparmor_profile_element_desktop }}"
-  epiphany: 
+  epiphany:
     exec: epiphany
     mode: "{{ apparmor_profile_epiphany }}"
-  firefox: 
+  firefox:
     exec: firefox
     mode: "{{ apparmor_profile_firefox }}"
-  flatpak: 
+  flatpak:
     exec: flatpak
     mode: "{{ apparmor_profile_flatpak }}"
-  foliate: 
+  foliate:
     exec: foliate
     mode: "{{ apparmor_profile_foliate }}"
-  geary: 
+  geary:
     exec: geary
     mode: "{{ apparmor_profile_geary }}"
-  github-desktop: 
+  github-desktop:
     exec: github-desktop
     mode: "{{ apparmor_profile_github_desktop }}"
-  goldendict: 
+  goldendict:
     exec: goldendict
     mode: "{{ apparmor_profile_goldendict }}"
-  ipa_verify: 
+  ipa_verify:
     exec: ipa_verify
     mode: "{{ apparmor_profile_ipa_verify }}"
-  kchmviewer: 
+  kchmviewer:
     exec: kchmviewer
     mode: "{{ apparmor_profile_kchmviewer }}"
-  keybase: 
+  keybase:
     exec: keybase
     mode: "{{ apparmor_profile_keybase }}"
-  lc-compliance: 
+  lc-compliance:
     exec: lc-compliance
     mode: "{{ apparmor_profile_lc_compliance }}"
-  libcamerify: 
+  libcamerify:
     exec: libcamerify
     mode: "{{ apparmor_profile_libcamerify }}"
-  linux-sandbox: 
+  linux-sandbox:
     exec: linux-sandbox
     mode: "{{ apparmor_profile_linux_sandbox }}"
-  loupe: 
+  loupe:
     exec: loupe
     mode: "{{ apparmor_profile_loupe }}"
-  lxc-attach: 
+  lxc-attach:
     exec: lxc-attach
     mode: "{{ apparmor_profile_lxc_attach }}"
-  lxc-create: 
+  lxc-create:
     exec: lxc-create
     mode: "{{ apparmor_profile_lxc_create }}"
-  lxc-destroy: 
+  lxc-destroy:
     exec: lxc-destroy
     mode: "{{ apparmor_profile_lxc_destroy }}"
-  lxc-execute: 
+  lxc-execute:
     exec: lxc-execute
     mode: "{{ apparmor_profile_lxc_execute }}"
-  lxc-stop: 
+  lxc-stop:
     exec: lxc-stop
     mode: "{{ apparmor_profile_lxc_stop }}"
-  lxc-unshare: 
+  lxc-unshare:
     exec: lxc-unshare
     mode: "{{ apparmor_profile_lxc_unshare }}"
-  lxc-usernsexec: 
+  lxc-usernsexec:
     exec: lxc-usernsexec
     mode: "{{ apparmor_profile_lxc_usernsexec }}"
-  mmdebstrap: 
+  mmdebstrap:
     exec: mmdebstrap
     mode: "{{ apparmor_profile_mmdebstrap }}"
-  msedge: 
+  msedge:
     exec: msedge
     mode: "{{ apparmor_profile_msedge }}"
-  nautilus: 
+  nautilus:
     exec: nautilus
     mode: "{{ apparmor_profile_nautilus }}"
-  notepadqq: 
+  notepadqq:
     exec: notepadqq
     mode: "{{ apparmor_profile_notepadqq }}"
-  obsidian: 
+  obsidian:
     exec: obsidian
     mode: "{{ apparmor_profile_obsidian }}"
-  opam: 
+  opam:
     exec: opam
     mode: "{{ apparmor_profile_opam }}"
-  opera: 
+  opera:
     exec: opera
     mode: "{{ apparmor_profile_opera }}"
-  pageedit: 
+  pageedit:
     exec: pageedit
     mode: "{{ apparmor_profile_pageedit }}"
-  polypane: 
+  polypane:
     exec: polypane
     mode: "{{ apparmor_profile_polypane }}"
-  privacybrowser: 
+  privacybrowser:
     exec: privacybrowser
     mode: "{{ apparmor_profile_privacybrowser }}"
-  qcam: 
+  qcam:
     exec: qcam
     mode: "{{ apparmor_profile_qcam }}"
-  qmapshack: 
+  qmapshack:
     exec: qmapshack
     mode: "{{ apparmor_profile_qmapshack }}"
-  qutebrowser: 
+  qutebrowser:
     exec: qutebrowser
     mode: "{{ apparmor_profile_qutebrowser }}"
-  rootlesskit: 
+  rootlesskit:
     exec: rootlesskit
     mode: "{{ apparmor_profile_rootlesskit }}"
-  rssguard: 
+  rssguard:
     exec: rssguard
     mode: "{{ apparmor_profile_rssguard }}"
-  runc: 
+  runc:
     exec: runc
     mode: "{{ apparmor_profile_runc }}"
-  scide: 
+  scide:
     exec: scide
     mode: "{{ apparmor_profile_scide }}"
-  signal-desktop: 
+  signal-desktop:
     exec: signal-desktop
     mode: "{{ apparmor_profile_signal_desktop }}"
-  slack: 
+  slack:
     exec: slack
     mode: "{{ apparmor_profile_slack }}"
-  slirp4netns: 
+  slirp4netns:
     exec: slirp4netns
     mode: "{{ apparmor_profile_slirp4netns }}"
-  steam: 
+  steam:
     exec: steam
     mode: "{{ apparmor_profile_steam }}"
-  stress-ng: 
+  stress-ng:
     exec: stress-ng
     mode: "{{ apparmor_profile_stress_ng }}"
-  surfshark: 
+  surfshark:
     exec: surfshark
     mode: "{{ apparmor_profile_surfshark }}"
-  systemd-coredump: 
+  systemd-coredump:
     exec: systemd-coredump
     mode: "{{ apparmor_profile_systemd_coredump }}"
-  toybox: 
+  toybox:
     exec: toybox
     mode: "{{ apparmor_profile_toybox }}"
-  tup: 
+  tup:
     exec: tup
     mode: "{{ apparmor_profile_tup }}"
-  tuxedo-control-center: 
+  tuxedo-control-center:
     exec: tuxedo-control-center
     mode: "{{ apparmor_profile_tuxedo_control_center }}"
-  userbindmount: 
+  userbindmount:
     exec: userbindmount
     mode: "{{ apparmor_profile_userbindmount }}"
-  uwsgi-core: 
+  uwsgi-core:
     exec: uwsgi-core
     mode: "{{ apparmor_profile_uwsgi_core }}"
-  virtiofsd: 
+  virtiofsd:
     exec: virtiofsd
     mode: "{{ apparmor_profile_virtiofsd }}"
-  vivaldi-bin: 
+  vivaldi-bin:
     exec: vivaldi-bin
     mode: "{{ apparmor_profile_vivaldi_bin }}"
-  vpnns: 
+  vpnns:
     exec: vpnns
     mode: "{{ apparmor_profile_vpnns }}"
-  vscode: 
+  vscode:
     exec: code
     mode: "{{ apparmor_profile_code }}"
-  wike: 
+  wike:
     exec: wike
     mode: "{{ apparmor_profile_wike }}"
-  wpcom: 
+  wpcom:
     exec: wpcom
     mode: "{{ apparmor_profile_wpcom }}"
 
-  Xorg: 
+  Xorg:
     exec: Xorg
     mode: "{{ apparmor_profile_xorg }}"
-  plasmashell: 
+  plasmashell:
     exec: plasmashell
     mode: "{{ apparmor_profile_plasmashell }}"
   "plasmashell//QtWebEngineProcess":
-      exec: "plasmashell//QtWebEngineProcess"
-      mode: "{{ apparmor_profile_plasmashell_qtwebengineprocess }}"
-  transmission: 
+    exec: "plasmashell//QtWebEngineProcess"
+    mode: "{{ apparmor_profile_plasmashell_qtwebengineprocess }}"
+  transmission:
     exec: transmission
     mode: "{{ apparmor_profile_transmission }}"
-  syslogd: 
+  syslogd:
     exec: /usr/bin/syslogd
     mode: "{{ apparmor_profile_syslogd }}"
-  klogd: 
+  klogd:
     exec: /usr/bin/klogd
     mode: "{{ apparmor_profile_klogd }}"
 
@@ -296,7 +296,6 @@ apparmor__profile_status:
     mode: "{{ apparmor_profile_nvidia_modprobe }}"
 
 
-
   nscd:
     exec: /usr/sbin/nscd
     mode: "{{ apparmor_profile_nscd }}"
@@ -334,14 +333,14 @@ apparmor__profile_status:
     exec: "/usr/sbin/identd"
     mode: "{{ apparmor_profile_identd }}"
 
-  php-fpm: 
+  php-fpm:
     exec: php-fpm
     mode: "{{ apparmor_profile_php_fpm }}"
 
-  syslog-ng: 
+  syslog-ng:
     exec: syslog-ng
     mode: "{{ apparmor_profile_syslog_ng }}"
-  ping: 
+  ping:
     exec: ping
     mode: "{{ apparmor_profile_ping }}"
 
@@ -388,5 +387,3 @@ apparmor__profile_status:
     exec: "/usr/bin/man"
     mode: "{{ apparmor_profile_man }}"
     profile: "usr.bin.man"
-
-
