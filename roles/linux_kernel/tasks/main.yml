@@ -1,0 +1,33 @@
+---
+# tasks file for linux kernel
+
+- name: Set sysctl ansible overrides
+  ansible.posix.sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    state: present
+    sysctl_file: /etc/sysctl.d/99-ansible.conf
+    sysctl_set: true
+    reload: true
+  become: true
+  loop: "{{ linux_kernel__sysctl_items }}"
+  when: linux_kernel_sysctl_available | bool
+
+- name: Create modprobe.d directory
+  ansible.builtin.file:
+    path: "/etc/modprobe.d/"
+    owner: root
+    group: root
+    mode: '0755'
+    state: 'directory'
+  become: true
+
+- name: Template blacklist.conf
+  ansible.builtin.template:
+    src: "modprobe.blacklist.conf.j2"
+    dest: "/etc/modprobe.d/99-{{ item.type }}-blacklist.conf"
+    owner: root
+    group: root
+    mode: '0644'
+  loop: "{{ linux_kernel__blacklist_modules }}"
+  become: true

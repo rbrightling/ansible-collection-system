@@ -1,0 +1,24 @@
+---
+name: "rbrightling.system.linux_kernel"
+
+on:
+  pull_request:
+    paths:
+      - 'roles/linux_kernel/**'
+      - 'extensions/molecule/linux_kernel/**'
+      - '.github/workflows/linux_kernel.yml'
+      - 'tox.ini'
+  push:
+    branches:
+      - main
+    paths:
+      - 'roles/linux_kernel/**'
+      - 'extensions/molecule/linux_kernel/**'
+      - '.github/workflows/linux_kernel.yml'
+      - 'tox.ini'
+
+jobs:
+  call_reusable_workflow:
+    uses: ./.github/workflows/reusable-ansible-test-role.yml
+    with:
+      role-name: 'linux_kernel'

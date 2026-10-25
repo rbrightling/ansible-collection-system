@@ -1,0 +1,79 @@
+LINUX KERNEL
+============
+
+Configuration of Linux Kernel Parameters and Modules.
+
+Requirements
+------------
+
+Supported OS's:
+  - Debian 13
+
+Role Variables
+--------------
+
+```
+linux_kernel_net_ipv4_conf_all_send_redirects: 0
+linux_kernel_net_ipv4_conf_default_send_redirects: 0
+linux_kernel_net_ipv4_ip_forward: 0
+linux_kernel_net_ipv6_conf_all_forwarding: 0
+linux_kernel_net_ipv4_conf_all_accept_source_route: 0
+linux_kernel_net_ipv4_conf_default_accept_source_route: 0
+linux_kernel_net_ipv6_conf_all_accept_source_route: 0
+linux_kernel_net_ipv6_conf_default_accept_source_route: 0
+linux_kernel_net_ipv4_conf_all_accept_redirects: 0
+linux_kernel_net_ipv4_conf_default_accept_redirects: 0
+linux_kernel_net_ipv6_conf_all_accept_redirects: 0
+linux_kernel_net_ipv6_conf_default_accept_redirects: 0
+linux_kernel_net_ipv4_conf_all_secure_redirects: 0
+linux_kernel_net_ipv4_conf_default_secure_redirects: 0
+linux_kernel_net_ipv4_conf_all_log_martians: 1
+linux_kernel_net_ipv4_conf_default_log_martians: 1
+linux_kernel_net_ipv4_icmp_echo_ignore_broadcasts: 1
+linux_kernel_net_ipv4_icmp_ignore_bogus_error_responses: 1
+linux_kernel_net_ipv4_conf_all_rp_filter: 1
+linux_kernel_net_ipv4_conf_default_rp_filter: 1
+linux_kernel_net_ipv4_tcp_syncookies: 1
+linux_kernel_net_ipv6_conf_all_accept_ra: 0
+linux_kernel_net_ipv6_conf_default_accept_ra: 0
+
+linux_kernel_randomize_va_space: 2
+
+linux_kernel_fs_suid_dumpable: 0
+
+linux_kernel_disable_module_freevxfs: true
+linux_kernel_disable_module_jffs2: true
+linux_kernel_disable_module_hfs: true
+linux_kernel_disable_module_hfsplus: true
+linux_kernel_disable_module_squashfs: true
+linux_kernel_disable_module_udf: true
+linux_kernel_disable_module_usb_storage: true
+linux_kernel_disable_module_rds: true
+linux_kernel_disable_module_tipc: true
+```
+
+Dependencies
+------------
+
+None
+
+Example Playbook
+----------------
+
+```
+- hosts: servers
+  tasks:
+    - name: include rbrightling.system.linux_kernel
+      include_role:
+        name: rbrightling.system.linux_kernel
+```
+
+License
+-------
+
+LGPLv3
+
+Author Information
+------------------
+
+- Robert Brightling | [GitLab](https://gitlab.com/brightling) | [GitHub](https://github.com/rbrightling)

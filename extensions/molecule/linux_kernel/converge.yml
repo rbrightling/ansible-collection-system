@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include rbrightling.system.linux_kernel"
+      ansible.builtin.include_role:
+        name: "linux_kernel"

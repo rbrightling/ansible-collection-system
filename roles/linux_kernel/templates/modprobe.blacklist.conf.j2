@@ -1,0 +1,6 @@
+{{ ansible_managed | comment }}
+{% for module, value in item.modules.items() %}
+{% if value %}
+install {{ module }} /bin/false
+{% endif %}
+{% endfor %}
