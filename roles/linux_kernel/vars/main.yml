@@ -57,7 +57,7 @@ linux_kernel__blacklist_modules:
   - type: filesystem
     modules:
       freevxfs: "{{ linux_kernel_disable_module_freevxfs }}"
-      jffs2:  "{{ linux_kernel_disable_module_jffs2 }}"
+      jffs2: "{{ linux_kernel_disable_module_jffs2 }}"
       hfs: "{{ linux_kernel_disable_module_hfs }}"
       hfsplus: "{{ linux_kernel_disable_module_hfsplus }}"
       squashfs: "{{ linux_kernel_disable_module_squashfs }}"
