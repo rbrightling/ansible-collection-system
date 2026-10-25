@@ -1,0 +1,35 @@
+---
+- name: Verify Linux Kernel
+  hosts: molecule
+  become: true
+  gather_facts: true
+  vars:
+    blacklist_filesystem_file_path: "/etc/modprobe.d/99-filesystem-blacklist.conf"
+    blacklist_network_file_path: "/etc/modprobe.d/99-network-blacklist.conf"
+
+  tasks:
+
+    - name: Collect filesystem blacklist file metadata
+      ansible.builtin.stat:
+        path: "{{ blacklist_filesystem_file_path }}"
+      register: blacklist_filesystem_file
+
+    - name: Collect network blacklist file metadata
+      ansible.builtin.stat:
+        path: "{{ blacklist_network_file_path }}"
+      register: blacklist_network_file
+
+    - name: Assert that blacklist files are secured
+      ansible.builtin.assert:
+        that:
+          - blacklist_filesystem_file.stat.exists
+          - blacklist_filesystem_file.stat.mode == '0644'
+          - blacklist_filesystem_file.stat.pw_name == 'root'
+          - blacklist_filesystem_file.stat.gr_name == 'root'
+          - blacklist_network_file.stat.exists
+          - blacklist_network_file.stat.mode == '0644'
+          - blacklist_network_file.stat.pw_name == 'root'
+          - blacklist_network_file.stat.gr_name == 'root'
+        fail_msg: >-
+          blacklist permissions do not match the
+          expected secure configuration.
