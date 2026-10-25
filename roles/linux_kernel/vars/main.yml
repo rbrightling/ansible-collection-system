@@ -1,7 +1,7 @@
 ---
 # vars file for linux_kernel
 
-sysctl__items:
+linux_kernel__sysctl_items:
   - name: net.ipv4.conf.all.send_redirects
     value: "{{ linux_kernel_net_ipv4_conf_all_send_redirects }}"
   - name: "net.ipv4.conf.default.send_redirects"

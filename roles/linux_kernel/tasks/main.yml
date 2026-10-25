@@ -10,8 +10,8 @@
     sysctl_set: true
     reload: true
   become: true
-  loop: "{{ sysctl__items }}"
-  when: "{{ linux_kernel_sysctl_available | bool }}"
+  loop: "{{ linux_kernel__sysctl_items }}"
+  when: linux_kernel_sysctl_available | bool
 
 - name: Create modprobe.d directory
   ansible.builtin.file:
