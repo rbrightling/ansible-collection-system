@@ -1,0 +1,22 @@
+{{ ansible_managed | comment }}
+
+# Don't require root to su
+auth       sufficient pam_rootok.so
+
+{% if pam_su_require_wheel %}
+# Require wheel group
+auth       required   pam_wheel.so use_uid group={{ pam_su_wheel_group }}
+{% endif %}
+
+
+# Session
+session    required   pam_env.so readenv=1
+session    required   pam_env.so readenv=1 envfile=/etc/default/locale
+session    optional   pam_mail.so nopen
+session    required   pam_limits.so
+
+# Include Commons
+
+@include common-auth
+@include common-account
+@include common-session
