@@ -1,0 +1,35 @@
+---
+
+- name: Install Pam packages
+  ansible.builtin.package:
+    name: "{{ pam__packages }}"
+    state: present
+  become: true
+  tags:
+    - install
+
+- name: Include faillock tasks
+  ansible.builtin.import_tasks:
+    file: faillock.yml
+
+- name: Include password tasks
+  ansible.builtin.import_tasks:
+    file: password.yml
+
+- name: Template pam su
+  ansible.builtin.template:
+    src: su.j2
+    dest: /etc/pam.d/su
+    owner: root
+    group: root
+    mode: "0644"
+  become: true
+
+- name: Template limits.conf
+  ansible.builtin.template:
+    src: limits.conf.j2
+    dest: /etc/security/limits.conf
+    owner: root
+    group: root
+    mode: '0644'
+  become: true

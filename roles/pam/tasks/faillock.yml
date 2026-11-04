@@ -1,0 +1,61 @@
+---
+
+- name: Template faillock.Conf
+  ansible.builtin.template:
+    src: faillock.conf.j2
+    dest: /etc/security/faillock.conf
+    owner: root
+    group: root
+    mode: "0644"
+  become: true
+
+- name: Configure pre-auth pam_faillock in common-auth
+  community.general.pamd:
+    name: common-auth
+    type: auth
+    control: "[success=1 default=ignore]"
+    module_path: pam_unix.so
+    new_type: auth
+    new_control: required
+    new_module_path: pam_faillock.so
+    module_arguments: "preauth silent"
+    state: before
+  become: true
+
+- name: Configure post-auth authfail pam_faillock in common-auth
+  community.general.pamd:
+    name: common-auth
+    type: auth
+    control: "[success=1 default=ignore]"
+    module_path: pam_unix.so
+    new_type: auth
+    new_control: "[default=die]"
+    new_module_path: pam_faillock.so
+    module_arguments: "authfail"
+    state: after
+  become: true
+
+- name: Configure post-auth authsucc pam_faillock in common-auth
+  community.general.pamd:
+    name: common-auth
+    type: auth
+    control: "[default=die]"
+    module_path: pam_faillock.so
+    new_type: auth
+    new_control: "[success=done]"
+    new_module_path: pam_faillock.so
+    module_arguments: "authsucc"
+    state: after
+  become: true
+
+- name: Configure pre-account pam_faillock in common-auth
+  community.general.pamd:
+    name: common-account
+    type: account
+    control: "[success=1 new_authtok_reqd=done default=ignore]"
+    module_path: pam_unix.so
+    new_type: account
+    new_control: "required"
+    new_module_path: pam_faillock.so
+    state: before
+  become: true

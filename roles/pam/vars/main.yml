@@ -1,0 +1,9 @@
+---
+# vars file for pam
+
+pam__packages:
+  - libpam-modules
+  - libpam-pwquality
+  - libpam-runtime
+  - libpam-systemd
+  - cracklib-runtime

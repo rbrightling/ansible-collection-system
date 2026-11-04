@@ -1,0 +1,24 @@
+---
+- name: Verify Pam
+  hosts: molecule
+  become: true
+  gather_facts: true
+  vars:
+    libpam_packages_name:
+      - libpam-modules
+      - libpam-pwquality
+      - libpam-runtime
+      - libpam-systemd
+
+  tasks:
+    - name: Collect installed package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Assert that pam package is installed
+      ansible.builtin.assert:
+        that:
+          - item in ansible_facts.packages
+        fail_msg: >-
+          Expected {{ item }} to be installed
+      loop: "{{ libpam_packages_name }}"

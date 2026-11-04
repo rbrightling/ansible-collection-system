@@ -1,0 +1,19 @@
+galaxy_info:
+  role_name: pam
+  author: Robert Brightling
+  description: Manage PAM configuration
+
+  license: LGPL-3.0-or-later
+
+  min_ansible_version: "2.20"
+
+  platforms:
+    - name: Debian
+      versions:
+        - trixie
+
+  galaxy_tags:
+    - system
+    - pam
+
+dependencies: []
