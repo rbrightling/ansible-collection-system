@@ -1,0 +1,26 @@
+---
+# tasks file for nftables
+
+- name: Install nftables
+  ansible.builtin.package:
+    name: "nftables"
+    state: present
+  become: true
+
+- name: Configure nftables.conf
+  ansible.builtin.template:
+    src: "nftables.conf.j2"
+    dest: "/etc/nftables.conf"
+    owner: root
+    group: root
+    mode: '0755'
+    validate: 'nft -c -f %s'
+  notify: "Reload nftables"
+  become: true
+
+- name: Start and Enable nftables
+  ansible.builtin.service:
+    name: "nftables"
+    state: started
+    enabled: true
+  become: true

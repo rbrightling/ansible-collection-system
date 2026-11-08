@@ -1,0 +1,53 @@
+#SPDX-License-Identifier: MIT-0
+---
+# vars file for nftables
+
+nftables__ssh_rule:
+  ports: "{{ nftables_ssh_tcp_ports }}"
+  interface: "{{ nftables_ssh_interface }}"
+  src: "{{ nftables_ssh_src }}"
+  meter: "{{ nftables_ssh_meter }}"
+  rate_limit: "{{ nftables_ssh_rate_limit }}"
+  comment: "Allow SSH"
+
+nftables__web_rule:
+  ports: "{{ nftables_web_tcp_ports }}"
+  interface: "{{ nftables_web_interface }}"
+  src: "{{ nftables_web_src }}"
+  meter: "{{ nftables_web_meter }}"
+  rate_limt: "{{ nftables_web_rate_limit }}"
+  comment: "Allow Web"
+
+nftables__mysql_rule:
+  ports: "{{ nftables_mysql_tcp_ports }}"
+  interface: "{{ nftables_mysql_interface }}"
+  src: "{{ nftables_mysql_src }}"
+  meter: "{{ nftables_mysql_meter }}"
+  rate_limt: "{{ nftables_mysql_rate_limit }}"
+  comment: "Allow MySQL"
+
+nftables__postgresql_rule:
+  ports: "{{ nftables_postgresql_tcp_ports }}"
+  interface: "{{ nftables_postgresql_interface }}"
+  src: "{{ nftables_postgresql_src }}"
+  meter: "{{ nftables_postgresql_meter }}"
+  rate_limt: "{{ nftables_postgresql_rate_limit }}"
+  comment: "Allow PostGreSQL"
+
+nftables__nfs_rule:
+  ports: "{{ nftables_nfs_tcp_ports }}"
+  interface: "{{ nftables_nfs_interface }}"
+  src: "{{ nftables_nfs_src }}"
+  meter: "{{ nftables_nfs_meter }}"
+  rate_limt: "{{ nftables_nfs_rate_limit }}"
+  comment: "Allow PostGreSQL"
+
+nftables__samba_rule:
+  ports: "{{ nftables_samba_tcp_ports }}"
+  interface: "{{ nftables_samba_interface }}"
+  src: "{{ nftables_samba_src }}"
+  meter: "{{ nftables_samba_meter }}"
+  rate_limt: "{{ nftables_samba_rate_limit }}"
+  comment: "Allow PostGreSQL"
+
+

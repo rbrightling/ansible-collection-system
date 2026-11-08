@@ -1,0 +1,19 @@
+---
+- name: Verify NFTables
+  hosts: molecule
+  become: true
+  gather_facts: true
+  vars:
+    nftables_package_name: nftables
+
+  tasks:
+    - name: Collect installed package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Assert that NFTables is installed and enabled
+      ansible.builtin.assert:
+        that:
+          - nftables_package_name in ansible_facts.packages
+        fail_msg: >-
+          Expected {{ nftables_package_name }} to be installed
