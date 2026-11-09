@@ -19,6 +19,7 @@ Roles
 | [hosts](https://github.com/rbrightling/ansible-collection-system/tree/main/roles/hosts)                     | [![rbrightling.system.hosts](https://github.com/rbrightling/ansible-collection-system/actions/workflows/hosts.yml/badge.svg?branch=main)](https://github.com/rbrightling/ansible-collection-system/actions/workflows/ansible_node.yml)                        |
 | [linux_kernel](https://github.com/rbrightling/ansible-collection-system/tree/main/roles/linux_kernel)       | [![rbrightling.system.linux_kernel](https://github.com/rbrightling/ansible-collection-system/actions/workflows/linux_kernel.yml/badge.svg?branch=main)](https://github.com/rbrightling/ansible-collection-system/actions/workflows/linux_kernel.yml)          |
 | [locale](https://github.com/rbrightling/ansible-collection-system/tree/main/roles/locale)                   | [![rbrightling.system.locale](https://github.com/rbrightling/ansible-collection-system/actions/workflows/locale.yml/badge.svg?branch=main)](https://github.com/rbrightling/ansible-collection-system/actions/workflows/ansible_node.yml)                      |
+| [nftables](https://github.com/rbrightling/ansible-collection-system/tree/main/roles/nftables)               | [![rbrightling.system.locale](https://github.com/rbrightling/ansible-collection-system/actions/workflows/locale.yml/badge.svg?branch=main)](https://github.com/rbrightling/ansible-collection-system/actions/workflows/nftables.yml)                          |
 | [openssh_server](https://github.com/rbrightling/ansible-collection-system/tree/main/roles/openssh_server)   | [![rbrightling.system.openssh_server](https://github.com/rbrightling/ansible-collection-system/actions/workflows/openssh_server.yml/badge.svg?branch=main)](https://github.com/rbrightling/ansible-collection-system/actions/workflows/ansible_node.yml)      |
 | [pam](https://github.com/rbrightling/ansible-collection-system/tree/main/roles/pam)                         | [![rbrightling.system.pam](https://github.com/rbrightling/ansible-collection-system/actions/workflows/pam.yml/badge.svg?branch=main)](https://github.com/rbrightling/ansible-collection-system/actions/workflows/pam.yml)                                     |
 | [shadow_utils](https://github.com/rbrightling/ansible-collection-system/tree/main/roles/shadow_utils)       | [![rbrightling.system.shadow_utils](https://github.com/rbrightling/ansible-collection-system/actions/workflows/shadow_utils.yml/badge.svg?branch=main)](https://github.com/rbrightling/ansible-collection-system/actions/workflows/ansible_node.yml)          |
@@ -29,7 +30,7 @@ Requirements
 ------------
 
 Supported OS's:
-  - Debian 12
+  - Debian 13
 
 Usage
 -----

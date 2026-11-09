@@ -1,0 +1,91 @@
+NFTables
+========
+
+Install and Manage NFTables
+
+Requirements
+------------
+
+Supported Distributions:
+  - Debian 13
+
+Role Variables
+--------------
+
+```yaml
+nftable_addr_sets: []
+
+nftables_match_sets:
+  - name: ssh
+    timeout: 5m
+
+nftables_meter_sets: []
+
+nftables_ssh_allow: true
+nftables_ssh_tcp_ports: [22]
+nftables_ssh_interface: null
+nftables_ssh_src: null
+nftables_ssh_meter: null
+nftables_ssh_rate_limit: null
+
+nftables_web_allow: false
+nftables_web_tcp_ports: [80, 443]
+nftables_web_interface: null
+nftables_web_src: null
+nftables_web_meter: null
+nftables_web_rate_limit: null
+
+nftables_mysql_allow: false
+nftables_mysql_tcp_ports: [3306]
+nftables_mysql_interface: null
+nftables_mysql_src: null
+nftables_mysql_meter: null
+nftables_mysql_rate_limit: null
+
+nftables_postgresql_allow: false
+nftables_postgresql_tcp_ports: [5432]
+nftables_postgresql_interface: null
+nftables_postgresql_src: null
+nftables_postgresql_meter: null
+nftables_postgresql_rate_limit: null
+
+nftables_nfs_allow: false
+nftables_nfs_tcp_ports: [2049]
+nftables_nfs_interface: null
+nftables_nfs_src: null
+nftables_nfs_meter: null
+nftables_nfs_rate_limit: null
+
+nftables_samba_allow: false
+nftables_samba_tcp_ports: [445]
+nftables_samba_interface: null
+nftables_samba_src: null
+nftables_samba_meter: null
+nftables_samba_rate_limit: null
+```
+
+Dependencies
+------------
+
+None
+
+Example Playbook
+----------------
+
+```yaml
+- hosts: servers
+  tasks:
+    - name: "include nftables role"
+      include_role:
+        name: rbrightling.system.nftables 
+```
+
+License
+-------
+
+LGPLv3
+
+Author Information
+------------------
+
+- Robert Brightling | [GitLab](https://gitlab.com/brightling) | [GitHub](https://github.com/rbrightling)
