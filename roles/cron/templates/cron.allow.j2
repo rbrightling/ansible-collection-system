@@ -1,0 +1,4 @@
+{{ ansible_managed | comment }}
+{% for user in cron_allow_users %}
+{{ user }}
+{% endfor %}
