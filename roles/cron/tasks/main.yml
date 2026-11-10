@@ -1,0 +1,65 @@
+---
+# tasks file for cron
+
+- name: Install cron
+  ansible.builtin.package:
+    name: "{{ cron__package }}"
+    state: present
+  become: true
+  tags:
+    - install
+
+- name: File permissions for crontab
+  ansible.builtin.file:
+    path: /etc/crontab
+    owner: root
+    group: root
+    mode: '0600'
+    state: file
+  become: true
+  notify:
+    - Restart cron service
+
+- name: Folder permissions for cron
+  ansible.builtin.file:
+    path: "{{ item }}"
+    owner: root
+    group: root
+    mode: '0700'
+    state: directory
+  loop:
+    - /etc/cron.d
+    - /etc/cron.hourly
+    - /etc/cron.daily
+    - /etc/cron.weekly
+    - /etc/cron.monthly
+    - /etc/cron.yearly
+  become: true
+  notify:
+    - Restart cron service
+
+- name: Template cron.allow
+  ansible.builtin.template:
+    src: cron.allow.j2
+    dest: /etc/cron.allow
+    owner: root
+    group: root
+    mode: '0600'
+  become: true
+  notify:
+    - Restart cron service
+
+- name: Remove cron.deny
+  ansible.builtin.file:
+    path: /etc/cron.deny
+    state: absent
+  become: true
+  notify:
+    - Restart cron service
+
+- name: Start and enable cron
+  ansible.builtin.service:
+    name: cron
+    state: started
+    enabled: true
+  become: true

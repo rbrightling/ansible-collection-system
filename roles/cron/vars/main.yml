@@ -1,0 +1,4 @@
+---
+# vars file for cron
+
+cron__package: cron
