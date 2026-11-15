@@ -1,0 +1,39 @@
+{{ ansible_managed | comment }}
+{% macro logrotate_option_toggle(option, value) -%}
+{% if value is none %}
+{% if value is sameas True %}
+{{ option }}
+{% else %}
+{% if option == "ifempty" %}
+not{{ option }}
+{% else %}
+no{{ option }}
+{% endif %}
+{% endif %}
+{% endif %}
+{%- endmacro -%}
+
+# global options do not affect preceding include directives
+
+# rotate log files weekly
+{{ logrotate_frequency }}
+
+# keep 4 weeks worth of backlogs
+rotate {{ logrotate_rotate }}
+
+# create new (empty) log files after rotating old ones
+create {{ logrotate_create_permissions }} {{ logrotate_create_user }} {{ logrotate_create_group }}
+
+# use date as a suffix of the rotated file
+{{ logrotate_option_toggle("dateext", logrotate_dateext) }}
+
+# uncomment this if you want your log files compressed
+{{ logrotate_option_toggle("compress", logrotate_compress) }}
+{{ logrotate_option_toggle("delaycompress", logrotate_delay_compress) }}
+
+{{ logrotate_option_toggle("missingok", logrotate_missing_ok) }}
+{{ logrotate_option_toggle("ifempty", logrotate_if_empty) }}
+# packages drop log rotation information into this directory
+include /etc/logrotate.d
+
+# system-specific logs may also be configured here.
