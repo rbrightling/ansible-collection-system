@@ -1,0 +1,21 @@
+---
+# defaults file for logrotate
+
+logrotate_frequency: "weekly"
+
+logrotate_rotate: 13
+
+logrotate_size: 100M
+
+
+logrotate_create_permissions: '0640'
+logrotate_create_user: 'root'
+logrotate_create_group: 'adm'
+
+logrotate_dateext: true
+
+logrotate_compress: true
+logrotate_delay_compress: true
+
+logrotate_missing_ok: true
+logrotate_if_empty: false

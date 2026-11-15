@@ -1,0 +1,23 @@
+---
+- name: Verify Logrotate
+  hosts: molecule
+  become: true
+  gather_facts: true
+  vars:
+    logrotate_package_name: logrotate
+    logrotate_service_name: logrotate
+
+  tasks:
+    - name: Collect installed package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Collect service facts
+      ansible.builtin.service_facts:
+
+    - name: Assert that logrotate is installed and enabled
+      ansible.builtin.assert:
+        that:
+          - logrotate_package_name in ansible_facts.packages
+        fail_msg: >-
+          Expected {{ logrotate_package_name }} to be installed

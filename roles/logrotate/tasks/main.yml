@@ -1,0 +1,24 @@
+---
+# tasks file for logrotate
+
+- name: Install Logrotate
+  ansible.builtin.package:
+    name: logrotate
+    state: present
+  become: true
+
+- name: Configure Logrotate
+  ansible.builtin.template:
+    src: logrotate.conf.j2
+    dest: /etc/logrotate.conf
+    mode: '0644'
+    owner: root
+    group: root
+  become: true
+
+- name: Start and Enable Logrotate Service
+  ansible.builtin.service:
+    name: logrotate.timer
+    state: started
+    enabled: true
+  become: true
