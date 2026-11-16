@@ -1,0 +1,5 @@
+---
+# defaults file for chrony
+
+chrony_sources:
+  - "pool 2.debian.pool.ntp.org iburst"

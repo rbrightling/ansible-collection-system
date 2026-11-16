@@ -1,0 +1,26 @@
+---
+# tasks file for chrony
+
+- name: Install chrony
+  ansible.builtin.package:
+    name: chrony
+    state: present
+  become: true
+
+- name: Configure chrony.conf
+  ansible.builtin.template:
+    src: chrony.conf.j2
+    dest: /etc/chrony/chrony.conf
+    owner: root
+    group: root
+    mode: '0644'
+  become: true
+  notify:
+    - Restart chrony service
+
+- name: Start and enable chrony service
+  ansible.builtin.service:
+    name: chrony
+    state: started
+    enabled: true
+  become: true
