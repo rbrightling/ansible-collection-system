@@ -1,0 +1,25 @@
+---
+- name: Verify Chrony
+  hosts: molecule
+  become: true
+  gather_facts: true
+  vars:
+    chrony_package_name: chrony
+    chrony_service_name: chrony
+
+  tasks:
+    - name: Collect installed package facts
+      ansible.builtin.package_facts:
+        manager: auto
+
+    - name: Collect service facts
+      ansible.builtin.service_facts:
+
+    - name: Assert that chrony is installed and enabled
+      ansible.builtin.assert:
+        that:
+          - chrony_package_name in ansible_facts.packages
+          - chrony_service_name in ansible_facts.services
+        fail_msg: >-
+          Expected {{ chrony_package_name }} to be installed and
+          {{ chrony_service_name }} to be running.
